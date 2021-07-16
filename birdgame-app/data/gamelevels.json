@@ -1,0 +1,1278 @@
+[
+    {
+      "name": "Alli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Amerikanjääkuikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ampuhaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Etelänkiisla",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Etelänsatakieli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Fasaani",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Haahka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Haapana",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Haarahaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Haarapääsky",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Harakka",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Harmaahaikara",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Harmaalokki",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Harmaapäätikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Harmaasieppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Harmaasorsa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Heinäkurppa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Heinätavi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Helmipöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hemppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hernekerttu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hiirihaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hiiripöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hippiäinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hippiäisuunilintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Huuhkaja",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Härkälintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Hömötiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Isokihu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Isokoskelo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Isokäpylintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Isolepinkäinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Isolokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Jouhisorsa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Jänkäkurppa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Jänkäsirriäinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Järripeippo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kaakkuri",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kalalokki",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kalatiira",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kalliokyyhky",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kanadanhanhi",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kanahaukka",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kangaskiuru",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kapustarinta",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Karikukko",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kaulushaikara",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kehrääjä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Keltahemppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Keltasirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Keltavästäräkki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Keräkurmitsa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kiljuhanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kirjokerttu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kirjosieppo",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kirjosiipikäpylintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kiuru",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kivitasku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Korppi",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Koskikara",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kottarainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kuhankeittäjä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kuikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kulorastas",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kultarinta",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kultasirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kuovi",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Kuovisirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kuusitiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Kyhmyjoutsen",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Käenpiika",
+      "imageLevels" : [5],
+      "audioLevels" : [1,4,5]
+    },
+    {
+      "name": "Käki",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Käpytikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapasorsa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapasotka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapinkirvinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapinpöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapinsirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapinsirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapintiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapintiira",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lapinuunilintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Laulujoutsen",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Laulurastas",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lehtokerttu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lehtokurppa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lehtopöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Leppälintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Liejukana",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Liro",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Luhtakana",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Luhtakerttunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lunni",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Lyhytnokkahanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Maakotka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mehiläishaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Merihanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Meriharakka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Merikihu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Merikotka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Merilokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Merimetso",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Merisirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Metso",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Metsähanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Metsäkirvinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Metsäviklo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustakaulauikku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustakurkku-uikku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustaleppälintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustalintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustapyrstökuiri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustapääkerttu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustarastas",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Mustatiira",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustavaris",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Mustaviklo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Muuttohaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Myrskylintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Naakka",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Naurulokki",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Niittykirvinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Nokikana",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Nokivaris",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Nokkavarpunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Nuolihaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Närhi",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Pajulintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pajusirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Palokärki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Peippo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Peltopyy",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Peltosirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pensaskerttu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pensassirkkalintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pensastasku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Peukaloinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Piekana",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikku-uikku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkuhuitti",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkujoutsen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkukajava",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkukuovi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkukäpylintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkulepinkäinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkulokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkuruokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkusieppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkusirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkusirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkutiira",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkutikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkutylli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pikkuvarpunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pilkkasiipi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pohjankiisla",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pohjansirkku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pulmunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pulmussirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punajalkahaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punajalkaviklo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punakuiri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punakylkirastas",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punarinta",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punasotka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Punatulkku",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Punavarpunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Puukiipijä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pyrstötiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Pähkinänakkeli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Rantasipi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Rastaskerttunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Rautiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Riekko",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Riskilä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ristisorsa",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Riuttatiira",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ruisrääkkä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ruokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ruokokerttunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ruokosirkkalintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Ruskosuohaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Rytikerttunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Räkättirastas",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Räyskä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Räystäspääsky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sarvipöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Satakieli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Selkälokki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sepelhanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sepelkyyhky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sepelrastas",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sepelsieppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Silkkiuikku",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sinipyrstö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sinirinta",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sinisorsa",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Sinisuohaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sinitiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sirittäjä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sitruunavästäräkki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Suokukko",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Suopöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Suosirri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Suula",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Sääksi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Taigauunilintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Taivaanvuohi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Talitiainen",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Tavi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Taviokuurna",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Teeri",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Telkkä",
+      "imageLevels" : [3,5],
+      "audioLevels" : [3,4,5]
+    },
+    {
+      "name": "Tervapääsky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tikli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tilhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tiltaltti",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tukkakoskelo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tukkasotka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tundrahanhi",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tundraurpiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tunturihaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tunturikihu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tunturikiuru",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tunturipöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Turkinkyyhky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Turturikyyhky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tuulihaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Tylli",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Törmäpääsky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Töyhtöhyyppä",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Töyhtötiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Uivelo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Urpiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Uuttukyyhky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Valkoposkihanhi",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Valkosiipitiira",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Valkoviklo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Varis",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Varpunen",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    },
+    {
+      "name": "Varpushaukka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Varpuspöllö",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Vesipääsky",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viherpeippo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Vihertikka",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Vihervarpunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viiksitimali",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viiriäinen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viirusirkkalintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viitakerttunen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viitasirkkalintu",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Viitatiainen",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Virtavästäräkki",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Vuorihemppo",
+      "imageLevels" : [5],
+      "audioLevels" : [4,5]
+    },
+    {
+      "name": "Västäräkki",
+      "imageLevels" : [1,2,5],
+      "audioLevels" : [1,2,4,5]
+    }
+  ]
+  
