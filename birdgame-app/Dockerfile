@@ -9,6 +9,7 @@ RUN yarn install
 # Rebuild the source code only when needed
 FROM node:alpine AS builder
 ENV NEXT_PUBLIC_BIRDIMAGE_URL=https://xn--hyty-6qa.net/birds/
+ENV NEXT_PUBLIC_BASE_PATH=https://xn--hyty-6qa.net/lintu/
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
