@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/dist/client/router'
 import React, { useState } from 'react'
 import { Layout } from '../../components/Layout'
@@ -35,7 +36,7 @@ export default function Home(): React.ReactElement {
         <>
           <img
             className="absolute top-0 left-0 w-full max-h-full"
-            src={`/${animation}-answer.gif`}
+            src={`${process.env.BASE_PATH}/${animation}-answer.gif`}
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
@@ -57,11 +58,13 @@ export default function Home(): React.ReactElement {
         />
       )}
       {animation === '' && questionIndex >= questions.length && (
-        <div>
+        <div className="text-4xl text-color-red-500">
           <h1>Hyvin tehty!</h1>
           <div>
             Oikeita vastauksia: {points} / {setting?.questions}
           </div>
+
+          <Link href="/">Takaisin</Link>
         </div>
       )}
     </Layout>
