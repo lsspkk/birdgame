@@ -31,7 +31,6 @@ export default function Home(): React.ReactElement {
     setQuestionIndex(questionIndex + 1)
   }
 
-
   const animationSrc = `${process.env.NEXT_PUBLIC_BASE_PATH}${animation}-answer.gif`
 
   return (
@@ -68,7 +67,11 @@ export default function Home(): React.ReactElement {
             Oikeita vastauksia: {points} / {setting?.questions}
           </div>
 
-          <Link href="/"><div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">Takaisin</div></Link>
+          <Link href="/">
+            <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
+              Takaisin
+            </div>
+          </Link>
         </div>
       )}
     </Layout>
