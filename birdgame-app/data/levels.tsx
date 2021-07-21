@@ -14,7 +14,7 @@ export interface Bird {
 }
 
 export interface Question {
-  rightAnswer: string
+  rightAnswer: number
   choises: string[]
 }
 
@@ -56,7 +56,7 @@ export function getBirds(level: number, isImageLevel: boolean): string[] {
   return birdNames
 }
 
-export function getBird(name: string): Bird[] {
+export function getBird(name: string): Bird {
   const filtered = birds.filter((b: Bird) => b.name === name)
   if (filtered.length != 1) {
     throw new Error(`Bird ${name} not found`)

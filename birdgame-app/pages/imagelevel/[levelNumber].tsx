@@ -1,18 +1,15 @@
 import { useRouter } from 'next/dist/client/router'
-import Link from 'next/link'
 import React, { useState } from 'react'
-import { BirdIcon } from '../../components/Icons'
 import { Layout } from '../../components/Layout'
 import { ImageQuestion } from '../../components/ImageQuestion'
-import { newLevel } from '../../data/levels'
+import { newLevel, Question } from '../../data/levels'
 import { settings, Setting } from '../../data/settings'
-import { JsxElement } from 'typescript'
 
-export default function Home(): JsxElement {
+export default function Home(): React.ReactElement {
   const router = useRouter()
   const { levelNumber } = router.query
-  const level: number = parseInt(levelNumber)
-  const questions: Question[] = newLevel(level, true)
+  const level: number = levelNumber === undefined ? 1 : parseInt(levelNumber[0])
+  const questions: Question[] = newLevel(level, true, undefined)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [points, setPoints] = useState(0)
   const [animation, setAnimation] = useState('')

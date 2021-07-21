@@ -1,6 +1,6 @@
 import React from 'react'
 
-function BirdIcon() {
+function BirdIcon(): React.ReactElement {
   return (
     <svg
       width="56"
@@ -66,7 +66,7 @@ function BirdIcon() {
   )
 }
 
-function BirdIconNoSound() {
+function BirdIconNoSound(): React.ReactElement {
   return (
     <svg
       width="56"

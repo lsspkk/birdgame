@@ -1,10 +1,13 @@
+import React from 'react'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { PropsWithChildren } from 'react'
-import { JsxElement } from 'typescript'
 
-const Layout = ({ children }: PropsWithChildren): JsxElement => {
+type Props = {
+  children?: React.ReactNode
+}
+
+function Layout({ children }: Props): React.ReactElement {
   const router = useRouter()
 
   const isHome: boolean = router.pathname === '/'

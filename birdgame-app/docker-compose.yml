@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+
+  birdgameapp:
+    build: .
+    container_name: birdgameapp
+    ports:
+      - "23003:3000"
+    environment:
+      NEXT_PUBLIC_BIRDIMAGE_URL: "https://xn--hyty-6qa.net/birds/"

@@ -3,7 +3,7 @@ import { BirdIcon, BirdIconNoSound } from '../components/Icons'
 import { Layout } from '../components/Layout'
 import Link from 'next/link'
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <Layout>
       <h1 className="text-6xl font-bold">

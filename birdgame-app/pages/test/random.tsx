@@ -1,11 +1,11 @@
 import React from 'react'
 import { Layout } from '../../components/Layout'
-import { Bird, getBirds, newLevel, Question } from '../../data/levels'
+import { getBirds, newLevel, Question } from '../../data/levels'
 
-export default function Home(): JSXElement {
+export default function Home(): React.ReactElement {
   const someBirds = getBirds(1, true)
-  const level1: Question[] = newLevel(3, true)
-  const level2: Question[] = newLevel(3, true)
+  const level1: Question[] = newLevel(3, true, undefined)
+  const level2: Question[] = newLevel(3, true, undefined)
 
   return (
     <Layout>

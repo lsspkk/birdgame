@@ -1,10 +1,6 @@
-import { useRouter } from 'next/dist/client/router'
-import Head from 'next/head'
-import Link from 'next/link'
 import React from 'react'
-import { JsxElement } from 'typescript'
-import Question from '../../data/level'
-import { Bird, getBird } from '../data/levels'
+
+import { getBird, Question } from '../data/levels'
 
 interface ImageQuestionProps {
   question: Question
@@ -15,7 +11,7 @@ function ImageQuestion({
   question,
   answer,
   questionIndex,
-}: ImageQuestionProps): JsxElement {
+}: ImageQuestionProps): React.ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
   if (url === undefined) {
     console.log(
