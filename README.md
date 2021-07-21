@@ -74,3 +74,25 @@ Ikonit
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> 
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
+
+
+
+
+# Opittua
+
+
+splice muuttaa arrayn arvoa, ja palauttaa myös muuttuneen arvon
+slice luo kopion
+eli a = [ 1, 2, 3]
+b = a.slice(1) => b = [2,3], a = [1,2,3]
+
+b = a.splice(1) => b = [2,3], a = [2,3]
+
+
+React-funktion paluutyyppi React.ReactElement
+https://nextjs.org/docs/basic-features/typescript#custom-app
+
+
+uusin docker 
+https://websiteforstudents.com/how-to-install-docker-and-docker-compose-on-ubuntu-16-04-18-04/
+
