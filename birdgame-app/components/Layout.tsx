@@ -1,21 +1,35 @@
+import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import Link from 'next/link'
+import React, { PropsWithChildren } from 'react'
+import { JsxElement } from 'typescript'
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: PropsWithChildren): JsxElement => {
+  const router = useRouter()
+
+  const isHome: boolean = router.pathname === '/'
+  const isGame: boolean = router.pathname.includes('level')
+
+  const cName = isGame
+    ? ''
+    : 'flex flex-col items-center justify-center min-h-screen py-2'
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className={cName}>
       <Head>
         <title>Lintupeli</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container flex flex-col w-full flex-1 px-20">
+      <main
+        className={isGame ? '' : 'container flex flex-col w-full flex-1 px-20'}
+      >
         {children}
       </main>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <Link href="/about">Tietoja</Link>
-      </footer>
-
+      {isHome && (
+        <footer className="flex items-center justify-center w-full h-24 border-t">
+          <Link href="/about">Tietoja</Link>
+        </footer>
+      )}
     </div>
   )
 }

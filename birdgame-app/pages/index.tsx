@@ -1,63 +1,54 @@
 import React from 'react'
-import { BirdIcon } from '../components/Icons'
+import { BirdIcon, BirdIconNoSound } from '../components/Icons'
 import { Layout } from '../components/Layout'
+import Link from 'next/link'
 
 export default function Home() {
   return (
     <Layout>
       <h1 className="text-6xl font-bold">
-        <BirdIcon />
+        <BirdIcon /> Lintupeli
       </h1>
 
-      <p className="mt-3 text-2xl">
-        Get started by editing{' '}
-        <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-          pages/index.js
-        </code>
-      </p>
+      <p className="mt-3 text-2xl">Valitse tehtävä</p>
 
-      <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-        <a
-          href="https://nextjs.org/docs"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Learn about Next.js in an interactive course with quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://github.com/vercel/next.js/tree/master/examples"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Discover and deploy boilerplate example Next.js projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
+      <div className="flex justify-center text-center">
+        <div className="w-1/3 bg-red-200 p-4">
+          <Link href="/imagelevel/1">
+            <div>
+              <BirdIconNoSound />1
+            </div>
+          </Link>
+        </div>
+        <div className="w-1/3 bg-red-300 p-4">
+          <Link href="/imagelevel/2">
+            <div>
+              <BirdIconNoSound />2
+            </div>
+          </Link>
+        </div>
+        <div className="w-1/3 bg-red-400 p-4">
+          <Link href="/imagelevel/3">
+            <div>
+              <BirdIconNoSound />3
+            </div>
+          </Link>
+        </div>
+        <div className="w-1/3 bg-red-500 p-4">
+          <Link href="/imagelevel/4">
+            <div>
+              <BirdIconNoSound />4
+            </div>
+          </Link>
+        </div>
+        <div className="w-1/3 bg-red-700 p-4">
+          <Link href="/imagelevel/5">
+            <div>
+              <BirdIconNoSound />5
+            </div>
+          </Link>
+        </div>
       </div>
-
     </Layout>
   )
 }
