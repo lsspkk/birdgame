@@ -30,13 +30,17 @@ export default function Home(): React.ReactElement {
     setTimeout(() => setAnimation(''), 3000)
     setQuestionIndex(questionIndex + 1)
   }
+
+
+  const animationSrc = `${process.env.NEXT_PUBLIC_BASE_PATH}${animation}-answer.gif`
+
   return (
     <Layout>
       {animation !== '' && (
         <>
           <img
             className="absolute top-0 left-0 w-full max-h-full"
-            src={`${process.env.BASE_PATH}/${animation}-answer.gif`}
+            src={animationSrc}
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
@@ -58,13 +62,13 @@ export default function Home(): React.ReactElement {
         />
       )}
       {animation === '' && questionIndex >= questions.length && (
-        <div className="text-4xl text-color-red-500">
-          <h1>Hyvin tehty!</h1>
-          <div>
+        <div className="mt-8 text-4xl text-blue-400 text-center">
+          <h1 className="p-2">Hyvin tehty!</h1>
+          <div className="p-2">
             Oikeita vastauksia: {points} / {setting?.questions}
           </div>
 
-          <Link href="/">Takaisin</Link>
+          <Link href="/"><div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">Takaisin</div></Link>
         </div>
       )}
     </Layout>
