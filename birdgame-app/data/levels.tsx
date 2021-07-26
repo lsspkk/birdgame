@@ -74,20 +74,27 @@ export function newLevel(
   if (previousGame !== undefined) {
     // TODO take last question of previous game, and use those to prevent asking same birds right away
   }
-  let birds = getBirds(level, isImageLevel)
-  const setting: Setting = settings.levels.filter(
-    (setting) => setting.level === level,
-  )[0]
+  const setting: Setting = settings.levels.filter((s) => s.level === level)[0]
   if (setting === undefined) {
     return questions
   }
+  let gameBirds = getBirds(level, isImageLevel)
+
+  if (setting.choises * 2 > gameBirds.length) {
+    throw new Error(
+      `Settings error: Level ${level} needs at least ${
+        setting.choises * 2
+      } birds, but only ${gameBirds.length} is configured.`,
+    )
+  }
+
   for (let i = 0; i < setting.questions; i++) {
-    if (i * setting.choises >= birds.length) {
+    if (1 + i * setting.choises >= gameBirds.length) {
       // need more birds, use same
       // TODO check that added birds do not have same birds as previous question
       const moreBirds = getBirds(level, isImageLevel)
-      const safeBirds = preventSameBirds(setting.choises, birds, moreBirds)
-      birds = [...birds, ...safeBirds]
+      const safeBirds = preventSameBirds(setting.choises, gameBirds, moreBirds)
+      gameBirds = [...gameBirds, ...safeBirds]
     }
 
     const question: Question = {
@@ -96,7 +103,7 @@ export function newLevel(
     }
     for (let j = 0; j < setting.choises; j++) {
       const birdIndex = i * setting.choises + j
-      question.choises.push(birds[birdIndex])
+      question.choises.push(gameBirds[birdIndex])
     }
     questions.push(question)
   }
@@ -105,18 +112,16 @@ export function newLevel(
 
 function preventSameBirds(
   choises: number,
-  birds: string[],
+  gameBirds: string[],
   moreBirds: string[],
 ): string[] {
-  const preventThese = birds.slice(birds.length - choises)
+  const preventThese = gameBirds.slice(gameBirds.length - choises)
   const safeBirds = [...moreBirds]
   for (let i = 0; i < choises; i++) {
     if (preventThese.includes(safeBirds[i])) {
       // swap with another random bird that is ok
       let swapIndex = -1
       let count = 0
-
-      // TODO check situation that available birds contains only birds that are to be prevented
 
       while (swapIndex === -1 && ++count < 20) {
         const randomIndex =
@@ -129,7 +134,7 @@ function preventSameBirds(
         console.log(
           'Unable to add birds to data, because there would be same birds: ',
           'birds in last question:',
-          birds,
+          gameBirds,
           'next available birds:',
           safeBirds,
         )
