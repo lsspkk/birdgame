@@ -18,8 +18,15 @@ function ImageQuestion({
       'Error, missing environment variable: NEXT_PUBLIC_BIRDIMAGE_URL',
     )
   }
-  const birdCardWidth = question.choises.length <= 4 ? 'w-full' : 'w-1/2'
+  const isPortrait = typeof window === 'undefined' || window.innerHeight > 800
 
+  // use nice ratio for landscape screen
+  const birdCardMaxWidth = isPortrait
+    ? '600px'
+    : `${window.innerHeight / 2.2}px`
+  const birdCardMaxHeight = isPortrait ? '30%' : '50%'
+
+  const birdCardWidth = question.choises.length <= 4 ? 'w-full' : 'w-1/2'
   return (
     <div className="bg-gray-800 h-full">
       <div className="text-xl absolute bg-white bg-opacity-50 p-1">
@@ -29,7 +36,7 @@ function ImageQuestion({
         {question.choises.map((a, i) => (
           <div
             className={`p-2 flex-shrink-1 self-center ${birdCardWidth}`}
-            style={{ maxWidth: '600px', maxHeight: '30%' }}
+            style={{ maxWidth: birdCardMaxWidth, maxHeight: birdCardMaxHeight }}
             key={`qa${questionIndex}-${i}-${JSON.stringify(question)}`}
           >
             <img
