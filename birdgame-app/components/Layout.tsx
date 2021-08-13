@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import Link from 'next/link'
+import { basePath } from '../next.config'
+import { GameContext } from './ContextWrapper'
 
-type Props = {
+export type Props = {
   children?: React.ReactNode
 }
 
-function Layout({ children }: Props): React.ReactElement {
+function Layout({ children }: Props): ReactElement {
   const router = useRouter()
-
   const isHome: boolean = router.pathname === '/'
   const isGame: boolean = router.pathname.includes('level')
+
+  const { setUser } = useContext(GameContext)
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user')
+    console.log('savedUser', savedUser)
+    if (savedUser !== null) {
+      setUser(JSON.parse(savedUser))
+    }
+  }, [])
 
   const cName = isGame
     ? ''
@@ -20,7 +30,7 @@ function Layout({ children }: Props): React.ReactElement {
     <div className={cName}>
       <Head>
         <title>Lintupeli</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
       <main
         className={isGame ? '' : 'container flex flex-col w-full flex-1 px-20'}

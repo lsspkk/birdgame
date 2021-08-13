@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
+
 import { Layout } from '../../components/Layout'
 import { getBirds, newLevel, Question } from '../../data/levels'
 
-export default function Home(): React.ReactElement {
+// for testing the level random generators
+export default function Random(): ReactElement {
   const someBirds = getBirds(1, true)
   const level1: Question[] = newLevel(3, true, undefined)
   const level2: Question[] = newLevel(4, true, undefined)
