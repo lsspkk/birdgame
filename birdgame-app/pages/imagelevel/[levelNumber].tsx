@@ -124,12 +124,13 @@ export default function ImageLevel(): ReactElement {
               <GameKnowledgeView knowledge={score.knowledge} />
             </>
           )}
-
-          <Link href="/">
-            <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
-              Takaisin
-            </div>
-          </Link>
+          {!isSaving && (
+            <Link href="/">
+              <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
+                Takaisin
+              </div>
+            </Link>
+          )}
         </div>
       )}
     </Layout>

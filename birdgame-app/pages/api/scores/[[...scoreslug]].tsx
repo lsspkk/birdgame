@@ -24,10 +24,12 @@ export default async function handler(
     await dbConnect()
     if (req.method === 'POST') {
       const body: ScoreBody = req.body
+      console.log(body)
       save(body, res)
     }
     if (req.method === 'GET') {
       const { scoreslug } = req.query
+      console.log(scoreslug)
       getScores(scoreslug, res)
     }
   } catch (error) {
@@ -70,11 +72,12 @@ async function save(body: ScoreBody, res: NextApiResponse) {
       results: [body.gameResult],
     })
     newScore.save()
+    console.log('newScore', newScore)
     res.status(201).json(newScore)
   } else {
     updateOldScore(oldScore, body)
     const newScore = oldScore.save()
-    console.log(newScore)
+    console.log('oldScore', newScore)
     res.status(200).json(newScore)
   }
 }

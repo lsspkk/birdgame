@@ -7,7 +7,7 @@ export interface GameContextInterface {
   user: UserInterface
   setUser: (UserInterface) => void
   birdKnowledge: IBirdKnowledge[]
-  setBirdKnowledge: (a: IBirdKnowledge[]) => void
+  setBirdKnowledge: (a: IBirdKnowledge[], callback?: () => void) => void
 }
 export const GameContext = createContext<GameContextInterface>({
   user: emptyUser,
@@ -24,7 +24,8 @@ export function ContextWrapper({ children }: Props): ReactElement {
 
   useEffect(() => {
     const userString = localStorage.getItem('user')
-    if (userString !== undefined) {
+    console.log(userString, 'loaded from localstorage')
+    if (userString !== null) {
       setUser(JSON.parse(userString))
     }
   }, [])
