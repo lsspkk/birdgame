@@ -94,7 +94,7 @@ export function newLevel(
   }
 
   for (let i = 0; i < setting.questions; i++) {
-    if (1 + i * setting.choises >= gameBirds.length) {
+    if ((1 + i) * setting.choises >= gameBirds.length) {
       // need more birds, use same
       // TODO check that added birds do not have same birds as previous question
       const moreBirds = getBirds(level, isImageLevel)

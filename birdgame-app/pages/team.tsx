@@ -6,7 +6,7 @@ import { Message } from '../components/basic/Message'
 import { Title } from '../components/basic/Title'
 import { BirdIcon } from '../components/Icons'
 import { Layout } from '../components/Layout'
-import { TeamSelect } from '../components/Teams'
+import { TeamSelect } from '../components/TeamSelect'
 import { getRandomBirdName } from '../data/levels'
 import { TeamsData, useTeams } from '../models/swrApi'
 import { TeamInterface } from '../models/team'
@@ -54,17 +54,9 @@ function AddTeam({ setViewMode }: addTeamProps): ReactElement {
   return (
     <div>
       <Title>Lisää joukkue</Title>
-      <p>
-        Sinusta tulee admin, joka voi hallinnoida joukkuetta, poistaa pelaajia
-        jne.
-      </p>
-      <p className="pt-4">
-        Valitse lisäyskoodi eli linnun nimi joukkueelle ja kerro se
-        kavereillesi. Sen avulla he voivat lisätä itsensä joukkueeseen.
-      </p>
 
       <div className="flex items-center pt-8">
-        <div className="w-20 mr-4">Nimi:</div>
+        <div className="w-20 mr-4">Joukkueen nimi:</div>
         <input
           className="p-2 border"
           type="text"
@@ -74,7 +66,10 @@ function AddTeam({ setViewMode }: addTeamProps): ReactElement {
           }
         ></input>
       </div>
-      <div className="flex items-center pt-8">
+      <p className="pt-12">
+        Salasanan avulla voit hallinnoida joukkuetta, poistaa pelaajia jne.
+      </p>
+      <div className="flex items-center pt-4">
         <div className="w-20 mr-4">Salasana:</div>
         <input
           className="p-2 border"
@@ -100,7 +95,12 @@ function AddTeam({ setViewMode }: addTeamProps): ReactElement {
           }
         ></input>
       </div>
-      <div className="flex items-center pt-20">
+      <p className="pt-20">
+        Valitse lisäyskoodi eli linnun nimi joukkueelle ja kerro se
+        kavereillesi. Koodin avulla he voivat lisätä itselleen pelaajan
+        joukkueeseen.
+      </p>
+      <div className="flex items-center pt-6">
         <div className="w-20 mr-4">Lisäyskoodi</div>
         <input
           className="p-2 border"
@@ -115,9 +115,12 @@ function AddTeam({ setViewMode }: addTeamProps): ReactElement {
           Vaihda
         </div>
       </div>
+      <p className="pt-20 text-red-400">
+        HUOM: Kirjoita salasana ja lisäyskoodi muistilapulle!
+      </p>
 
       {message !== '' && <Message>{message}</Message>}
-      <div className="flex w-full md:w-1/2 justify-around pt-20">
+      <div className="flex w-full md:w-1/2 justify-around pt-10">
         <Button onClick={() => cancel()}>Peruuta</Button>
         <Button onClick={() => save()}>Lisää</Button>
       </div>
@@ -131,15 +134,10 @@ export default function Group(): ReactElement {
 
   return (
     <Layout>
-      <Link href="/">
-        <h1 className="text-6xl font-bold">
-          <BirdIcon />
-        </h1>
-      </Link>
       {viewMode === 'add' && <AddTeam setViewMode={setViewMode} />}
       {viewMode === 'select' && (
         <>
-          <div className="flex w-full md:w-1/2 justify-between mb-20 items-center">
+          <div className="flex w-full md:w-1/2 justify-between mb-20 items-center px-4">
             <Title>Joukkueet</Title>
             <Button onClick={() => setViewMode('add')}>Lisää</Button>
           </div>

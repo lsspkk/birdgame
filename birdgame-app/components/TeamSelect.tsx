@@ -15,9 +15,10 @@ import { basePath } from '../next.config'
 import { Button } from './basic/Button'
 import { Message } from './basic/Message'
 import { Title } from './basic/Title'
-import { GameContext, GameContextInterface } from './ContextWrapper'
+import { GameContext, GameContextInterface } from './state'
 import { DownArrow, UpArrow } from './Icons'
 import { Avatar, ChooseAvatar, Player } from './Player'
+import { emptyScore } from '../models/score'
 
 interface TeamSelectProps {
   team: TeamInterface
@@ -84,15 +85,11 @@ function TeamPlayerList({ team }: TeamSelectProps): ReactElement {
               <div
                 key={`selectUser${u._id}`}
                 onClick={() => {
-                  if (!canChange) {
-                    if (passwordDialogUser === '') {
-                      setPasswordDialogUser(u._id)
-                    }
-                    return
+                  if (user._id === u._id) {
+                    setPasswordDialogUser('')
+                  } else if (passwordDialogUser === '') {
+                    setPasswordDialogUser(u._id)
                   }
-                  localStorage.setItem('user', JSON.stringify(u))
-                  setUser(u)
-                  router.push('/')
                 }}
               >
                 <Player user={u} />
@@ -125,7 +122,7 @@ function UserPasswordDialog({
   close,
 }: UserPasswordDialogProps): ReactElement {
   const [password, setPassword] = useState<string>('')
-  const { setUser }: GameContextInterface = useContext(GameContext)
+  const { setUser, setScore }: GameContextInterface = useContext(GameContext)
   const [isWrong, setIsWrong] = useState<boolean>(false)
   const router = useRouter()
   const ref = useRef<HTMLDivElement>()
@@ -153,6 +150,12 @@ function UserPasswordDialog({
     if (res.ok) {
       localStorage.setItem('user', JSON.stringify(user))
       setUser(user)
+      setScore(emptyScore)
+      const res2 = await fetch(`${basePath}/api/scores/user/${user._id}`)
+      if (res2.ok) {
+        const loadedScore = (await res2.json()) as ScoreInterface
+        setScore(loadedScore)
+      }
       router.push('/')
     } else {
       setIsWrong(true)
@@ -164,11 +167,15 @@ function UserPasswordDialog({
     close()
   }
   return (
-    <div className="absolute bg-white p-6 border rounded shadow-xl" ref={ref}>
+    <div
+      className="absolute w-11/12 inset-x-4 md:w-auto bg-white p-6 border rounded shadow-xl"
+      ref={ref}
+    >
+      <div className="my-2 text-sm">Valitse pelaajaksi {user.name}</div>
       <div className="my-2">Salasana</div>
       <input
         className={`my-2 p-2 border ${
-          isWrong && 'border-4 border-red-600 shadow'
+          isWrong && 'border-4 border-red-300 shadow'
         }`}
         type="password"
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -179,6 +186,7 @@ function UserPasswordDialog({
           event.key === 'Enter' && confirmPassword()
         }
       ></input>
+      {isWrong && <div className="text-red-300">Väärä salasana</div>}
       <div className="flex my-2 w-full justify-between">
         <Button onClick={cancel}>Peruuta</Button>
         <Button onClick={() => confirmPassword()}>Ok</Button>
@@ -190,39 +198,50 @@ function UserPasswordDialog({
 interface AddTeamPlayerProps extends TeamSelectProps {
   setShow: (boolean) => void
 }
+interface AddTeamPlayerState {
+  name: string
+  password: string
+  passwordConfirm: string
+  avatar: string
+  addUserPassword: string
+}
+const emptyAddState: AddTeamPlayerState = {
+  name: '',
+  password: '',
+  avatar: 'girl.svg',
+  passwordConfirm: '',
+  addUserPassword: '',
+}
+
 function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
-  const [name, setName] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [avatar, setAvatar] = useState<string>('girl.svg')
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('')
-  const [addUserPassword, setAddUserPassword] = useState<string>('')
+  const [addState, setAddState] = useState<AddTeamPlayerState>(emptyAddState)
   const [message, setMessage] = useState<string>('')
   const router = useRouter()
   const { setUser }: GameContextInterface = useContext(GameContext)
 
   function cancel(): void {
-    setName('')
-    setPassword('')
+    setAddState(emptyAddState)
     setMessage('')
-    setAvatar('girl.svg')
-    setAddUserPassword('')
-    setPasswordConfirm('')
     setShow(false)
   }
   async function save(): Promise<void> {
-    if (password !== passwordConfirm) {
+    if (addState.password !== addState.passwordConfirm) {
       setMessage('Salasanat eivät täsmää')
       setTimeout(() => setMessage(''), 3000)
       return
     }
-    const newPlayer: UserInterface = { name, password, avatar, addUserPassword }
+    if (addState.password.trim().length < 4) {
+      setMessage('Salasanan pituus ei riitä')
+      setTimeout(() => setMessage(''), 3000)
+      return
+    }
     const res = await fetch(`${basePath}/api/teams/${team._id}/add`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newPlayer),
+      body: JSON.stringify(addState),
     })
     if (res.ok) {
       const savedPlayer = await res.json()
@@ -235,6 +254,11 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
       setTimeout(() => setMessage(''), 3000)
     }
   }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    setAddState({ ...addState, [event.target.name]: event.target.value })
+  }
+
   return (
     <div>
       <Title>Lisää pelaaja joukkueeseen</Title>
@@ -243,10 +267,9 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
         <input
           className="p-2 border"
           type="text"
-          value={name}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setName(event.target.value)
-          }
+          value={addState.name}
+          name="name"
+          onChange={handleChange}
         ></input>
       </div>
       <div className="flex items-center pt-8">
@@ -254,10 +277,9 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
         <input
           className="p-2 border"
           type="text"
-          value={password}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setPassword(event.target.value)
-          }
+          value={addState.password}
+          name="password"
+          onChange={handleChange}
         ></input>
       </div>
       <div className="flex items-center pt-8">
@@ -269,10 +291,9 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
         <input
           className="p-2 border"
           type="text"
-          value={passwordConfirm}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setPasswordConfirm(event.target.value)
-          }
+          value={addState.passwordConfirm}
+          name="passwordConfirm"
+          onChange={handleChange}
         ></input>
       </div>
 
@@ -280,11 +301,14 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
         <div className="w-20 mr-4">Kuva:</div>
         <div className="flex-shrink-0">
           {' '}
-          <Avatar avatar={avatar} />
+          <Avatar avatar={addState.avatar} />
         </div>
         <div>
           {' '}
-          <ChooseAvatar chosen={avatar} setAvatar={setAvatar} />
+          <ChooseAvatar
+            chosen={addState.avatar}
+            setAvatar={(avatar) => setAddState({ ...addState, avatar })}
+          />
         </div>
       </div>
 
@@ -293,10 +317,9 @@ function AddTeamPlayer({ team, setShow }: AddTeamPlayerProps): ReactElement {
         <input
           className="p-2 border"
           type="text"
-          value={addUserPassword}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setAddUserPassword(event.target.value)
-          }
+          value={addState.addUserPassword}
+          name="addUserPassword"
+          onChange={handleChange}
         ></input>
       </div>
       <p className="pt-4">

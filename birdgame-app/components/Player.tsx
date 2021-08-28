@@ -7,7 +7,7 @@ interface UserInterfaceProps {
 }
 export function Player({ user }: UserInterfaceProps): ReactElement {
   return (
-    <div className="text-center">
+    <div className="text-center w-20">
       <Avatar avatar={user.avatar} />
       {user.name}
     </div>
