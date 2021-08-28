@@ -3,8 +3,8 @@ import { Button } from '../../components/basic/Button'
 
 import { Layout } from '../../components/Layout'
 import { newLevel, Question } from '../../data/levels'
-import { emptyScore } from '../../models/score'
-import { GameContext } from '../../components/ContextWrapper'
+import { emptyScore, IBirdKnowledge } from '../../models/score'
+import { GameContext } from '../../components/state'
 
 import { emptyBirdKnowledge } from '../../models/score'
 import { basePath } from '../../next.config'
@@ -19,24 +19,38 @@ export default function Random(): ReactElement {
   const [, setIsSaving] = useState(false)
   const [score, setScore] = useState<ScoreInterface>(emptyScore)
   const { setBirdKnowledge, birdKnowledge, user } = useContext(GameContext)
-  const [questions] = useState(newLevel(level, true, undefined))
+  const [questions, setQuestions] = useState(newLevel(level, true, undefined))
 
   useEffect(() => setBirdKnowledge([]), [])
 
   function answer(answerIndex: number) {
     const question = questions[questionIndex]
     const rightBirdName = question.choises[question.rightAnswer]
+
+    const oldIndex = birdKnowledge.findIndex((b) => b.bird === rightBirdName)
+    console.log(oldIndex)
+    const baseKnowledge =
+      oldIndex === -1 ? emptyBirdKnowledge : birdKnowledge[oldIndex]
     const knowledge: IBirdKnowledge = {
-      ...emptyBirdKnowledge,
+      ...baseKnowledge,
       bird: rightBirdName,
     }
+
     if (question.rightAnswer === answerIndex) {
       setGameScore(gameScore + 1)
-      knowledge.rightImageAnswers = 1
+      knowledge.rightImageAnswers += 1
     } else {
-      knowledge.wrongImageAnswers = 1
+      knowledge.wrongImageAnswers += 1
     }
-    const newKnowledge = [...birdKnowledge, knowledge]
+    let newKnowledge: IBirdKnowledge[] = []
+    if (oldIndex !== -1) {
+      newKnowledge = birdKnowledge.map((k, index) =>
+        index === oldIndex ? knowledge : k,
+      )
+    } else {
+      newKnowledge = [...birdKnowledge, knowledge]
+    }
+
     setBirdKnowledge(newKnowledge)
 
     const newIndex = questionIndex + 1
@@ -68,6 +82,9 @@ export default function Random(): ReactElement {
       setScore(emptyScore)
     }
     setIsSaving(false)
+    setQuestions(newLevel(level, true, undefined))
+    setQuestionIndex(0)
+    setBirdKnowledge([])
   }
 
   return (
@@ -77,7 +94,7 @@ export default function Random(): ReactElement {
           className="inline-block float-left"
           key={`lone${i}${q.rightAnswer}`}
         >
-          {q.choises}
+          {q.choises.join(' ... ')}
           {q.rightAnswer}
         </div>
       ))}

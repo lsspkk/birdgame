@@ -5,7 +5,7 @@ import { Layout } from '../../components/Layout'
 import { ImageQuestion } from '../../components/ImageQuestion'
 import { newLevel, Question } from '../../data/levels'
 import { settings, Setting } from '../../data/settings'
-import { GameContext } from '../../components/ContextWrapper'
+import { GameContext } from '../../components/state'
 import {
   IBirdKnowledge,
   emptyBirdKnowledge,
@@ -30,36 +30,51 @@ export default function ImageLevel(): ReactElement {
   const { setBirdKnowledge, birdKnowledge, user } = useContext(GameContext)
 
   const setting: Setting = settings.levels.filter((s) => s.level === level)[0]
+
   function answer(answerIndex: number) {
     const question = questions[questionIndex]
     const rightBirdName = question.choises[question.rightAnswer]
+    const oldIndex = birdKnowledge.findIndex((b) => b.bird === rightBirdName)
+    const baseKnowledge =
+      oldIndex === -1 ? emptyBirdKnowledge : birdKnowledge[oldIndex]
     const knowledge: IBirdKnowledge = {
-      ...emptyBirdKnowledge,
+      ...baseKnowledge,
       bird: rightBirdName,
     }
+
     if (question.rightAnswer === answerIndex) {
       setGameScore(gameScore + 1)
       setAnimation('right')
-      knowledge.rightImageAnswers = 1
+
+      knowledge.rightImageAnswers += 1
     } else {
       setAnimation('wrong')
-      knowledge.wrongImageAnswers = 1
+
+      knowledge.wrongImageAnswers += 1
     }
-    const newKnowledge = [...birdKnowledge, knowledge]
+    let newKnowledge: IBirdKnowledge[] = []
+    if (oldIndex !== -1) {
+      newKnowledge = birdKnowledge.map((k, index) =>
+        index === oldIndex ? knowledge : k,
+      )
+    } else {
+      newKnowledge = [...birdKnowledge, knowledge]
+    }
+
     setBirdKnowledge(newKnowledge)
 
     setBirdName(question.choises[answerIndex])
-    setTimeout(() => setAnimation(''), 3000)
+    setTimeout(() => setAnimation(''), 300)
     setQuestionIndex(questionIndex + 1)
 
-    if (questionIndex >= questions.length && user._id !== undefined) {
+    if (questionIndex + 1 >= questions.length && user._id !== undefined) {
       saveGameResult(newKnowledge)
     }
   }
 
   async function saveGameResult(newKnowledge: IBirdKnowledge[]) {
     setIsSaving(true)
-    const res = await fetch(`${basePath}/api/scores`, {
+    const res = await fetch(`${basePath}/api/scores/`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -68,14 +83,17 @@ export default function ImageLevel(): ReactElement {
       body: JSON.stringify({
         userId: user._id,
         knowledge: newKnowledge,
-        gameResult: { level, isImage: true, scores: [gameScore] },
+        gameResult: { level: `${level}`, isImage: true, scores: [gameScore] },
       }),
     })
     if (res.ok) {
       const updatedScore = await res.json()
       setScore(updatedScore)
+      console.log('saved')
     } else {
       setScore(emptyScore)
+      console.log('not saved')
+      console.log(res, await res.json())
     }
     setIsSaving(false)
   }
@@ -124,6 +142,8 @@ export default function ImageLevel(): ReactElement {
               <GameKnowledgeView knowledge={score.knowledge} />
             </>
           )}
+          <div>1{user._id}</div>
+          <div>1{user.id}</div>
           {!isSaving && (
             <Link href="/">
               <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
