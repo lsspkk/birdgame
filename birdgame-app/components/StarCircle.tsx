@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { ReactNode, ReactElement, CSSProperties } from 'react'
 import { settings, Setting } from '../data/settings'
 import { ScoreInterface } from '../models/score'
-import { UserInterface } from '../models/user'
 
 const starTitles = [
   { stars: 0, name: '' },
@@ -23,7 +22,7 @@ export function useStars(
 ): ReactNode | undefined {
   let stars = 0
   if (score !== undefined) {
-    const result = score.results.find((r) => r.level == level)
+    const result = score.results.find((r) => parseInt(r.level) == level)
     if (result !== undefined) {
       stars = countStars(result.scores, level)
     }
@@ -61,7 +60,6 @@ export function useStars(
 }
 
 export function countStars(scores: number[], level: number): number {
-  console.log(33, level)
   const setting: Setting = settings.levels.filter((s) => s.level == level)[0]
   const starLimit = Math.floor(setting.questions * 0.7)
   return scores.filter((score) => score >= starLimit).length
@@ -71,7 +69,7 @@ export interface StarCircleProps {
   stars: number
 }
 
-export const StarCircle: React.FC<Props> = ({ stars }: StarCircleProps) => {
+export const StarCircle = ({ stars }: StarCircleProps): ReactElement => {
   const box = { display: 'block', width: '84px', height: '84px' }
   if (stars === 0) {
     return <div style={box}></div>
@@ -92,7 +90,7 @@ export const StarCircle: React.FC<Props> = ({ stars }: StarCircleProps) => {
       {new Array(stars).fill('').map((s, i) => (
         <Star
           key={`starkey${stars}${s}${i}`}
-          scale={(0.5 / (stars / Math.sqrt(stars * 1.5))).toFixed(2)}
+          scale={0.5 / (stars / Math.sqrt(stars * 1.5))}
           style={{ position: 'absolute', transform: circular(stars, i) }}
         />
       ))}
@@ -104,8 +102,8 @@ function Star({
   scale,
   style,
 }: {
-  scale: string
-  style: StyleHTMLAttributes<SVGAElement>
+  scale: number
+  style?: CSSProperties
 }): ReactElement {
   const tform = style?.transform !== undefined ? style?.transform + ' ' : ''
   return (
@@ -115,7 +113,7 @@ function Star({
       viewBox="0 0 82 78"
       style={{
         ...style,
-        transform: `scale(${scale}) ${tform}`,
+        transform: `scale(${scale.toFixed(2)}) ${tform}`,
       }}
       fill="none"
     >
