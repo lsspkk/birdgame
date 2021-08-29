@@ -1,5 +1,4 @@
-import React, { ReactElement, StyleHTMLAttributes } from 'react'
-import { transform } from 'typescript'
+import React, { ReactElement } from 'react'
 
 function BirdIcon(): ReactElement {
   return (

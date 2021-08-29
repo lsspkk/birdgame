@@ -1,15 +1,13 @@
-import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
-import React, { ReactElement, useState, useContext } from 'react'
+import React, { ReactElement, useState, useContext, ChangeEvent } from 'react'
 import { Button } from '../components/basic/Button'
 import { Message } from '../components/basic/Message'
 import { Title } from '../components/basic/Title'
-import { BirdIcon, BirdIconNoSound } from '../components/Icons'
+import { BirdIconNoSound } from '../components/Icons'
 import { Layout } from '../components/Layout'
 import { Avatar, ChooseAvatar, Player } from '../components/Player'
-import { TeamInterface } from '../models/team'
 import { basePath } from '../next.config'
-import { GameContext } from '../components/state'
+import { GameContextInterface, GameContext } from '../components/state'
 
 interface AddTeamPlayerState {
   password: string
@@ -29,14 +27,6 @@ export default function Profile(): ReactElement {
     avatar: user.avatar,
   })
   const [message, setMessage] = useState<string>('')
-  const router = useRouter()
-
-  function cancel(): void {
-    setAddState(emptyAddState)
-    setMessage('')
-    setShow(false)
-    router.back()
-  }
 
   async function savePassword(): Promise<void> {
     if (addState.password !== addState.passwordConfirm) {

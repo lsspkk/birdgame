@@ -5,7 +5,7 @@ import { Layout } from '../../components/Layout'
 import { newLevel, Question } from '../../data/levels'
 import { emptyScore, IBirdKnowledge } from '../../models/score'
 import { GameContext } from '../../components/state'
-
+import { ScoreInterface } from '../../models/score'
 import { emptyBirdKnowledge } from '../../models/score'
 import { basePath } from '../../next.config'
 

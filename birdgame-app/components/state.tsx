@@ -1,5 +1,5 @@
 import React, { createContext, ReactElement, useEffect, useState } from 'react'
-import { IBirdKnowledge, IGameResult, ScoreInterface } from '../models/score'
+import { IBirdKnowledge, ScoreInterface } from '../models/score'
 import { emptyUser, UserInterface } from '../models/user'
 import { Props } from './Layout'
 import { basePath } from '../next.config'
@@ -35,17 +35,20 @@ export function ContextWrapper({ children }: Props): ReactElement {
     setScore: setScore,
   }
 
-  useEffect(async () => {
+  async function loadScore(userId: string) {
+    const res = await fetch(`${basePath}/api/scores/user/${userId}`)
+    if (res.ok) {
+      const loadedScore = (await res.json()) as ScoreInterface
+      setScore(loadedScore)
+    }
+  }
+  useEffect(() => {
     const userString = localStorage.getItem('user')
     if (userString !== null) {
       const loadedUser = JSON.parse(userString) as UserInterface
       setUser(loadedUser)
       if (loadedUser._id !== '') {
-        const res = await fetch(`${basePath}/api/scores/user/${loadedUser._id}`)
-        if (res.ok) {
-          const loadedScore = (await res.json()) as ScoreInterface
-          setScore(loadedScore)
-        }
+        loadScore(loadedUser._id)
       }
     }
   }, [])

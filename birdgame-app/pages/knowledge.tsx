@@ -1,6 +1,4 @@
-import { useRouter } from 'next/dist/client/router'
-import { relative } from 'path/posix'
-import React, { ReactElement, useState, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
 import { IBirdKnowledge } from '../models/score'
@@ -94,7 +92,7 @@ export default function Knowledge(): ReactElement {
   return (
     <div className="w-full h-full bg-black text-white">
       {score?.knowledge.map((k) => (
-        <BirdKnowledgeImage knowledge={k} />
+        <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
       ))}
     </div>
   )

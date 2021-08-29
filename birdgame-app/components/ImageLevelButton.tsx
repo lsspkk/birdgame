@@ -14,7 +14,7 @@ export function ImageLevelButton({
   const { setBirdKnowledge, score }: GameContextInterface =
     useContext(GameContext)
   const router = useRouter()
-  const stars = useStars(score, level)
+  const stars = useStars(score, Number(level))
   function selectLevel() {
     // store answers of this game
     setBirdKnowledge([])

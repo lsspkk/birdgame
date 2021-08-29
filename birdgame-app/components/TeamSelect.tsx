@@ -11,6 +11,7 @@ import React, {
 import { UsersData, useUsers } from '../models/swrApi'
 import { TeamInterface } from '../models/team'
 import { UserInterface } from '../models/user'
+import { ScoreInterface } from '../models/score'
 import { basePath } from '../next.config'
 import { Button } from './basic/Button'
 import { Message } from './basic/Message'
@@ -60,15 +61,13 @@ function TeamPlayerList({ team }: TeamSelectProps): ReactElement {
   const [show, setShow] = useState<boolean>(false)
   const [passwordDialogUser, setPasswordDialogUser] = useState<string>('')
   const data: UsersData = useUsers(team._id)
-  const { user, setUser }: GameContextInterface = useContext(GameContext)
-  const router = useRouter()
+  const { user }: GameContextInterface = useContext(GameContext)
 
   if (data.isLoading) return <div />
 
   if (data.isError) return <div>Virhe ladattaessa pelaajia</div>
 
   // TODO ask for password when changin player
-  const canChange: boolean = user.teamId === team._id
 
   return (
     <div>
