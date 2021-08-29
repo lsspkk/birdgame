@@ -1,4 +1,3 @@
-
 module.exports = {
-    basePath: '/lintu',
-  }
+  basePath: '/lintu',
+}

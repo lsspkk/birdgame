@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { getBird, Question } from '../data/levels'
 
@@ -11,7 +11,7 @@ function ImageQuestion({
   question,
   answer,
   questionIndex,
-}: ImageQuestionProps): React.ReactElement {
+}: ImageQuestionProps): ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
   if (url === undefined) {
     console.log(

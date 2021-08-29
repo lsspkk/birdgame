@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
+
 import { Layout } from '../../components/Layout'
 import { getBirds, newLevel, Question } from '../../data/levels'
 
-export default function Home(): React.ReactElement {
+// for testing the level random generators
+export default function Random(): ReactElement {
   const someBirds = getBirds(1, true)
   const level1: Question[] = newLevel(3, true, undefined)
-  const level2: Question[] = newLevel(4, true, undefined)
+  const level2: Question[] = newLevel(2, true, undefined)
 
   return (
     <Layout>
@@ -26,7 +28,7 @@ export default function Home(): React.ReactElement {
       ))}
 
       <hr />
-      <h1>Taso 4</h1>
+      <h1>Taso 2</h1>
       {level2.map((q: Question, i: number) => (
         <div key={`level2${i}${JSON.stringify(q)}`}>
           <div className="bold">

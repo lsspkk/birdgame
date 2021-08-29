@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { ReactElement } from 'react'
+
 import { BirdIcon } from '../components/Icons'
 import { Layout } from '../components/Layout'
 
-export default function Home(): React.ReactElement {
+export default function About(): ReactElement {
   return (
     <Layout>
       <Link href="/">
