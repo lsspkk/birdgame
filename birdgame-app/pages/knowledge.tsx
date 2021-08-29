@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext } from 'react'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
@@ -88,9 +89,13 @@ function BirdKnowledgeImage({
 
 export default function Knowledge(): ReactElement {
   const { score }: GameContextInterface = useContext(GameContext)
+  const router = useRouter()
 
   return (
-    <div className="w-full h-full bg-black text-white">
+    <div
+      className="w-full h-full bg-black text-white"
+      onClick={() => router.push('/')}
+    >
       {score?.knowledge.map((k) => (
         <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
       ))}

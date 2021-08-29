@@ -64,7 +64,7 @@ export default function ImageLevel(): ReactElement {
     setBirdKnowledge(newKnowledge)
 
     setBirdName(question.choises[answerIndex])
-    setTimeout(() => setAnimation(''), 300)
+    setTimeout(() => setAnimation(''), 3000)
     setQuestionIndex(questionIndex + 1)
 
     if (questionIndex + 1 >= questions.length && user._id !== undefined) {
@@ -74,7 +74,7 @@ export default function ImageLevel(): ReactElement {
 
   async function saveGameResult(newKnowledge: IBirdKnowledge[]) {
     setIsSaving(true)
-    const res = await fetch(`${basePath}/api/scores/`, {
+    const res = await fetch(`${basePath}/api/scores`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -89,11 +89,8 @@ export default function ImageLevel(): ReactElement {
     if (res.ok) {
       const updatedScore = await res.json()
       setScore(updatedScore)
-      console.log('saved')
     } else {
       setScore(emptyScore)
-      console.log('not saved')
-      console.log(res, await res.json())
     }
     setIsSaving(false)
   }
@@ -128,28 +125,26 @@ export default function ImageLevel(): ReactElement {
         />
       )}
       {animation === '' && questionIndex >= questions.length && (
-        <div className="mt-8 text-4xl text-blue-400 text-center">
-          <h1 className="p-2">Hyvin tehty!</h1>
+        <div className="mt-8  text-center">
+          <h1 className="p-2 text-4xl text-blue-400">Hyvin tehty!</h1>
           <div className="p-2">
             Oikeita vastauksia: {gameScore} / {setting?.questions}
           </div>
           {user._id !== undefined && isSaving && (
             <p>Tallennetaan tuloksia...</p>
           )}
-          {user._id !== undefined && !isSaving && (
-            <>
-              <GameResultsView results={score.results} />
-              <GameKnowledgeView knowledge={score.knowledge} />
-            </>
-          )}
-          <div>1{user._id}</div>
-          <div>1{user.id}</div>
           {!isSaving && (
             <Link href="/">
               <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
                 Takaisin
               </div>
             </Link>
+          )}
+          {user._id !== undefined && !isSaving && (
+            <>
+              <GameResultsView results={score.results} />
+              <GameKnowledgeView knowledge={score.knowledge} />
+            </>
           )}
         </div>
       )}

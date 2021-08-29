@@ -28,7 +28,6 @@ export default async function handler(
     }
     if (req.method === 'GET') {
       const { scoreslug } = req.query
-      console.log(scoreslug)
       getScores(scoreslug, res)
     }
   } catch (error) {
@@ -51,7 +50,6 @@ function updateOldScore(oldScore: ScoreInterface, body: ScoreBody) {
       oldScores.length === 10
         ? [...oldScores.slice(1), newScore]
         : [...oldScores, newScore]
-    console.log(newScores)
     oldScore.results[oldResultIndex].scores = newScores
   } else {
     oldScore.results.push(newResult)
@@ -86,13 +84,10 @@ async function save(body: ScoreBody, res: NextApiResponse) {
       results: [body.gameResult],
     })
     newScore.save()
-    console.log('newScore', newScore)
     res.status(201).json(newScore)
   } else {
-    console.log('oldScore', oldScore)
     updateOldScore(oldScore, body)
     const newScore = await oldScore.save()
-    console.log('newScore', newScore)
     res.status(200).json(newScore)
   }
 }
@@ -101,21 +96,17 @@ async function getScores(scoreslug: string | string[], res: NextApiResponse) {
   const teamScores = Array.isArray(scoreslug) && scoreslug[0] === 'team'
   const userScores = Array.isArray(scoreslug) && scoreslug[0] === 'user'
   if (teamScores) {
-    console.log('team', scoreslug[1])
     const users = await User.find({ teamId: scoreslug[1] }).select('_id').exec()
-    console.log(users)
     if (users.length === 0) {
       res.status(404).json([])
     } else {
       const scores = await Score.find({
         userId: { $in: users.map((u) => u._id) },
       }).exec()
-      console.log(scores)
       res.status(200).json(scores)
     }
   }
   if (userScores) {
-    console.log('user', scoreslug[1])
     const score = await Score.findOne({ userId: scoreslug[1] })
       .select('-__id')
       .exec()
