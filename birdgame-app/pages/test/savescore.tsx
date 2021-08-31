@@ -28,7 +28,6 @@ export default function Random(): ReactElement {
     const rightBirdName = question.choises[question.rightAnswer]
 
     const oldIndex = birdKnowledge.findIndex((b) => b.bird === rightBirdName)
-    console.log(oldIndex)
     const baseKnowledge =
       oldIndex === -1 ? emptyBirdKnowledge : birdKnowledge[oldIndex]
     const knowledge: IBirdKnowledge = {
@@ -55,7 +54,6 @@ export default function Random(): ReactElement {
 
     const newIndex = questionIndex + 1
     setQuestionIndex(newIndex)
-    console.log(newIndex, questions.length, user._id)
     if (newIndex >= questions.length && user._id !== undefined) {
       saveGameResult(newKnowledge)
     }

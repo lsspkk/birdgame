@@ -4,17 +4,13 @@ import {
   IGameResult,
   Score,
   ScoreInterface,
+  ScoreBody,
+  updateOldScore,
 } from '../../../models/score'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../models/dbConnect'
 import { User } from '../../../models/user'
-
-interface ScoreBody {
-  userId: string
-  knowledge: IBirdKnowledge[]
-  gameResult: IGameResult
-}
 
 export default async function handler(
   req: NextApiRequest,
@@ -34,41 +30,6 @@ export default async function handler(
     console.log(error)
     res.status(500).json({ error })
   }
-}
-function updateOldScore(oldScore: ScoreInterface, body: ScoreBody) {
-  const newResult = body.gameResult
-  // newResult.level will be number, oldScore has string
-  const oldResultIndex = oldScore.results.findIndex(
-    (r) => r.level === `${newResult.level}`,
-  )
-
-  if (oldResultIndex !== -1) {
-    // keep 10 latest results
-    const oldScores = oldScore.results[oldResultIndex].scores
-    const newScore = newResult.scores[0]
-    const newScores =
-      oldScores.length === 10
-        ? [...oldScores.slice(1), newScore]
-        : [...oldScores, newScore]
-    oldScore.results[oldResultIndex].scores = newScores
-  } else {
-    oldScore.results.push(newResult)
-  }
-
-  const oldBirds = oldScore.knowledge.map((o) => o.bird)
-
-  const oldKnowledge = body.knowledge
-    .filter((k) => oldBirds.includes(k.bird))
-    .map((k) => {
-      const updated = oldScore.knowledge.find((o) => o.bird === k.bird)
-      updated.rightImageAnswers += k.rightImageAnswers
-      updated.wrongImageAnswers += k.wrongImageAnswers
-      updated.rightAudioAnswers += k.rightAudioAnswers
-      updated.wrongAudioAnswers += k.wrongImageAnswers
-      return updated
-    })
-  const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
-  oldScore.knowledge = [...oldKnowledge, ...newKnowledge]
 }
 
 async function save(body: ScoreBody, res: NextApiResponse) {

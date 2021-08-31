@@ -9,7 +9,6 @@ interface GkvProps {
 }
 
 export function GameKnowledgeView({ knowledge }: GkvProps): ReactElement {
-  console.log(knowledge.length)
   return (
     <div className="w-full flex justify-center">
       <Link href="/knowledge">

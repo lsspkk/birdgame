@@ -20,7 +20,6 @@ export default async function handler(
         .select('addUserPassword')
         .exec()
 
-      console.log(req.body)
       if (team.addUserPassword !== req.body.addUserPassword) {
         res.status(401).json({ error: 'väärä lisäyskoodi' })
       } else {
@@ -32,7 +31,6 @@ export default async function handler(
         })
         await hashedUser.save()
         delete hashedUser.password
-        console.log(hashedUser)
         res.status(201).json(hashedUser)
       }
     }
@@ -42,11 +40,9 @@ export default async function handler(
       })
         .select('-password -__v')
         .exec()
-      console.log(players)
       res.status(200).json(players)
     }
   } catch (error) {
-    console.log(error)
-    res.status(500)
+    res.status(500).json({ error })
   }
 }

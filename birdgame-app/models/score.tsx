@@ -28,6 +28,65 @@ export interface ScoreInterface extends Partial<Document> {
   user?: UserInterface
 }
 
+// post body to api/scores
+interface ScoreBody {
+  userId: string
+  knowledge: IBirdKnowledge[]
+  gameResult: IGameResult
+}
+
+// updating old score at api/scores
+export function updateOldScore(
+  oldScore: ScoreInterface,
+  body: ScoreBody,
+): void {
+  const newResult = body.gameResult
+  // newResult.level will be number, oldScore has string
+  const oldResultIndex = oldScore.results.findIndex(
+    (r) => r.level === `${newResult.level}`,
+  )
+
+  if (oldResultIndex !== -1) {
+    // keep 10 latest results
+    const oldScores = oldScore.results[oldResultIndex].scores
+    const newScore = newResult.scores[0]
+    const newScores =
+      oldScores.length === 10
+        ? [...oldScores.slice(1), newScore]
+        : [...oldScores, newScore]
+    oldScore.results[oldResultIndex].scores = newScores
+  } else {
+    oldScore.results.push(newResult)
+  }
+
+  const oldBirds = oldScore.knowledge.map((o) => o.bird)
+
+  const changedKnowledge = body.knowledge
+    .filter((k) => oldBirds.includes(k.bird))
+    .map((k) => {
+      const updated = { ...oldScore.knowledge.find((o) => o.bird === k.bird) }
+      updated.rightImageAnswers += k.rightImageAnswers
+      updated.wrongImageAnswers += k.wrongImageAnswers
+      updated.rightAudioAnswers += k.rightAudioAnswers
+      updated.wrongAudioAnswers += k.wrongImageAnswers
+      return updated
+    })
+  const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
+  const unchangedKnowledge = oldScore.knowledge.filter(
+    (o) => !changedKnowledge.includes((k) => k.bird === o.bird),
+  )
+  oldScore.knowledge = [
+    ...unchangedKnowledge,
+    ...changedKnowledge,
+    ...newKnowledge,
+  ]
+  oldScore.knowledge.sort((a, b) => {
+    if (a.rightImageAnswers < b.rightImageAnswers) return 1
+    if (b.rightImageAnswers < a.rightImageAnswers) return -1
+    return 0
+  })
+}
+
 export const emptyScore: ScoreInterface = {
   results: [],
   knowledge: [],

@@ -18,7 +18,7 @@ function Layout({ children }: Props): ReactElement {
   const { setUser } = useContext(GameContext)
   useEffect(() => {
     const savedUser = localStorage.getItem('user')
-    console.log('savedUser', savedUser)
+    //console.log('savedUser', savedUser)
     if (savedUser !== null) {
       setUser(JSON.parse(savedUser))
     }
