@@ -73,7 +73,8 @@ export function updateOldScore(
     })
   const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
   const unchangedKnowledge = oldScore.knowledge.filter(
-    (o) => !changedKnowledge.includes((k) => k.bird === o.bird),
+    (o: IBirdKnowledge) =>
+      !changedKnowledge.includes((k: IBirdKnowledge) => k.bird === o.bird),
   )
   oldScore.knowledge = [
     ...unchangedKnowledge,
