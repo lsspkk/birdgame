@@ -1,7 +1,5 @@
 import {
-  IBirdKnowledge,
   emptyScore,
-  IGameResult,
   Score,
   ScoreInterface,
   ScoreBody,
@@ -56,25 +54,31 @@ async function save(body: ScoreBody, res: NextApiResponse) {
 async function getScores(scoreslug: string | string[], res: NextApiResponse) {
   const teamScores = Array.isArray(scoreslug) && scoreslug[0] === 'team'
   const userScores = Array.isArray(scoreslug) && scoreslug[0] === 'user'
-  if (teamScores) {
-    const users = await User.find({ teamId: scoreslug[1] }).select('_id').exec()
-    if (users.length === 0) {
-      res.status(404).json([])
-    } else {
-      const scores = await Score.find({
-        userId: { $in: users.map((u) => u._id) },
-      }).exec()
-      res.status(200).json(scores)
+  try {
+    if (teamScores) {
+      const users = await User.find({ teamId: scoreslug[1] })
+        .select('_id')
+        .exec()
+      if (users.length === 0) {
+        res.status(404).json([])
+      } else {
+        const scores = await Score.find({
+          userId: { $in: users.map((u) => u._id) },
+        }).exec()
+        res.status(200).json(scores)
+      }
     }
-  }
-  if (userScores) {
-    const score = await Score.findOne({ userId: scoreslug[1] })
-      .select('-__id')
-      .exec()
-    if (score === null) {
-      res.status(404).json(emptyScore)
-    } else {
-      res.status(200).json(score)
+    if (userScores) {
+      const score = await Score.findOne({ userId: scoreslug[1] })
+        .select('-__id')
+        .exec()
+      if (score === null) {
+        res.status(404).json(emptyScore)
+      } else {
+        res.status(200).json(score)
+      }
     }
+  } catch (error) {
+    res.status(500).json({ error })
   }
 }

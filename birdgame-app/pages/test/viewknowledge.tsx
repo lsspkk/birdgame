@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 
 import { Layout } from '../../components/Layout'
-import { ScoreInterface, updateOldScore } from '../../models/score'
+import { ScoreBody, ScoreInterface, updateOldScore } from '../../models/score'
 
 const oldKnowledge: ScoreInterface = {
   lastPlayed: new Date(),
-  userId: '610424f9d3d4c7606c50fe7e',
   knowledge: [
     {
       _id: { $oid: '612e50b7ef6f6f4676f9c7bc' },

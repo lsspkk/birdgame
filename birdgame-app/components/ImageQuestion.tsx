@@ -44,6 +44,7 @@ function ImageQuestion({
               className="w-full h-full"
               onClick={() => answer(i)}
               src={url + getBird(a).image}
+              alt="salaisuus, arvaa mikä lintu"
             />
           </div>
         ))}

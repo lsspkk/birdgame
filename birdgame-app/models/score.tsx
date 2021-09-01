@@ -29,7 +29,7 @@ export interface ScoreInterface extends Partial<Document> {
 }
 
 // post body to api/scores
-interface ScoreBody {
+export interface ScoreBody {
   userId: string
   knowledge: IBirdKnowledge[]
   gameResult: IGameResult
@@ -59,7 +59,7 @@ export function updateOldScore(
     oldScore.results.push(newResult)
   }
 
-  const oldBirds = oldScore.knowledge.map((o) => o.bird)
+  const oldBirds = oldScore.knowledge.map((k) => k.bird)
 
   const changedKnowledge = body.knowledge
     .filter((k) => oldBirds.includes(k.bird))
@@ -72,9 +72,9 @@ export function updateOldScore(
       return updated
     })
   const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
+  const changedBirds = changedKnowledge.map((k) => k.bird)
   const unchangedKnowledge = oldScore.knowledge.filter(
-    (o: IBirdKnowledge) =>
-      !changedKnowledge.includes((k: IBirdKnowledge) => k.bird === o.bird),
+    (k) => !changedBirds.includes(k.bird),
   )
   oldScore.knowledge = [
     ...unchangedKnowledge,

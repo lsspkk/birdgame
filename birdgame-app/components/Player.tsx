@@ -47,6 +47,7 @@ export function ChooseAvatar({
             className={`w-10 h-10 p-1 ${isChosen}`}
             src={avatarUrl(avatar)}
             onClick={() => chosen !== avatar && setAvatar(avatar)}
+            alt="avatar"
           />
         )
       })}
