@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { BirdIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
 import { IBirdKnowledge } from '../models/score'
@@ -10,10 +11,35 @@ function BirdKnowledgeImage({
   knowledge: IBirdKnowledge
 }): ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
-
+  const bird = getBird(knowledge.bird)
   const spinTime = 5 + 20 * Math.random()
   const clockWise = Math.random() > 0.5
   const flyTime = 20 + 20 * Math.random()
+
+  function randomColor() {
+    return Math.round(50 + Math.random() * 200)
+  }
+  const colors = [randomColor(), randomColor(), randomColor()]
+  const rgb = `rgb(${colors[0]}, ${colors[1]}, ${colors[2]})`
+
+  const [playing, setPlayint] = useState<boolean>(false)
+
+  function toggleAudio() {
+    const audioElement = document.querySelector(
+      `.${bird.name}`,
+    ) as HTMLAudioElement
+    if (playing) {
+      audioElement.pause()
+      setPlayint(false)
+    } else {
+      audioElement.play()
+      setPlayint(true)
+    }
+  }
+
+  useEffect(() => {
+    return () => console.log('bye')
+  })
 
   return (
     <tr>
@@ -79,11 +105,19 @@ function BirdKnowledgeImage({
               height: 100%;
               width: 100%;
             }
+            .playing {
+              border: 10px solid ${rgb};
+              box-shadow: 0px 0px 5px ${rgb}, 0px 0px 5px ${rgb};
+            }
           `}
         </style>
 
-        <div className="imagewrapper">
-          <img src={url + getBird(knowledge.bird).image} alt={knowledge.bird} />
+        <audio src={url + bird.audio} className={`hidden ${bird.name}`} />
+        <div
+          className={`imagewrapper ${playing ? 'playing' : ''}`}
+          onClick={toggleAudio}
+        >
+          <img src={url + bird.image} alt={knowledge.bird} />
         </div>
       </td>
       <td className="text-center text-2xl text-bold">
@@ -98,22 +132,23 @@ export default function Knowledge(): ReactElement {
   const router = useRouter()
 
   return (
-    <div
-      className="w-full min-h-screen bg-black text-white flex align-center justify-center"
-      onClick={() => router.push('/')}
-    >
+    <div className="w-full min-h-screen bg-black text-white flex align-center justify-center">
       <table>
-        <tr>
-          <th></th>
-          <th>
-            Kuvantunnistus
-            <br />
-            Oikein/Väärin
-          </th>
-        </tr>
-        {score?.knowledge.map((k) => (
-          <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
-        ))}
+        <tbody>
+          <tr>
+            <th onClick={() => router.push('/')}>
+              <BirdIcon />
+            </th>
+            <th>
+              Kuvantunnistus
+              <br />
+              Oikein/Väärin
+            </th>
+          </tr>
+          {score?.knowledge.map((k) => (
+            <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
+          ))}
+        </tbody>
       </table>
     </div>
   )

@@ -9,9 +9,12 @@ interface GkvProps {
 }
 
 export function GameKnowledgeView({ knowledge }: GkvProps): ReactElement {
+  if (knowledge.length === 0) {
+    return undefined
+  }
   return (
     <div className="w-full flex justify-center">
-      <Link href="/knowledge">
+      <Link href="/knowledge" passHref>
         <Button className="bg-green-500 font-bold text-white">
           <BirdIconNoSound />
         </Button>

@@ -88,6 +88,11 @@ export default function ImageLevel(): ReactElement {
     })
     if (res.ok) {
       const updatedScore = await res.json()
+      updatedScore.knowledge.sort((a, b) => {
+        if (a.rightImageAnswers < b.rightImageAnswers) return 1
+        if (b.rightImageAnswers < a.rightImageAnswers) return -1
+        return 0
+      })
       setScore(updatedScore)
     } else {
       setScore(emptyScore)
@@ -135,7 +140,7 @@ export default function ImageLevel(): ReactElement {
           )}
           {!isSaving && (
             <Link href="/">
-              <div className="mt-8 text-2xl bg-blue-300 p-2 rounded w-1/4 text-white m-auto self-center">
+              <div className="mt-8 text-2xl bg-blue-3000 p-2 rounded w-1/4 text-white m-auto self-center">
                 Takaisin
               </div>
             </Link>

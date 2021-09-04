@@ -39,6 +39,11 @@ export function ContextWrapper({ children }: Props): ReactElement {
     const res = await fetch(`${basePath}/api/scores/user/${userId}`)
     if (res.ok) {
       const loadedScore = (await res.json()) as ScoreInterface
+      loadedScore.knowledge.sort((a, b) => {
+        if (a.rightImageAnswers < b.rightImageAnswers) return 1
+        if (b.rightImageAnswers < a.rightImageAnswers) return -1
+        return 0
+      })
       setScore(loadedScore)
     }
   }
