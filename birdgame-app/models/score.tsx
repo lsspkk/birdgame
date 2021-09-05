@@ -61,26 +61,21 @@ export function updateOldScore(
 
   const oldBirds = oldScore.knowledge.map((k) => k.bird)
 
-  const changedKnowledge = body.knowledge
-    .filter((k) => oldBirds.includes(k.bird))
-    .map((k) => {
-      const updated = { ...oldScore.knowledge.find((o) => o.bird === k.bird) }
-      updated.rightImageAnswers += k.rightImageAnswers
-      updated.wrongImageAnswers += k.wrongImageAnswers
-      updated.rightAudioAnswers += k.rightAudioAnswers
-      updated.wrongAudioAnswers += k.wrongImageAnswers
-      return updated
-    })
-  const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
-  const changedBirds = changedKnowledge.map((k) => k.bird)
-  const unchangedKnowledge = oldScore.knowledge.filter(
-    (k) => !changedBirds.includes(k.bird),
+  const changedKnowledge = body.knowledge.filter((k) =>
+    oldBirds.includes(k.bird),
   )
-  oldScore.knowledge = [
-    ...unchangedKnowledge,
-    ...changedKnowledge,
-    ...newKnowledge,
-  ]
+
+  changedKnowledge.forEach((k) => {
+    const updated = oldScore.knowledge.find((o) => o.bird === k.bird)
+    updated.rightImageAnswers += k.rightImageAnswers
+    updated.wrongImageAnswers += k.wrongImageAnswers
+    updated.rightAudioAnswers += k.rightAudioAnswers
+    updated.wrongAudioAnswers += k.wrongImageAnswers
+  })
+
+  const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
+  newKnowledge.forEach((k) => oldScore.knowledge.push(k))
+  oldScore.knowledge.forEach((k) => delete k._id)
   oldScore.knowledge.sort((a, b) => {
     if (a.rightImageAnswers < b.rightImageAnswers) return 1
     if (b.rightImageAnswers < a.rightImageAnswers) return -1
