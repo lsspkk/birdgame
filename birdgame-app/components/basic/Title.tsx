@@ -1,8 +1,18 @@
-import React, { ReactElement } from 'react'
+import React, { HTMLAttributes, ReactElement } from 'react'
 
-import { Props } from '../Layout'
-
-function Title({ children }: Props): ReactElement {
-  return <div className="text-red-700 py-5 rounded  text-2xl">{children}</div>
+function Title({
+  children,
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>): ReactElement {
+  const addClasses = className === undefined ? '' : className
+  return (
+    <div
+      {...props}
+      className={`text-red-700 py-5 rounded text-2xl ${addClasses}`}
+    >
+      {children}
+    </div>
+  )
 }
 export { Title }

@@ -8,13 +8,14 @@ import { Layout } from '../components/Layout'
 import { Avatar, ChooseAvatar, Player } from '../components/Player'
 import { basePath } from '../next.config'
 import { GameContextInterface, GameContext } from '../components/state'
+import { useTeams } from '../models/swrApi'
 
-interface AddTeamPlayerState {
+interface ProfileState {
   password: string
   passwordConfirm: string
   avatar: string
 }
-const emptyAddState: AddTeamPlayerState = {
+const emptyAddState: ProfileState = {
   password: '',
   passwordConfirm: '',
   avatar: 'girl.svg',
@@ -22,24 +23,33 @@ const emptyAddState: AddTeamPlayerState = {
 
 export default function Profile(): ReactElement {
   const { user, setUser, score }: GameContextInterface = useContext(GameContext)
-  const [addState, setAddState] = useState<AddTeamPlayerState>({
+  const [state, setState] = useState<ProfileState>({
     ...emptyAddState,
     avatar: user.avatar,
   })
   const [message, setMessage] = useState<string>('')
 
+  const teamsData = useTeams()
+  const myTeamName =
+    user.teamId !== ''
+      ? teamsData.teams.find((t) => t._id === user.teamId)?.name
+      : ''
+  const addTeamText =
+    myTeamName !== '' ? 'Vaihda joukkue' : 'Lisää joukkueeseen'
+  console.log(addTeamText, myTeamName)
+
   async function savePassword(): Promise<void> {
-    if (addState.password !== addState.passwordConfirm) {
+    if (state.password !== state.passwordConfirm) {
       setMessage('Salasanat eivät täsmää')
       setTimeout(() => setMessage(''), 3000)
       return
     }
-    if (addState.password.trim().length < 4) {
+    if (state.password.trim().length < 4) {
       setMessage('Salasanan pituus ei riitä')
       setTimeout(() => setMessage(''), 3000)
       return
     }
-    const changedData = { password: addState.password }
+    const changedData = { password: state.password }
     put(changedData, 'Salasana tallennettu')
   }
   async function put(
@@ -66,14 +76,14 @@ export default function Profile(): ReactElement {
   }
 
   async function saveAvatar(): Promise<void> {
-    if (addState.avatar === user.avatar) {
+    if (state.avatar === user.avatar) {
       return
     }
-    put({ avatar: addState.avatar }, 'Kuva tallennettu')
+    put({ avatar: state.avatar }, 'Kuva tallennettu')
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
-    setAddState({ ...addState, [event.target.name]: event.target.value })
+    setState({ ...state, [event.target.name]: event.target.value })
   }
 
   return (
@@ -83,7 +93,7 @@ export default function Profile(): ReactElement {
 
         <div className="pr-4">
           {score?.knowledge?.length > 0 && (
-            <Link href="/knowledge">
+            <Link href="/knowledge" passHref>
               <Button className="bg-green-500 font-bold text-white">
                 <BirdIconNoSound />
               </Button>
@@ -91,6 +101,19 @@ export default function Profile(): ReactElement {
           )}
           {message !== '' && <Message>{message}</Message>}
         </div>
+      </div>
+      <div className="m-4 flex items-center">
+        {myTeamName !== '' && (
+          <>
+            <div className="mr-4">
+              <div className="text-xs">Joukkue</div>
+              <Title className="pt-0">{myTeamName}</Title>
+            </div>
+          </>
+        )}
+        <Link href="/changeTeam" passHref>
+          <Button>{addTeamText}</Button>
+        </Link>
       </div>
 
       <div className="pt-2 px-4 pb-10">
@@ -100,7 +123,7 @@ export default function Profile(): ReactElement {
           <input
             className="p-2 border"
             type="password"
-            value={addState.password}
+            value={state.password}
             name="password"
             onChange={handleChange}
           ></input>
@@ -114,7 +137,7 @@ export default function Profile(): ReactElement {
           <input
             className="p-2 border"
             type="password"
-            value={addState.passwordConfirm}
+            value={state.passwordConfirm}
             name="passwordConfirm"
             onChange={handleChange}
           ></input>
@@ -129,13 +152,13 @@ export default function Profile(): ReactElement {
         <div className="flex items-center">
           <div className="flex-shrink-0">
             {' '}
-            <Avatar avatar={addState.avatar} />
+            <Avatar avatar={state.avatar} />
           </div>
           <div>
             {' '}
             <ChooseAvatar
-              chosen={addState.avatar}
-              setAvatar={(avatar) => setAddState({ ...addState, avatar })}
+              chosen={state.avatar}
+              setAvatar={(avatar) => setState({ ...state, avatar })}
             />
           </div>
         </div>

@@ -6,6 +6,11 @@ export interface TeamInterface extends Partial<Document> {
   addUserPassword: string
 }
 
+export function isAnonymous(teamId: string | undefined): boolean {
+  console.log(1, teamId)
+  return teamId === undefined || teamId === ''
+}
+
 export const emptyTeam = {
   id: '',
   name: '',

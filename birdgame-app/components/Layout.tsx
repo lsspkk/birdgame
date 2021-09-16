@@ -8,6 +8,7 @@ import { BirdIcon } from './Icons'
 
 export type Props = {
   children?: React.ReactNode
+  className?: string
 }
 
 function Layout({ children }: Props): ReactElement {
@@ -34,7 +35,7 @@ function Layout({ children }: Props): ReactElement {
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
       {!isGame && (
-        <Link href="/">
+        <Link href="/" passHref>
           <div className="w-full flex flex-start items-center align-content-center bg-green-200 opacity-40 border-b-2">
             <BirdIcon />
             <h1 className="text-xl font-bold">Lintupeli</h1>

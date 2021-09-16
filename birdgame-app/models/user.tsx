@@ -25,7 +25,7 @@ const UserSchema = new Schema<UserInterface>({
   name: { type: String, required: true },
   password: { type: String, required: true },
   avatar: { type: String, required: true },
-  teamId: { type: String, required: true },
+  teamId: { type: String, required: false },
 })
 
 export const User =

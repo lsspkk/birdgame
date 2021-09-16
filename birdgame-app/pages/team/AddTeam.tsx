@@ -1,19 +1,16 @@
 import { useRouter } from 'next/dist/client/router'
 import React, { ChangeEvent, ReactElement, useState } from 'react'
-import { Button } from '../components/basic/Button'
-import { Message } from '../components/basic/Message'
-import { Title } from '../components/basic/Title'
-import { Layout } from '../components/Layout'
-import { TeamSelect } from '../components/TeamSelect'
-import { getRandomBirdName } from '../data/levels'
-import { TeamsData, useTeams } from '../models/swrApi'
-import { TeamInterface } from '../models/team'
-import { basePath } from '../next.config'
+import { Button } from '../../components/basic/Button'
+import { Message } from '../../components/basic/Message'
+import { Title } from '../../components/basic/Title'
+import { getRandomBirdName } from '../../data/levels'
+import { TeamInterface } from '../../models/team'
+import { basePath } from '../../next.config'
 
 interface addTeamProps {
   setViewMode: (string) => void
 }
-function AddTeam({ setViewMode }: addTeamProps): ReactElement {
+export function AddTeam({ setViewMode }: addTeamProps): ReactElement {
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
@@ -123,36 +120,5 @@ function AddTeam({ setViewMode }: addTeamProps): ReactElement {
         <Button onClick={() => save()}>Lisää</Button>
       </div>
     </div>
-  )
-}
-
-export default function Group(): ReactElement {
-  const teamsData: TeamsData = useTeams()
-  const [viewMode, setViewMode] = useState<string>('select')
-
-  return (
-    <Layout>
-      {viewMode === 'add' && <AddTeam setViewMode={setViewMode} />}
-      {viewMode === 'select' && (
-        <>
-          <div className="flex w-full md:w-1/2 justify-between mb-20 items-center px-4">
-            <Title>Joukkueet</Title>
-            <Button onClick={() => setViewMode('add')}>Lisää</Button>
-          </div>
-          {teamsData.isLoading === true && (
-            <Message>Ladataan joukkueita</Message>
-          )}
-          {teamsData.isError !== undefined && (
-            <Message>
-              Virhe ladattaessa joukkueita {JSON.stringify(teamsData.isError)}
-            </Message>
-          )}
-          {teamsData.teams !== undefined &&
-            teamsData.teams.map((team: TeamInterface) => (
-              <TeamSelect key={`teamselect${team._id}`} team={team} />
-            ))}
-        </>
-      )}
-    </Layout>
   )
 }

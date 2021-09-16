@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { TeamInterface } from './team'
+import { isAnonymous, TeamInterface } from './team'
 import { basePath } from '../next.config'
 import { UserInterface } from './user'
 
@@ -29,10 +29,11 @@ export function useTeams(): TeamsData {
 }
 
 export function useUsers(teamId: string): UsersData {
-  const { data, error } = useSWR(
-    `${basePath}/api/teams/${teamId}/users`,
-    fetcher,
-  )
+  const url = !isAnonymous(teamId)
+    ? `${basePath}/api/teams/${teamId}/users`
+    : `${basePath}/api/users`
+
+  const { data, error } = useSWR(url, fetcher)
 
   return {
     users: data,
