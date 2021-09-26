@@ -15,6 +15,13 @@ export interface TeamLogin {
   id: string
   password: string
 }
+
+export interface EditTeamPutBody {
+  name?: string
+  password?: string
+  addUserPassword?: string
+}
+
 export interface TeamAddUser {
   id: string
   addUserPassword: string

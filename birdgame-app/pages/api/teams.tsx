@@ -19,8 +19,9 @@ export default async function handler(
     }
 
     if (req.method === 'POST') {
-      const hashedPassword: string = await bcrypt.hash(req.body.password, 2)
-      const hashedTeam = { ...req.body, password: hashedPassword }
+      const team = req.body as TeamInterface
+      const hashedPassword: string = await bcrypt.hash(team.password, 2)
+      const hashedTeam = { ...team, password: hashedPassword }
       const saved = await Team.create(hashedTeam)
       res.status(201).json(saved)
     }

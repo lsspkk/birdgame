@@ -22,7 +22,7 @@ function Layout({ children }: Props): ReactElement {
     if (savedUser !== null) {
       setUser(JSON.parse(savedUser))
     }
-  }, [])
+  }, [setUser])
 
   const cName = isGame
     ? ''
@@ -34,7 +34,7 @@ function Layout({ children }: Props): ReactElement {
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
       {!isGame && (
-        <Link href="/">
+        <Link href="/" passHref>
           <div className="w-full flex flex-start items-center align-content-center bg-green-200 opacity-40 border-b-2">
             <BirdIcon />
             <h1 className="text-xl font-bold">Lintupeli</h1>

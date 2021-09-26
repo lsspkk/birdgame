@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../models/dbConnect'
-import { Team, TeamInterface } from '../../../models/team'
+import { EditTeamPutBody, Team, TeamInterface } from '../../../models/team'
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,6 +12,7 @@ export default async function handler(
   const { slug } = req.query
 
   const isAddUser = Array.isArray(slug) && slug[1] === 'add'
+  const isGetAddUserPassword = Array.isArray(slug) && slug[1] === 'secret'
 
   try {
     await dbConnect()
@@ -34,6 +35,12 @@ export default async function handler(
         res.status(201).json(hashedUser)
       }
     }
+    if (req.method === 'POST' && isGetAddUserPassword) {
+      const team: TeamInterface = await Team.findById(slug[0])
+        .select('addUserPassword')
+        .exec()
+      res.status(200).json(team)
+    }
     if (req.method === 'GET') {
       const players: Array<UserInterface> = await User.find({
         teamId: slug[0],
@@ -41,6 +48,26 @@ export default async function handler(
         .select('-password -__v')
         .exec()
       res.status(200).json(players)
+    }
+
+    if (req.method === 'PUT') {
+      console.log('have fun')
+      const team: TeamInterface = await Team.findById(slug[0])
+        .select('addUserPassword')
+        .exec()
+      const body = req.body as EditTeamPutBody
+      if (body.addUserPassword) {
+        team.addUserPassword = body.addUserPassword
+      }
+      if (body.name) {
+        team.name = body.name
+      }
+      if (team.password) {
+        const hashedPassword: string = await bcrypt.hash(body.password, 2)
+        team.password = hashedPassword
+      }
+      const savedTeam = await team.save()
+      res.status(200).json(savedTeam)
     }
   } catch (error) {
     res.status(500).json({ error })

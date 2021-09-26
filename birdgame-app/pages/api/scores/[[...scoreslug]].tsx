@@ -18,11 +18,11 @@ export default async function handler(
     await dbConnect()
     if (req.method === 'POST') {
       const body: ScoreBody = req.body
-      save(body, res)
+      await save(body, res)
     }
     if (req.method === 'GET') {
       const { scoreslug } = req.query
-      getScores(scoreslug, res)
+      await getScores(scoreslug, res)
     }
   } catch (error) {
     console.log(error)

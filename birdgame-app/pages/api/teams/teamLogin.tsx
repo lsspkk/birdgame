@@ -1,17 +1,20 @@
-import { TeamInterface, TeamLogin } from '../../../models/team'
+import { Team, TeamInterface, TeamLogin } from '../../../models/team'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import bcrypt from 'bcrypt'
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<TeamInterface[]>,
-): void {
+  res: NextApiResponse,
+): Promise<void> {
   if (req.method !== 'POST') {
     res.status(400)
   } else {
     const body: TeamLogin = req.body
     console.log(body)
-    const ok = body.password === 'test'
-    res.status(ok ? 200 : 401)
+    const team: TeamInterface = await Team.findOne({ _id: body.id }).exec()
+    console.log(team)
+    const ok = await bcrypt.compare(body.password, team.password)
+    res.status(ok ? 200 : 401).json(team)
   }
 }
 
