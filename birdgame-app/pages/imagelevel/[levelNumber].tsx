@@ -12,9 +12,9 @@ import {
   emptyScore,
   ScoreInterface,
 } from '../../models/score'
-import { GameKnowledgeView } from '../../components/GameKnowledgeView'
 import { GameResultsView } from '../../components/GameResultsView'
 import { basePath } from '../../next.config'
+import { isStarScore, SpinningStar } from '../../components/StarCircle'
 
 export default function ImageLevel(): ReactElement {
   const router = useRouter()
@@ -109,6 +109,7 @@ export default function ImageLevel(): ReactElement {
           <img
             className="absolute top-0 left-0 w-full max-h-full"
             src={animationSrc}
+            alt={animation}
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
@@ -139,7 +140,7 @@ export default function ImageLevel(): ReactElement {
             <p>Tallennetaan tuloksia...</p>
           )}
           {!isSaving && (
-            <Link href="/">
+            <Link href="/" passHref>
               <div className="mt-8 text-2xl bg-blue-3000 p-2 rounded w-1/4 text-white m-auto self-center">
                 Takaisin
               </div>
@@ -147,8 +148,11 @@ export default function ImageLevel(): ReactElement {
           )}
           {user._id !== undefined && !isSaving && (
             <>
+              <SpinningStar
+                shadow={!isStarScore(gameScore, setting?.questions)}
+              />
               <GameResultsView results={score.results} />
-              <GameKnowledgeView knowledge={score.knowledge} />
+              {/* <GameKnowledgeView knowledge={score.knowledge} /> */}
             </>
           )}
         </div>

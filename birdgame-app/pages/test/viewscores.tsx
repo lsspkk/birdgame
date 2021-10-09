@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { Layout } from '../../components/Layout'
-import { StarCircle } from '../../components/StarCircle'
+import { SpinningStar, StarCircle } from '../../components/StarCircle'
 
 // for testing the level random generators
 export default function Random(): ReactElement {
@@ -10,7 +10,7 @@ export default function Random(): ReactElement {
   return (
     <Layout>
       <div className="container flex">Hello</div>
-
+      <SpinningStar />
       {scores.map((s) => (
         <div
           style={{ display: 'block', width: '100px', height: '100px' }}
@@ -19,6 +19,7 @@ export default function Random(): ReactElement {
           {s} <StarCircle stars={s} />
         </div>
       ))}
+      <SpinningStar shadow />
     </Layout>
   )
 }

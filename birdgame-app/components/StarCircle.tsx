@@ -64,6 +64,10 @@ export function countStars(scores: number[], level: number): number {
   const starLimit = Math.floor(setting.questions * 0.7)
   return scores.filter((score) => score >= starLimit).length
 }
+export function isStarScore(score: number, questionAmount: number) {
+  const starLimit = Math.floor(questionAmount * 0.7)
+  return score >= starLimit
+}
 
 export interface StarCircleProps {
   stars: number
@@ -94,6 +98,38 @@ export const StarCircle = ({ stars }: StarCircleProps): ReactElement => {
           style={{ position: 'absolute', transform: circular(stars, i) }}
         />
       ))}
+    </div>
+  )
+}
+
+export function SpinningStar({
+  shadow = false,
+}: {
+  shadow?: boolean
+}): ReactElement {
+  return (
+    <div className="flex center p-10">
+      <style jsx>
+        {`
+          @keyframes spin {
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+          @keyframes colorize {
+            100% {
+              filter: hue-rotate(360deg);
+            }
+          }
+          .spinningstar {
+            animation: spin 5s linear infinite, colorize 2s linear infinite;
+            ${shadow ? 'filter: grayscale(50%) blur(10px); opacity: 0.3;' : ''}
+          }
+        `}
+      </style>
+      <div className="spinningstar w-20 h-20">
+        <Star scale={2} />
+      </div>
     </div>
   )
 }
