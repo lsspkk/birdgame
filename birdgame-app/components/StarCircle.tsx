@@ -64,7 +64,7 @@ export function countStars(scores: number[], level: number): number {
   const starLimit = Math.floor(setting.questions * 0.7)
   return scores.filter((score) => score >= starLimit).length
 }
-export function isStarScore(score: number, questionAmount: number) {
+export function isStarScore(score: number, questionAmount: number): boolean {
   const starLimit = Math.floor(questionAmount * 0.7)
   return score >= starLimit
 }
@@ -108,7 +108,7 @@ export function SpinningStar({
   shadow?: boolean
 }): ReactElement {
   return (
-    <div className="flex center p-10">
+    <div className="flex p-10 justify-center">
       <style jsx>
         {`
           @keyframes spin {
@@ -128,7 +128,7 @@ export function SpinningStar({
         `}
       </style>
       <div className="spinningstar w-20 h-20">
-        <Star scale={2} />
+        <Star scale={1.5} />
       </div>
     </div>
   )

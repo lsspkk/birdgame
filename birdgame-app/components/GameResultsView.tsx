@@ -24,10 +24,10 @@ export function GameResultView({ result }: GrProps): ReactElement {
   )?.questions
 
   return (
-    <div className="flex column justify-center self-center py-6 items-center">
-      <div className="text-xl pl-10">
+    <div className="flex column justify-start self-center py-6 items-center">
+      <div className="text-xl pl-5">
         <div>Taso {result.level}</div>
-        <div className="text-sm"> max pisteet: {questionAmount}</div>
+        <div className="text-xs"> max pisteet: {questionAmount}</div>
       </div>
       <div className="flex items-center justify-center">
         <div className="self-justify-end text-xl pr-10"></div>

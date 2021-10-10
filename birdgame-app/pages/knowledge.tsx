@@ -4,6 +4,7 @@ import { BirdIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
 import { IBirdKnowledge } from '../models/score'
+import Image from 'next/image'
 
 function BirdKnowledgeImage({
   knowledge,
@@ -117,7 +118,14 @@ function BirdKnowledgeImage({
           className={`imagewrapper ${playing ? 'playing' : ''}`}
           onClick={toggleAudio}
         >
-          <img src={url + bird.image} alt={knowledge.bird} />
+          <Image
+            src={url + bird.image}
+            alt={knowledge.bird}
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="contain"
+          />
         </div>
       </td>
       <td className="text-center text-2xl text-bold">

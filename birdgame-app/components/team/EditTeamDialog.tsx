@@ -9,7 +9,6 @@ import React, {
 import { TeamInterface } from '../../models/team'
 import { basePath } from '../../next.config'
 import { Button } from '../basic/Button'
-import { EditTeamDialogProps } from './TeamCard'
 
 export interface EditTeamDialogProps {
   team: TeamInterface

@@ -83,7 +83,7 @@ export default function Profile(): ReactElement {
 
         <div className="pr-4">
           {score?.knowledge?.length > 0 && (
-            <Link href="/knowledge">
+            <Link href="/knowledge" passHref>
               <Button className="bg-green-500 font-bold text-white">
                 <BirdIconNoSound />
               </Button>

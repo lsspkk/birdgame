@@ -21,7 +21,7 @@ export default function Random(): ReactElement {
   const { setBirdKnowledge, birdKnowledge, user } = useContext(GameContext)
   const [questions, setQuestions] = useState(newLevel(level, true, undefined))
 
-  useEffect(() => setBirdKnowledge([]), [])
+  useEffect(() => setBirdKnowledge([]), [setBirdKnowledge])
 
   function answer(answerIndex: number) {
     const question = questions[questionIndex]

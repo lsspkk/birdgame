@@ -13,7 +13,7 @@ import { basePath } from '../../next.config'
 import { Button } from '../basic/Button'
 import { GameContext, GameContextInterface } from '../state'
 import { emptyScore } from '../../models/score'
-import { SelectUserDialogProps } from './TeamCard'
+import { UserInterface } from '../../models/user'
 
 export interface SelectUserDialogProps {
   user: UserInterface

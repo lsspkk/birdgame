@@ -16,7 +16,7 @@ export default async function handler(
       const user: UserInterface = await User.findById(userId[0])
 
       if (user === undefined) {
-        res.status(401).json({ error: `käyttäjää ${userID[0]} ei löydy` })
+        res.status(401).json({ error: `käyttäjää ${userId[0]} ei löydy` })
       } else {
         if (req.body.password !== undefined) {
           const hashedPassword: string = await bcrypt.hash(req.body.password, 2)

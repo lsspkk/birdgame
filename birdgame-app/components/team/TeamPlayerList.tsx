@@ -9,7 +9,10 @@ import { TeamCardProps } from './TeamCard'
 import { AddTeamPlayer } from './AddTeamPlayer'
 import { SelectUserDialog } from './SelectUserDialog'
 
-export function TeamPlayerList({ team }: TeamCardProps): ReactElement {
+export function TeamPlayerList({
+  team,
+  setViewMode,
+}: TeamCardProps): ReactElement {
   const [show, setShow] = useState<boolean>(false)
   const [passwordDialogUser, setPasswordDialogUser] = useState<string>('')
   const data: UsersData = useUsers(team._id)
@@ -58,7 +61,13 @@ export function TeamPlayerList({ team }: TeamCardProps): ReactElement {
             }
           </>
         )}
-        {show && <AddTeamPlayer team={team} setShow={setShow} />}
+        {show && (
+          <AddTeamPlayer
+            team={team}
+            setShow={setShow}
+            setViewMode={setViewMode}
+          />
+        )}
       </div>
     </div>
   )

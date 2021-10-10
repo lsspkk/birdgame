@@ -15,6 +15,7 @@ import {
 import { GameResultsView } from '../../components/GameResultsView'
 import { basePath } from '../../next.config'
 import { isStarScore, SpinningStar } from '../../components/StarCircle'
+import Image from 'next/image'
 
 export default function ImageLevel(): ReactElement {
   const router = useRouter()
@@ -106,10 +107,14 @@ export default function ImageLevel(): ReactElement {
     <Layout>
       {animation !== '' && (
         <>
-          <img
+          <Image
             className="absolute top-0 left-0 w-full max-h-full"
             src={animationSrc}
             alt={animation}
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="contain"
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
@@ -131,29 +136,35 @@ export default function ImageLevel(): ReactElement {
         />
       )}
       {animation === '' && questionIndex >= questions.length && (
-        <div className="mt-8  text-center">
-          <h1 className="p-2 text-4xl text-blue-400">Hyvin tehty!</h1>
-          <div className="p-2">
-            Oikeita vastauksia: {gameScore} / {setting?.questions}
-          </div>
-          {user._id !== undefined && isSaving && (
-            <p>Tallennetaan tuloksia...</p>
-          )}
-          {!isSaving && (
-            <Link href="/" passHref>
-              <div className="mt-8 text-2xl bg-blue-3000 p-2 rounded w-1/4 text-white m-auto self-center">
-                Takaisin
-              </div>
-            </Link>
-          )}
-          {user._id !== undefined && !isSaving && (
-            <>
+        <div className="mt-8 flex flex-col justify-center content-center items-center">
+          <div className="flex justify-center text-center">
+            <div>
               <SpinningStar
                 shadow={!isStarScore(gameScore, setting?.questions)}
               />
+            </div>
+            <div>
+              <h1 className="text-2xl text-blue-400">Hyvin tehty!</h1>
+              <div className="p-2">
+                Oikeita vastauksia: {gameScore} / {setting?.questions}
+              </div>
+              {user._id !== undefined && isSaving && (
+                <p>Tallennetaan tuloksia...</p>
+              )}
+              {!isSaving && (
+                <Link href="/" passHref>
+                  <div className="mt-2 mb-8 text-xl w-30 bg-blue-300 py-2 px-4 rounded text-white self-center border shadow">
+                    Takaisin
+                  </div>
+                </Link>
+              )}
+            </div>
+          </div>
+          {user._id !== undefined && !isSaving && (
+            <div className="flex-column items-center w-full justify-center justify-items-center">
               <GameResultsView results={score.results} />
               {/* <GameKnowledgeView knowledge={score.knowledge} /> */}
-            </>
+            </div>
           )}
         </div>
       )}

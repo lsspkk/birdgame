@@ -52,7 +52,7 @@ export function TeamCard({ team, setViewMode }: TeamCardProps): ReactElement {
       </div>
       {state.isOpen && (
         <div>
-          <TeamPlayerList team={team} />
+          <TeamPlayerList team={team} setViewMode={setViewMode} />
         </div>
       )}
       {state.isAskingEditPassword && (

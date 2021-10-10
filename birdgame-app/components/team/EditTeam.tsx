@@ -9,8 +9,9 @@ import {
 } from '../../models/team'
 import { basePath } from '../../next.config'
 import { Player } from '../Player'
-import { useUsers } from '../../models/swrApi'
+import { UsersData, useUsers } from '../../models/swrApi'
 import { useRouter } from 'next/dist/client/router'
+import { UserInterface } from '../../models/user'
 
 interface editTeamProps {
   setViewMode: (GroupViewMode) => void

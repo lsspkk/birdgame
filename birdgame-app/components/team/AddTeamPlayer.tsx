@@ -6,6 +6,7 @@ import { Message } from '../basic/Message'
 import { Title } from '../basic/Title'
 import { GameContext, GameContextInterface } from '../state'
 import { Avatar, ChooseAvatar } from '../Player'
+import { TeamCardProps } from './TeamCard'
 
 export interface AddTeamPlayerProps extends TeamCardProps {
   setShow: (boolean) => void

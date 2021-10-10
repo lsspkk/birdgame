@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { UserInterface } from '../models/user'
+import Image from 'next/image'
 
 interface UserInterfaceProps {
   user: UserInterface
@@ -23,7 +24,15 @@ interface AvatarProps {
   avatar: string
 }
 export function Avatar({ avatar }: AvatarProps): ReactElement {
-  return <img className="rounded-full w-20 h-20" src={avatarUrl(avatar)} />
+  return (
+    <Image
+      height={200}
+      width={200}
+      className="rounded-full w-20 h-20"
+      src={avatarUrl(avatar)}
+      alt="avatar"
+    />
+  )
 }
 
 import avatarsJson from '../data/avatars.json'
@@ -42,7 +51,11 @@ export function ChooseAvatar({
       {avatars.map((avatar: string) => {
         const isChosen = chosen === avatar ? 'bg-red-500' : ''
         return (
-          <img
+          <Image
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="contain"
             key={`ca${avatar}`}
             className={`w-10 h-10 p-1 ${isChosen}`}
             src={avatarUrl(avatar)}

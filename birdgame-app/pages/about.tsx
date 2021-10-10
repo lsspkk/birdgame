@@ -7,7 +7,7 @@ import { Layout } from '../components/Layout'
 export default function About(): ReactElement {
   return (
     <Layout>
-      <Link href="/">
+      <Link href="/" passHref>
         <h1 className="text-6xl font-bold">
           <BirdIcon />
         </h1>

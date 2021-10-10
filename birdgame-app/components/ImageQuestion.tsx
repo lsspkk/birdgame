@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { getBird, Question } from '../data/levels'
+import Image from 'next/image'
 
 interface ImageQuestionProps {
   question: Question
@@ -39,8 +40,11 @@ function ImageQuestion({
             style={{ maxWidth: birdCardMaxWidth, maxHeight: birdCardMaxHeight }}
             key={`qa${questionIndex}-${i}-${JSON.stringify(question)}`}
           >
-            <img
-              style={{ objectFit: 'cover' }}
+            <Image
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="contain"
               className="w-full h-full"
               onClick={() => answer(i)}
               src={url + getBird(a).image}
