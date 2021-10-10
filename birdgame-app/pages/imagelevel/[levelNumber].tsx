@@ -15,7 +15,7 @@ import {
 import { GameResultsView } from '../../components/GameResultsView'
 import { basePath } from '../../next.config'
 import { isStarScore, SpinningStar } from '../../components/StarCircle'
-import Image from 'next/image'
+//import Image from 'next/image'
 
 export default function ImageLevel(): ReactElement {
   const router = useRouter()
@@ -107,7 +107,8 @@ export default function ImageLevel(): ReactElement {
     <Layout>
       {animation !== '' && (
         <>
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             className="absolute top-0 left-0 w-full max-h-full"
             src={animationSrc}
             alt={animation}
