@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { BirdIcon } from '../components/Icons'
@@ -117,14 +118,11 @@ function BirdKnowledgeImage({
           className={`imagewrapper ${playing ? 'playing' : ''}`}
           onClick={toggleAudio}
         >
-          {// eslint-disable-next-line @next/next/no-img-element}
           <img
             src={url + bird.image}
             alt={knowledge.bird}
             width="100%"
-            height="100%"
-            layout="responsive"
-            objectFit="contain"
+            height="auto"
           />
         </div>
       </td>

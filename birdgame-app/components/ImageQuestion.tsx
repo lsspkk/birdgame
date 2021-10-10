@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { ReactElement } from 'react'
 
 import { getBird, Question } from '../data/levels'
@@ -40,12 +41,9 @@ function ImageQuestion({
             style={{ maxWidth: birdCardMaxWidth, maxHeight: birdCardMaxHeight }}
             key={`qa${questionIndex}-${i}-${JSON.stringify(question)}`}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               width="100%"
               height="100%"
-              layout="responsive"
-              objectFit="contain"
               className="w-full h-full"
               onClick={() => answer(i)}
               src={url + getBird(a).image}

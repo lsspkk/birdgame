@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useState } from 'react'
@@ -107,15 +108,12 @@ export default function ImageLevel(): ReactElement {
     <Layout>
       {animation !== '' && (
         <>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="absolute top-0 left-0 w-full max-h-full"
             src={animationSrc}
             alt={animation}
             width="100%"
-            height="100%"
-            layout="responsive"
-            objectFit="contain"
+            height="auto"
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
