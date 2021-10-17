@@ -13,8 +13,7 @@ import {
   emptyScore,
   ScoreInterface,
 } from '../../models/score'
-import { GameResultsView } from '../../components/GameResultsView'
-import { basePath } from '../../next.config'
+// import { basePath } from '../../next.config'
 import { isStarScore, SpinningStar } from '../../components/StarCircle'
 //import Image from 'next/image'
 
@@ -28,7 +27,7 @@ export default function AudioLevel(): ReactElement {
   const [animation, setAnimation] = useState('')
   const [birdName, setBirdName] = useState('')
   const [isSaving, setIsSaving] = useState(false)
-  const [score, setScore] = useState<ScoreInterface>(emptyScore)
+  const [, setScore] = useState<ScoreInterface>(emptyScore)
   const { setBirdKnowledge, birdKnowledge, user } = useContext(GameContext)
 
   const setting: Setting = settings.levels.filter((s) => s.level === level)[0]
@@ -75,30 +74,32 @@ export default function AudioLevel(): ReactElement {
   }
 
   async function saveGameResult(newKnowledge: IBirdKnowledge[]) {
-    setIsSaving(true)
-    const res = await fetch(`${basePath}/api/scores`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: user._id,
-        knowledge: newKnowledge,
-        gameResult: { level: `${level}`, isImage: false, scores: [gameScore] },
-      }),
-    })
-    if (res.ok) {
-      const updatedScore = await res.json()
-      updatedScore.knowledge.sort((a, b) => {
-        if (a.rightAudioAnswers < b.rightAudioAnswers) return 1
-        if (b.rightAudioAnswers < a.rightAudioAnswers) return -1
-        return 0
-      })
-      setScore(updatedScore)
-    } else {
-      setScore(emptyScore)
-    }
+    console.log(newKnowledge)
+    // setIsSaving(true)
+    // const res = await fetch(`${basePath}/api/scores`, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     userId: user._id,
+    //     knowledge: newKnowledge,
+    //     gameResult: { level: `${level}`, isImage: false, scores: [gameScore] },
+    //   }),
+    // })
+    // if (res.ok) {
+    //   const updatedScore = await res.json()
+    //   updatedScore.knowledge.sort((a, b) => {
+    //     if (a.rightAudioAnswers < b.rightAudioAnswers) return 1
+    //     if (b.rightAudioAnswers < a.rightAudioAnswers) return -1
+    //     return 0
+    //   })
+    //setScore(updatedScore)
+    // } else {
+    //   setScore(emptyScore)
+    // }
+    setScore(emptyScore)
     setIsSaving(false)
   }
 

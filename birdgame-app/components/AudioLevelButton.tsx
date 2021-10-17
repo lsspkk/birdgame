@@ -16,6 +16,7 @@ export function AudioLevelButton({
   const router = useRouter()
   // TODO fix the data model, save scores for image and audio separately
   const stars = useStars(score, Number(level))
+  console.log(stars)
   function selectLevel() {
     // store answers of this game
     setBirdKnowledge([])
