@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 import { getBird, Question } from '../data/levels'
 
@@ -31,7 +31,7 @@ function AudioQuestion({
 
   const birdCardWidth = question.choises.length <= 4 ? 'w-full' : 'w-1/2'
 
-  const toggleAudio = useCallback(() => {
+  const toggleAudio = () => {
     const audioElement = document.querySelector(
       '.birdaudio',
     ) as HTMLAudioElement
@@ -42,12 +42,13 @@ function AudioQuestion({
       audioElement.play()
       setPlayint(true)
     }
-  }, [playing])
+  }
 
   useEffect(() => {
     const handle = setTimeout(() => toggleAudio(), 500)
     return () => clearTimeout(handle)
-  }, [toggleAudio])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const bird = getBird(question.choises[question.rightAnswer])
   return (
