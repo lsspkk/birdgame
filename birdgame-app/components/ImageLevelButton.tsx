@@ -14,7 +14,7 @@ export function ImageLevelButton({
   const { setBirdKnowledge, score }: GameContextInterface =
     useContext(GameContext)
   const router = useRouter()
-  const stars = useStars(score, Number(level))
+  const stars = useStars(score, Number(level), 'image')
   function selectLevel() {
     // store answers of this game
     setBirdKnowledge([])
@@ -24,7 +24,7 @@ export function ImageLevelButton({
     <div
       className={`w-1/2 bg-pink-${
         100 * (Number(level) + 1)
-      } px-1 py-4 border-4`}
+      } px-1 py-6 border-4`}
     >
       <div onClick={selectLevel} className="flex items-center justify-center">
         <div className="absolute -ml-28">

@@ -37,9 +37,13 @@ export default function Random(): ReactElement {
 
     if (question.rightAnswer === answerIndex) {
       setGameScore(gameScore + 1)
-      knowledge.rightImageAnswers += 1
+      knowledge.answers.forEach((a) => {
+        if (a.answerType === 'image') a.right += 1
+      })
     } else {
-      knowledge.wrongImageAnswers += 1
+      knowledge.answers.forEach((a) => {
+        if (a.answerType === 'image') a.wrong += 1
+      })
     }
     let newKnowledge: IBirdKnowledge[] = []
     if (oldIndex !== -1) {

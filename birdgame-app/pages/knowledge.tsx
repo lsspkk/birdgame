@@ -127,7 +127,15 @@ function BirdKnowledgeImage({
         </div>
       </td>
       <td className="text-center text-2xl text-bold">
-        {knowledge.rightImageAnswers} / {knowledge.wrongImageAnswers}
+        {knowledge.answers
+          .filter((a) => a.answerType === 'image')
+          .map((a) => (
+            <div key={`dk${bird.name}.${a.answerType}`}>
+              {/* {a.answerType === 'image' ? 'Kuva' : 'Ääni'} */}
+              <div className="bg-green-900 inline">{a.right}</div> /{' '}
+              <div className="bg-red-900 inline">{a.wrong}</div>
+            </div>
+          ))}
       </td>
     </tr>
   )

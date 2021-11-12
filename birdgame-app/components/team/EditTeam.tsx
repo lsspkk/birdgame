@@ -70,7 +70,7 @@ export function EditTeam({ setViewMode, team }: editTeamProps): ReactElement {
       body: JSON.stringify(updateBody),
     })
     if (res.ok) {
-      console.log(await res.json())
+      // console.log(await res.json())
       router.reload()
     }
   }

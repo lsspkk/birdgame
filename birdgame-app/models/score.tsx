@@ -3,23 +3,24 @@ import { UserInterface } from './user'
 
 export interface IGameResult extends Partial<Document> {
   level: string
-  isImage: boolean
+  resultType: 'image' | 'audio'
   scores: number[]
 }
 export interface IBirdKnowledge extends Partial<Document> {
   bird: string
-  rightImageAnswers: number
-  wrongImageAnswers: number
-  rightAudioAnswers: number
-  wrongAudioAnswers: number
+  answers: {
+    answerType: 'image' | 'audio'
+    right: number
+    wrong: number
+  }[]
 }
 
 export const emptyBirdKnowledge: IBirdKnowledge = {
   bird: '',
-  rightImageAnswers: 0,
-  rightAudioAnswers: 0,
-  wrongImageAnswers: 0,
-  wrongAudioAnswers: 0,
+  answers: [
+    { answerType: 'image', right: 0, wrong: 0 },
+    { answerType: 'audio', right: 0, wrong: 0 },
+  ],
 }
 export interface ScoreInterface extends Partial<Document> {
   results: IGameResult[]
@@ -43,7 +44,9 @@ export function updateOldScore(
   const newResult = body.gameResult
   // newResult.level will be number, oldScore has string
   const oldResultIndex = oldScore.results.findIndex(
-    (r) => r.level === `${newResult.level}`,
+    (r) =>
+      r.level === `${newResult.level}` &&
+      r.resultType === body.gameResult.resultType,
   )
 
   if (oldResultIndex !== -1) {
@@ -66,19 +69,30 @@ export function updateOldScore(
   )
 
   changedKnowledge.forEach((k) => {
+    const audio = k.answers.find((a) => a.answerType === 'audio')
+    const image = k.answers.find((a) => a.answerType === 'image')
     const updated = oldScore.knowledge.find((o) => o.bird === k.bird)
-    updated.rightImageAnswers += k.rightImageAnswers
-    updated.wrongImageAnswers += k.wrongImageAnswers
-    updated.rightAudioAnswers += k.rightAudioAnswers
-    updated.wrongAudioAnswers += k.wrongImageAnswers
+    updated?.answers.forEach((a) => {
+      if (a.answerType === 'audio') {
+        a.right += audio.right
+        a.wrong += audio.wrong
+      }
+      if (a.answerType === 'image') {
+        a.right += image.right
+        a.wrong += image.wrong
+      }
+    })
   })
 
   const newKnowledge = body.knowledge.filter((k) => !oldBirds.includes(k.bird))
   newKnowledge.forEach((k) => oldScore.knowledge.push(k))
   oldScore.knowledge.forEach((k) => delete k._id)
   oldScore.knowledge.sort((a, b) => {
-    if (a.rightImageAnswers < b.rightImageAnswers) return 1
-    if (b.rightImageAnswers < a.rightImageAnswers) return -1
+    const rightA = a.answers.map((an) => an.right).reduce((p, c) => p + c)
+    const rightB = b.answers.map((an) => an.right).reduce((p, c) => p + c)
+
+    if (rightA < rightB) return 1
+    if (rightB < rightA) return -1
     return 0
   })
 }
@@ -92,17 +106,20 @@ const ScoreSchema = new Schema<ScoreInterface>({
   results: [
     {
       level: { type: String, required: true },
-      isImage: { type: Boolean, required: true },
+      resultType: { type: String, required: true },
       scores: [{ type: Number, required: true }],
     },
   ],
   knowledge: [
     {
       bird: { type: String, required: true },
-      rightImageAnswers: { type: Number, required: false },
-      wrongImageAnswers: { type: Number, required: false },
-      rightAudioAnswers: { type: Number, required: false },
-      wrongAudioAnswers: { type: Number, required: false },
+      answers: [
+        {
+          answerType: { type: String, required: true },
+          right: { type: Number, required: true },
+          wrong: { type: Number, required: true },
+        },
+      ],
     },
   ],
   userId: { type: String, required: true },

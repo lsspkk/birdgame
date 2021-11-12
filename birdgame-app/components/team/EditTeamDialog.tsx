@@ -47,7 +47,7 @@ export function EditTeamDialog({
     if (res.ok) {
       setPassword('')
       const teamToEdit = (await res.json()) as TeamInterface
-      console.log(teamToEdit)
+      //console.log(teamToEdit)
       setViewMode({ view: 'edit', teamToEdit })
     } else {
       setIsWrong(true)

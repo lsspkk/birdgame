@@ -14,9 +14,7 @@ export function AudioLevelButton({
   const { setBirdKnowledge, score }: GameContextInterface =
     useContext(GameContext)
   const router = useRouter()
-  // TODO fix the data model, save scores for image and audio separately
-  const stars = useStars(score, Number(level))
-  console.log(stars)
+  const stars = useStars(score, Number(level), 'audio')
   function selectLevel() {
     // store answers of this game
     setBirdKnowledge([])
@@ -34,7 +32,7 @@ export function AudioLevelButton({
         </div>
         <div className="opacity-0 pr-2">1</div>
         <div className="w-2 h-20"></div>
-        {/* {stars !== undefined && stars} */}
+        {stars !== undefined && stars}
         <div className="text-white font-bold text-2xl pl-2">{level}</div>
       </div>
       {/* <span className="bg-indigo-200">.</span>

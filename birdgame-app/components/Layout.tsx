@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { basePath } from '../next.config'
 import { GameContext } from './state'
-import { BirdIcon } from './Icons'
+import { BirdIcon, CloseIcon, SettingsIcon } from './Icons'
 
 export type Props = {
   children?: React.ReactNode
@@ -34,12 +34,18 @@ function Layout({ children }: Props): ReactElement {
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
       {!isGame && (
-        <Link href="/" passHref>
-          <div className="w-full flex flex-start items-center align-content-center bg-green-200 opacity-40 border-b-2">
-            <BirdIcon />
-            <h1 className="text-xl font-bold">Lintupeli</h1>
-          </div>
-        </Link>
+        <div className="w-full flex justify-between items-center align-content-center text-blue-100 bg-gray-700  border-b-2 px-2 shadow">
+          <Link href="/" passHref>
+            <div className="flex flex-start items-center">
+              <BirdIcon />
+              <h1 className="text-xl font-bold">Lintupeli</h1>
+            </div>
+          </Link>
+          {isHome && <SettingsIcon onClick={() => router.push('/settings')} />}
+          {!isHome && (
+            <CloseIcon className="h-10 w-10" onClick={() => router.back()} />
+          )}
+        </div>
       )}
       <main
         className={isGame ? '' : 'container flex flex-col w-full flex-1 p-2'}
@@ -48,7 +54,7 @@ function Layout({ children }: Props): ReactElement {
       </main>
 
       {isHome && (
-        <footer className="flex items-center justify-center w-full p-2 lg:h-24 border-t bg-green-200 opacity-40 border-t-2">
+        <footer className="flex items-center justify-center w-full p-2 lg:h-24 border-t text-blue-100 bg-gray-700 border-t-2">
           <Link href="/about">Tietoja</Link>
         </footer>
       )}

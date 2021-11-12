@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useState } from 'react'
 import { Layout } from '../../components/Layout'
-import { AudioQuestion } from '../../components/AudioQuestion'
+import { ImageQuestion } from '../../components/ImageQuestion'
 import { newLevel, Question } from '../../data/levels'
 import { settings, Setting } from '../../data/settings'
 import { GameContext } from '../../components/state'
@@ -13,22 +13,30 @@ import {
   emptyScore,
   ScoreInterface,
 } from '../../models/score'
-// import { basePath } from '../../next.config'
+import { GameResultsView } from '../../components/GameResultsView'
+import { basePath } from '../../next.config'
 import { isStarScore, SpinningStar } from '../../components/StarCircle'
 //import Image from 'next/image'
 
-export default function AudioLevel(): ReactElement {
+export default function ImageLevel(): ReactElement {
   const router = useRouter()
-  const { levelNumber } = router.query
-  const level: number = levelNumber === undefined ? 1 : parseInt(levelNumber[0])
+  const { imageLevelNumber } = router.query
+  const level: number =
+    imageLevelNumber === undefined ? 1 : parseInt(imageLevelNumber[0])
   const questions: Question[] = newLevel(level, true, undefined)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [gameScore, setGameScore] = useState(0)
   const [animation, setAnimation] = useState('')
   const [birdName, setBirdName] = useState('')
   const [isSaving, setIsSaving] = useState(false)
-  const [, setScore] = useState<ScoreInterface>(emptyScore)
-  const { setBirdKnowledge, birdKnowledge, user } = useContext(GameContext)
+  const [score, setScore] = useState<ScoreInterface>(emptyScore)
+  const {
+    settings: contextSettings,
+    setBirdKnowledge,
+    birdKnowledge,
+    user,
+    setScore: setContextScore,
+  } = useContext(GameContext)
 
   const setting: Setting = settings.levels.filter((s) => s.level === level)[0]
 
@@ -42,16 +50,26 @@ export default function AudioLevel(): ReactElement {
       ...baseKnowledge,
       bird: rightBirdName,
     }
-    console.log('oikea:', question.rightAnswer, 'oma vastaus', answerIndex)
+
     if (question.rightAnswer === answerIndex) {
       setGameScore(gameScore + 1)
+      if (contextSettings.sound) {
+        play('cheer')
+      }
       setAnimation('right')
 
-      knowledge.rightAudioAnswers += 1
+      knowledge.answers.forEach((a) => {
+        if (a.answerType === 'image') a.right += 1
+      })
     } else {
+      if (contextSettings.sound) {
+        play('cry')
+      }
       setAnimation('wrong')
 
-      knowledge.wrongAudioAnswers += 1
+      knowledge.answers.forEach((a) => {
+        if (a.answerType === 'image') a.wrong += 1
+      })
     }
     let newKnowledge: IBirdKnowledge[] = []
     if (oldIndex !== -1) {
@@ -65,7 +83,7 @@ export default function AudioLevel(): ReactElement {
     setBirdKnowledge(newKnowledge)
 
     setBirdName(question.choises[answerIndex])
-    setTimeout(() => setAnimation(''), 3000)
+    setTimeout(() => setAnimation(''), contextSettings.delay)
     setQuestionIndex(questionIndex + 1)
 
     if (questionIndex + 1 >= questions.length && user._id !== undefined) {
@@ -74,39 +92,61 @@ export default function AudioLevel(): ReactElement {
   }
 
   async function saveGameResult(newKnowledge: IBirdKnowledge[]) {
-    console.log(newKnowledge)
-    // setIsSaving(true)
-    // const res = await fetch(`${basePath}/api/scores`, {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     userId: user._id,
-    //     knowledge: newKnowledge,
-    //     gameResult: { level: `${level}`, isImage: false, scores: [gameScore] },
-    //   }),
-    // })
-    // if (res.ok) {
-    //   const updatedScore = await res.json()
-    //   updatedScore.knowledge.sort((a, b) => {
-    //     if (a.rightAudioAnswers < b.rightAudioAnswers) return 1
-    //     if (b.rightAudioAnswers < a.rightAudioAnswers) return -1
-    //     return 0
-    //   })
-    //setScore(updatedScore)
-    // } else {
-    //   setScore(emptyScore)
-    // }
-    setScore(emptyScore)
+    setIsSaving(true)
+    const res = await fetch(`${basePath}/api/scores`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user._id,
+        knowledge: newKnowledge,
+        gameResult: {
+          level: `${level}`,
+          resultType: 'image',
+          scores: [gameScore],
+        },
+      }),
+    })
+    if (res.ok) {
+      const updatedScore = await res.json()
+      updatedScore.knowledge.sort((a, b) => {
+        const rightA = a.answers.map((an) => an.right).reduce((p, c) => p + c)
+        const rightB = b.answers.map((an) => an.right).reduce((p, c) => p + c)
+
+        if (rightA < rightB) return 1
+        if (rightB < rightA) return -1
+        return 0
+      })
+      setScore(updatedScore)
+      setContextScore(updatedScore)
+    } else {
+      setScore(emptyScore)
+    }
     setIsSaving(false)
+  }
+
+  function play(soundName: string) {
+    const audioElement = document.querySelector(
+      `.${soundName}`,
+    ) as HTMLAudioElement
+    audioElement.play()
   }
 
   const animationSrc = `${process.env.NEXT_PUBLIC_BASE_PATH}${animation}-answer.gif`
 
   return (
     <Layout>
+      <audio
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH}cheer.mp3`}
+        className={`hidden cheer`}
+      />
+      <audio
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH}cry.mp3`}
+        className={`hidden cry`}
+      />
+
       {animation !== '' && (
         <>
           <img
@@ -129,7 +169,7 @@ export default function AudioLevel(): ReactElement {
         </>
       )}
       {animation === '' && questionIndex < questions.length && (
-        <AudioQuestion
+        <ImageQuestion
           question={questions[questionIndex]}
           answer={answer}
           questionIndex={questionIndex}
@@ -162,7 +202,9 @@ export default function AudioLevel(): ReactElement {
           </div>
           {user._id !== undefined && !isSaving && (
             <div className="flex-column items-center w-full justify-center justify-items-center">
-              {/* <GameResultsView results={score.results} /> */}
+              <GameResultsView
+                results={score.results.filter((s) => s.resultType === 'image')}
+              />
               {/* <GameKnowledgeView knowledge={score.knowledge} /> */}
             </div>
           )}

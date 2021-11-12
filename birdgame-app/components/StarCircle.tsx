@@ -19,10 +19,13 @@ const starTitles = [
 export function useStars(
   score: ScoreInterface | undefined,
   level: number,
+  resultType: 'image' | 'audio',
 ): ReactNode | undefined {
   let stars = 0
   if (score !== undefined) {
-    const result = score.results.find((r) => parseInt(r.level) == level)
+    const result = score.results.find((r) => {
+      return parseInt(r.level) == level && r.resultType == resultType
+    })
     if (result !== undefined) {
       stars = countStars(result.scores, level)
     }

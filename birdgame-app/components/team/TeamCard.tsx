@@ -60,7 +60,6 @@ export function TeamCard({ team, setViewMode }: TeamCardProps): ReactElement {
           team={team}
           close={() => setState({ ...state, isAskingEditPassword: false })}
           setViewMode={(viewMode: GroupViewMode) => {
-            console.log('edit starts', viewMode)
             setState({
               ...state,
               isAskingEditPassword: false,

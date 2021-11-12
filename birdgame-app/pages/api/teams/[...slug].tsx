@@ -51,7 +51,6 @@ export default async function handler(
     }
 
     if (req.method === 'PUT') {
-      console.log('have fun')
       const team: TeamInterface = await Team.findById(slug[0])
         .select('addUserPassword')
         .exec()

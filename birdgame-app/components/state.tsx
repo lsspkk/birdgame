@@ -4,6 +4,11 @@ import { emptyUser, UserInterface } from '../models/user'
 import { Props } from './Layout'
 import { basePath } from '../next.config'
 
+export interface Settings {
+  sound: boolean
+  delay: number
+}
+
 export interface GameContextInterface {
   user: UserInterface
   setUser: (UserInterface) => void
@@ -11,7 +16,10 @@ export interface GameContextInterface {
   setBirdKnowledge: (a: IBirdKnowledge[], callback?: () => void) => void
   score: ScoreInterface | undefined
   setScore: (a: ScoreInterface, callback?: () => void) => void
+  settings?: Settings
+  setSettings: (a: Settings, callback?: () => void) => void
 }
+
 export const GameContext = createContext<GameContextInterface>({
   user: emptyUser,
   setUser: () => null,
@@ -19,6 +27,8 @@ export const GameContext = createContext<GameContextInterface>({
   setBirdKnowledge: () => null,
   score: undefined,
   setScore: () => null,
+  settings: undefined,
+  setSettings: () => null,
 })
 
 export function ContextWrapper({ children }: Props): ReactElement {
@@ -26,6 +36,10 @@ export function ContextWrapper({ children }: Props): ReactElement {
   const [birdKnowledge, setBirdKnowledge] =
     useState<IBirdKnowledge[]>(undefined)
   const [score, setScore] = useState<ScoreInterface>(undefined)
+  const [settings, setSettings] = useState<Settings>({
+    sound: true,
+    delay: 3000,
+  })
   const state = {
     user,
     setUser,
@@ -33,6 +47,8 @@ export function ContextWrapper({ children }: Props): ReactElement {
     setBirdKnowledge,
     score: score,
     setScore: setScore,
+    settings: settings,
+    setSettings: setSettings,
   }
 
   async function loadScore(userId: string) {
@@ -40,8 +56,11 @@ export function ContextWrapper({ children }: Props): ReactElement {
     if (res.ok) {
       const loadedScore = (await res.json()) as ScoreInterface
       loadedScore.knowledge.sort((a, b) => {
-        if (a.rightImageAnswers < b.rightImageAnswers) return 1
-        if (b.rightImageAnswers < a.rightImageAnswers) return -1
+        const rightA = a.answers.map((an) => an.right).reduce((p, c) => p + c)
+        const rightB = b.answers.map((an) => an.right).reduce((p, c) => p + c)
+
+        if (rightA < rightB) return 1
+        if (rightB < rightA) return -1
         return 0
       })
       setScore(loadedScore)
@@ -55,6 +74,11 @@ export function ContextWrapper({ children }: Props): ReactElement {
       if (loadedUser._id !== '') {
         loadScore(loadedUser._id)
       }
+    }
+    const settingsString = localStorage.getItem('settings')
+    if (settingsString) {
+      const loadedSettings = JSON.parse(settingsString) as Settings
+      setSettings(loadedSettings)
     }
   }, [])
   return <GameContext.Provider value={state}>{children}</GameContext.Provider>
