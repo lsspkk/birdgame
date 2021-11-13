@@ -41,7 +41,7 @@ export default function ImageLevel(): ReactElement {
   const setting: Setting = settings.levels.filter((s) => s.level === level)[0]
 
   function answer(answerIndex: number) {
-    const question = questions[questionIndex]
+    const question = { ...questions[questionIndex] }
     const rightBirdName = question.choises[question.rightAnswer]
     const oldIndex = birdKnowledge.findIndex((b) => b.bird === rightBirdName)
     const baseKnowledge =
@@ -52,7 +52,7 @@ export default function ImageLevel(): ReactElement {
     }
 
     if (question.rightAnswer === answerIndex) {
-      setGameScore(gameScore + 1)
+      setGameScore(() => gameScore + 1)
       if (contextSettings.sound) {
         play('cheer')
       }
@@ -84,7 +84,7 @@ export default function ImageLevel(): ReactElement {
 
     setBirdName(question.choises[answerIndex])
     setTimeout(() => setAnimation(''), contextSettings.delay)
-    setQuestionIndex(questionIndex + 1)
+    setQuestionIndex(() => questionIndex + 1)
 
     if (questionIndex + 1 >= questions.length && user._id !== undefined) {
       saveGameResult(newKnowledge)
