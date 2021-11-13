@@ -27,6 +27,7 @@ export interface ScoreInterface extends Partial<Document> {
   knowledge: IBirdKnowledge[]
   lastPlayed?: Date
   user?: UserInterface
+  userId?: string
 }
 
 // post body to api/scores

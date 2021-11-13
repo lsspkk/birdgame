@@ -18,12 +18,7 @@ const dbConnect = async (): Promise<void> => {
     return
   }
 
-  pendingPromise = mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
+  pendingPromise = mongoose.connect(process.env.MONGODB_URI, {})
   try {
     await pendingPromise
   } finally {
