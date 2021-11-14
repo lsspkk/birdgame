@@ -13,7 +13,11 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 # RUN yarn build
-RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
+
+# export NODE_OPTIONS=--openssl-legacy-provider &&
+# for Error: error:0308010C:digital envelope routines::unsupported
+# could use another node version also
+RUN export NODE_OPTIONS=--openssl-legacy-provider && yarn build && yarn install --production --ignore-scripts --prefer-offline
 
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
