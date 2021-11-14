@@ -34,7 +34,7 @@ function Layout({ children }: Props): ReactElement {
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
       {!isGame && (
-        <div className="w-full flex justify-between items-center align-content-center text-blue-100 bg-gray-700  border-b-2 px-2 shadow">
+        <div className="w-full flex justify-between items-center align-content-center text-blue-100 bg-gray-700  border-b-2 shadow">
           <Link href="/" passHref>
             <div className="flex flex-start items-center">
               <BirdIcon />

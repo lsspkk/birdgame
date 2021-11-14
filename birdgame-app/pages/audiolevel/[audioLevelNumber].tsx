@@ -22,11 +22,12 @@ export default function AudioLevel(): ReactElement {
   const { audioLevelNumber } = router.query
   const level: number =
     audioLevelNumber === undefined ? 1 : parseInt(audioLevelNumber[0])
-  const questions: Question[] = newLevel(level, true, undefined)
+  const questions: Question[] = newLevel(level, false, undefined)
   const [questionIndex, setQuestionIndex] = useState(0)
   const [gameScore, setGameScore] = useState(0)
   const [animation, setAnimation] = useState('')
-  const [birdName, setBirdName] = useState('')
+  const [answerBirdName, setAnsweredBirdName] = useState('')
+  const [rightBirdName, setRightBirdName] = useState('')
   const [isSaving, setIsSaving] = useState(false)
   const [score, setScore] = useState<ScoreInterface>(emptyScore)
   const {
@@ -57,6 +58,7 @@ export default function AudioLevel(): ReactElement {
       }
 
       setAnimation('right')
+      setRightBirdName('')
 
       knowledge.answers.forEach((a) => {
         if (a.answerType === 'audio') a.right += 1
@@ -67,6 +69,11 @@ export default function AudioLevel(): ReactElement {
       }
 
       setAnimation('wrong')
+      setRightBirdName(
+        String(question.rightAnswer) +
+          ': ' +
+          question.choises[question.rightAnswer],
+      )
 
       knowledge.answers.forEach((a) => {
         if (a.answerType === 'audio') a.wrong += 1
@@ -83,7 +90,7 @@ export default function AudioLevel(): ReactElement {
 
     setBirdKnowledge(newKnowledge)
 
-    setBirdName(question.choises[answerIndex])
+    setAnsweredBirdName(question.choises[answerIndex])
     setTimeout(() => setAnimation(''), contextSettings.delay)
     setQuestionIndex(questionIndex + 1)
 
@@ -157,12 +164,20 @@ export default function AudioLevel(): ReactElement {
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
-              Oikein: {birdName}
+              Oikein:
+              <br />
+              {answerBirdName}
             </div>
           )}
           {animation === 'wrong' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-red-900">
-              Väärin: {birdName}
+              Väärin:
+              <br />
+              {answerBirdName}
+              <p>
+                Oikea vastaus oli
+                <br /> {rightBirdName}
+              </p>
             </div>
           )}
         </>

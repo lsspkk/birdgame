@@ -289,13 +289,13 @@ function CloseIcon(props: React.HTMLAttributes<HTMLDivElement>): ReactElement {
         {`
           .outer {
             transform: scale(0.4);
-            margin: -30px 30px 0 0;
+            margin: -30px 0 -0 -40px;
+            position: absolute;
           }
           .inner {
             width: 100px;
             height: 100px;
 
-            right: 50%;
             top: 50%;
 
             background-color: #ffffff;

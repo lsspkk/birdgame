@@ -32,8 +32,8 @@ export function GameResultView({ result }: GrProps): ReactElement {
       <div className="flex items-center justify-center">
         <div className="self-justify-end text-xl pr-10"></div>
         <div className="flex justify-start items-end w-40">
-          {result.scores.map((s) => (
-            <div key={`grvscore${result.level}${s}`}>
+          {result.scores.map((s, i) => (
+            <div key={`grvscore${result.level}${s}.${i}`}>
               <div
                 style={{
                   display: 'block',

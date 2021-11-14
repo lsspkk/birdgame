@@ -27,7 +27,8 @@ export default function ImageLevel(): ReactElement {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [gameScore, setGameScore] = useState(0)
   const [animation, setAnimation] = useState('')
-  const [birdName, setBirdName] = useState('')
+  const [answerBirdName, setAnsweredBirdName] = useState('')
+  const [rightBirdName, setRightBirdName] = useState('')
   const [isSaving, setIsSaving] = useState(false)
   const [score, setScore] = useState<ScoreInterface>(emptyScore)
   const {
@@ -66,6 +67,11 @@ export default function ImageLevel(): ReactElement {
         play('cry')
       }
       setAnimation('wrong')
+      setRightBirdName(
+        String(question.rightAnswer) +
+          ': ' +
+          question.choises[question.rightAnswer],
+      )
 
       knowledge.answers.forEach((a) => {
         if (a.answerType === 'image') a.wrong += 1
@@ -82,7 +88,7 @@ export default function ImageLevel(): ReactElement {
 
     setBirdKnowledge(newKnowledge)
 
-    setBirdName(question.choises[answerIndex])
+    setAnsweredBirdName(question.choises[answerIndex])
     setTimeout(() => setAnimation(''), contextSettings.delay)
     setQuestionIndex(() => questionIndex + 1)
 
@@ -158,12 +164,20 @@ export default function ImageLevel(): ReactElement {
           />
           {animation === 'right' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
-              Oikein: {birdName}
+              Oikein:
+              <br />
+              {answerBirdName}
             </div>
           )}
           {animation === 'wrong' && (
             <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-red-900">
-              Väärin: {birdName}
+              Väärin:
+              <br />
+              {answerBirdName}
+              <p>
+                Oikea vastaus oli
+                <br /> {rightBirdName}
+              </p>
             </div>
           )}
         </>
