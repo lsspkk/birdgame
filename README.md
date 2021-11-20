@@ -1,25 +1,34 @@
 # Ominaisuudet
 
-- Valitse peli/taso: Tunnista kuva
-
-- Näkyy useampi taso, jos on läpäisty jo tällä koneella.
-- Tallenna localstorageen mikä taso.
-
 - pwa, ei selaimen palkkia
+- valitse ensin kuka pelaa, tervetulonäyttö
+- näytä joukkueen tiedot, tervetulonäyttö2
+- ulkoasu, kuvan tunnistus
+- ulkoasu, äänen tunnistus
+- lintujen nimet audiona
+- oikean linnun kuva näkyviin, jos on vastannut väärin
 
-- Valitse pelaajan joukkue/hahmo
+- ulkoasu: pelin valinta
+- ulkoasu: taso läpäisty
+- ulkoasu: oma lintutietous
 
-- Yhteenlaskukysymyksellä voi vaihtaa hahmoa jo tallennettujen välillä
+- paras tulos/taso joukkueelta
+- joukkueen paras lintutietäjä
+- Näkyy useampi taso, jos on läpäisty jo tällä joukkueella
 
-- Tallenna mongoon joukkueet ja tuloksia:
+x Tallenna mongoon joukkueet
+x tallenna mongoon pisteet ja tiedot
+x Valitse peli/taso: Tunnista kuva
 
-- kuinka monta oikein, paras tulos/taso
-- tallenna historiatiedot, mitä vastattu milloinkin,
-  mitkä linnut osataan
-- näytä historiatiedot
-- mahdollista salasanan vaihto
-- kysy salasanaa
-- tunnista ääni
+x Tallenna localstorageen mikä taso.
+
+x tallenna historiatiedot, mitä vastattu milloinkin,
+mitkä linnut osataan
+x näytä historiatiedot
+x mahdollista salasanan vaihto
+x kysy salasanaa
+x tunnista ääni
+x Valitse pelaajan joukkue/hahmo
 
 # Tunnista kuva
 

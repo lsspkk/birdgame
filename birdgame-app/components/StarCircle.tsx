@@ -114,23 +114,29 @@ export function SpinningStar({
     <div className="flex p-10 justify-center">
       <style jsx>
         {`
+          @keyframes colorspin {
+            100% {
+              transform: rotate(360deg);
+              filter: hue-rotate(360deg);
+            }
+          }
           @keyframes spin {
             100% {
               transform: rotate(360deg);
             }
           }
-          @keyframes colorize {
-            100% {
-              filter: hue-rotate(360deg);
-            }
-          }
           .spinningstar {
-            animation: spin 5s linear infinite, colorize 2s linear infinite;
-            ${shadow ? 'filter: grayscale(50%) blur(10px); opacity: 0.3;' : ''}
+            animation: spin 5s linear infinite;
+            ${shadow ? 'filter: grayscale(50%) blur(10px); opacity: 0.3;' : ''};
+          }
+          .colorspinnigstar {
+            animation: colorspin 5s linear infinite;
           }
         `}
       </style>
-      <div className="spinningstar w-20 h-20">
+      <div
+        className={`${shadow ? 'spinningstar' : 'colorspinnigstar'} w-20 h-20`}
+      >
         <Star scale={1.5} />
       </div>
     </div>

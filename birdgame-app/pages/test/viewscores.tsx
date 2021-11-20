@@ -11,6 +11,8 @@ export default function Random(): ReactElement {
     <Layout>
       <div className="container flex">Hello</div>
       <SpinningStar />
+      <SpinningStar shadow />
+
       {scores.map((s) => (
         <div
           style={{ display: 'block', width: '100px', height: '100px' }}
@@ -19,7 +21,6 @@ export default function Random(): ReactElement {
           {s} <StarCircle stars={s} />
         </div>
       ))}
-      <SpinningStar shadow />
     </Layout>
   )
 }
