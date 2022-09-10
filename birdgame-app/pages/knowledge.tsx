@@ -4,7 +4,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { BirdIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
-import { IBirdKnowledge } from '../models/score'
+import { IBirdKnowledge } from '../models/IGameResult'
 
 function BirdKnowledgeImage({
   knowledge,

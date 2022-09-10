@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { settings } from '../data/settings'
-import { IGameResult } from '../models/score'
+import { IGameResult } from '../models/IGameResult'
 
 interface GrvProps {
   results: IGameResult[]

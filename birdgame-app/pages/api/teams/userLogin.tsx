@@ -1,4 +1,8 @@
-import { User, UserInterface, UserLoginInterface } from '../../../models/user'
+import { User } from '../../../models/user'
+import {
+  UserInterface,
+  UserLoginInterface,
+} from '../../../models/UserInterface'
 import bcrypt from 'bcrypt'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -11,6 +15,7 @@ export default async function handler(
     res.status(400)
   } else {
     const body: UserLoginInterface = req.body
+    // @ts-ignore
     const u: UserInterface = await User.findOne({ _id: body.userId }).exec()
     const ok = await bcrypt.compare(body.password, u.password)
 

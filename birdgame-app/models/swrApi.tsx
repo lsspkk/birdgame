@@ -1,7 +1,7 @@
 import useSWR from 'swr'
-import { TeamInterface } from './team'
+import { TeamInterface } from './TeamInterface'
 import { basePath } from '../next.config'
-import { UserInterface } from './user'
+import { UserInterface } from './UserInterface'
 
 const fetcher = (input: RequestInfo, init: RequestInit) =>
   fetch(input, init).then((res) => res.json())

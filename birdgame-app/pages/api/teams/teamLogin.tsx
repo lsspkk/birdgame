@@ -1,4 +1,5 @@
-import { Team, TeamInterface, TeamLogin } from '../../../models/team'
+import { Team } from '../../../models/team'
+import { TeamInterface, TeamLogin } from '../../../models/TeamInterface'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcrypt'
 
@@ -11,6 +12,7 @@ export default async function handler(
   } else {
     const body: TeamLogin = req.body
     console.log(body)
+    // @ts-ignore
     const team: TeamInterface = await Team.findOne({ _id: body.id }).exec()
     console.log(team)
     const ok = await bcrypt.compare(body.password, team.password)

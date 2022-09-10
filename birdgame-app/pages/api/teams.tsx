@@ -1,4 +1,5 @@
-import { Team, TeamInterface } from '../../models/team'
+import { Team } from '../../models/team'
+import { TeamInterface } from '../../models/TeamInterface'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcrypt'
 import dbConnect from '../../models/dbConnect'

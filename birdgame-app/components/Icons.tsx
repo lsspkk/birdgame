@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react'
+import React, { CSSProperties, ReactElement, useContext } from 'react'
+import { GameContext, getBgColor, getTextColor } from './state'
 
-function BirdIcon(props: React.SVGAttributes<SVGElement>): ReactElement {
+export function BirdIcon(props: React.SVGAttributes<SVGElement>): ReactElement {
   return (
     <svg
       width="56"
@@ -67,7 +68,9 @@ function BirdIcon(props: React.SVGAttributes<SVGElement>): ReactElement {
   )
 }
 
-function BirdIconNoSound(props: React.SVGAttributes<SVGElement>): ReactElement {
+export function BirdIconNoSound(
+  props: React.SVGAttributes<SVGElement>,
+): ReactElement {
   return (
     <svg
       width="56"
@@ -125,7 +128,7 @@ function BirdIconNoSound(props: React.SVGAttributes<SVGElement>): ReactElement {
   )
 }
 
-function DownArrow(): ReactElement {
+export function DownArrow(): ReactElement {
   return (
     <svg
       className="h-10 w-10"
@@ -143,7 +146,7 @@ function DownArrow(): ReactElement {
     </svg>
   )
 }
-function UpArrow(): ReactElement {
+export function UpArrow(): ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +166,7 @@ function UpArrow(): ReactElement {
   )
 }
 
-function EditIcon(): ReactElement {
+export function EditIcon(): ReactElement {
   return (
     <svg
       version="1.1"
@@ -183,9 +186,11 @@ function EditIcon(): ReactElement {
   )
 }
 
-function SettingsIcon(props: React.HTMLAttributes<SVGElement>): ReactElement {
+export function SettingsIcon(
+  props: React.HTMLAttributes<SVGElement>,
+): ReactElement {
   return (
-    <svg id="svg53383" viewBox="0 0 48 48" className="h-10 w-10" {...props}>
+    <svg id="svg53383" viewBox="0 0 48 48" {...props}>
       <defs id="defs3">
         <radialGradient
           id="radialGradient2308"
@@ -282,7 +287,9 @@ function SettingsIcon(props: React.HTMLAttributes<SVGElement>): ReactElement {
   )
 }
 
-function CloseIcon(props: React.HTMLAttributes<HTMLDivElement>): ReactElement {
+export function CloseIcon(
+  props: React.HTMLAttributes<HTMLDivElement>,
+): ReactElement {
   return (
     <div {...props}>
       <style jsx>
@@ -409,12 +416,112 @@ function CloseIcon(props: React.HTMLAttributes<HTMLDivElement>): ReactElement {
   )
 }
 
-export {
-  EditIcon,
-  BirdIcon,
-  BirdIconNoSound,
-  DownArrow,
-  UpArrow,
-  SettingsIcon,
-  CloseIcon,
+interface Props extends React.SVGAttributes<SVGElement> {
+  bgColor?: string
+  style?: CSSProperties
 }
+
+function withTheme<T extends Props>(
+  WrappedComponent: React.ComponentType<T> & Props,
+): React.ComponentType<T> {
+  // Try to create a nice displayName for React Dev Tools.
+  const displayName =
+    WrappedComponent.displayName || WrappedComponent.name || 'Component'
+
+  // Creating the inner component. The calculated Props type here is the where the magic happens.
+  const ComponentWithTheme = ({ bgColor, ...props }: Props) => {
+    const { settings } = useContext(GameContext)
+    const color = bgColor ? bgColor : getBgColor(settings.color)
+    const style = {
+      filter: `drop-shadow(0px 0px 3px ${color} )`,
+    }
+    const themeProps = { style }
+    return (
+      <div className={getTextColor(settings.color)}>
+        <WrappedComponent {...themeProps} {...(props as T)} />
+      </div>
+    )
+  }
+
+  ComponentWithTheme.displayName = `withTheme(${displayName})`
+
+  return ComponentWithTheme
+}
+
+export const PlayIcon = withTheme((props: Props): JSX.Element => {
+  return (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <path
+        fill="currentColor"
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm115.7 272l-176 101c-15.8 8.8-35.7-2.5-35.7-21V152c0-18.4 19.8-29.8 35.7-21l176 107c16.4 9.2 16.4 32.9 0 42z"
+      ></path>
+    </svg>
+  )
+})
+
+export const TeamIcon = withTheme((props: Props): JSX.Element => {
+  return (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <path
+        fill="currentColor"
+        d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"
+      ></path>
+    </svg>
+  )
+})
+
+export const TelescopeIcon = withTheme((props: Props): JSX.Element => {
+  return (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <g>
+        <path
+          fill="currentColor"
+          d="M263.3594,347.79914,136.3008,391.44163c-8.7539,3.00781-18.05078-.69335-21.26953-8.46678l-8.74219-21.10738L42.17971,388.42211A15.99837,15.99837,0,0,1,21.27737,379.762L1.21877,331.34018a16.00653,16.00653,0,0,1,8.66406-20.90425L73.9844,283.88129,65.24221,262.772c-3.21875-7.77342.73828-16.96481,9.05469-21.02925L380.4219,92.1336l78.125,188.62074-66.60157,22.87691a71.98089,71.98089,0,0,0-143.96093.36914A71.08619,71.08619,0,0,0,263.3594,347.79914Z"
+          style={{ opacity: '0.5' }}
+        ></path>
+        <path
+          fill="currentColor"
+          d="M638.77737,216.83064,553.06252,9.88181a15.99836,15.99836,0,0,0-20.90234-8.66014L414.84377,49.81923a15.99639,15.99639,0,0,0-8.65625,20.90426l85.71094,206.94883a16.00274,16.00274,0,0,0,20.90625,8.66014l117.3125-48.59757A15.99819,15.99819,0,0,0,638.77737,216.83064ZM376.13283,348.50812a71.27481,71.27481,0,0,0,15.85157-44.50773,72,72,0,0,0-144,0,71.27859,71.27859,0,0,0,15.87109,44.53507l-47.46484,142.404A16.00061,16.00061,0,0,0,231.57033,512h16.85938a16.00416,16.00416,0,0,0,15.17969-10.94139l42.16406-126.49585a71.05048,71.05048,0,0,0,28.44922-.002l42.168,126.4978A16.00046,16.00046,0,0,0,391.57033,512h16.85938a16.00062,16.00062,0,0,0,15.17969-21.06051ZM319.9844,328.00035a24,24,0,1,1,24-24A24.03627,24.03627,0,0,1,319.9844,328.00035Z"
+        ></path>
+      </g>
+    </svg>
+  )
+})
+
+export const ProfileIcon = withTheme((props: Props): JSX.Element => {
+  return (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <path
+        fill="currentColor"
+        d="M512 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V96C576 60.65 547.3 32 512 32zM176 128c35.35 0 64 28.65 64 64s-28.65 64-64 64s-64-28.65-64-64S140.7 128 176 128zM272 384h-192C71.16 384 64 376.8 64 368C64 323.8 99.82 288 144 288h64c44.18 0 80 35.82 80 80C288 376.8 280.8 384 272 384zM496 320h-128C359.2 320 352 312.8 352 304S359.2 288 368 288h128C504.8 288 512 295.2 512 304S504.8 320 496 320zM496 256h-128C359.2 256 352 248.8 352 240S359.2 224 368 224h128C504.8 224 512 231.2 512 240S504.8 256 496 256zM496 192h-128C359.2 192 352 184.8 352 176S359.2 160 368 160h128C504.8 160 512 167.2 512 176S504.8 192 496 192z"
+      ></path>
+    </svg>
+  )
+})
+
+export const Settings2Icon = withTheme((props: Props): JSX.Element => {
+  return (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <path
+        fill="currentColor"
+        d="M499.5 332c0-5.66-3.112-11.13-8.203-14.07l-46.61-26.91C446.8 279.6 448 267.1 448 256s-1.242-23.65-3.34-35.02l46.61-26.91c5.092-2.941 8.203-8.411 8.203-14.07c0-14.1-41.98-99.04-63.86-99.04c-2.832 0-5.688 .7266-8.246 2.203l-46.72 26.98C362.9 94.98 342.4 83.1 320 75.16V21.28c0-7.523-5.162-14.28-12.53-15.82C290.8 1.977 273.7 0 256 0s-34.85 1.977-51.48 5.461C197.2 7.004 192 13.76 192 21.28v53.88C169.6 83.1 149.1 94.98 131.4 110.1L84.63 83.16C82.08 81.68 79.22 80.95 76.39 80.95c-19.72 0-63.86 81.95-63.86 99.04c0 5.66 3.112 11.13 8.203 14.07l46.61 26.91C65.24 232.4 64 244 64 256s1.242 23.65 3.34 35.02l-46.61 26.91c-5.092 2.941-8.203 8.411-8.203 14.07c0 14.1 41.98 99.04 63.86 99.04c2.832 0 5.688-.7266 8.246-2.203l46.72-26.98C149.1 417 169.6 428.9 192 436.8v53.88c0 7.523 5.162 14.28 12.53 15.82C221.2 510 238.3 512 255.1 512s34.85-1.977 51.48-5.461C314.8 504.1 320 498.2 320 490.7v-53.88c22.42-7.938 42.93-19.82 60.65-34.97l46.72 26.98c2.557 1.477 5.416 2.203 8.246 2.203C455.3 431 499.5 349.1 499.5 332zM256 336c-44.11 0-80-35.89-80-80S211.9 176 256 176s80 35.89 80 80S300.1 336 256 336z"
+      ></path>
+    </svg>
+  )
+})
+
+export const UnknownUserIcon = withTheme(
+  (props: Props): JSX.Element => (
+    <svg role="img" viewBox="0 0 512 512" {...props}>
+      <path
+        fill="currentColor"
+        d="M454.426,392.582c-5.439-16.32-15.298-32.782-29.839-42.362c-27.979-18.572-60.578-28.479-92.099-39.085
+	c-7.604-2.664-15.33-5.568-22.279-9.7c-6.204-3.686-8.533-11.246-9.974-17.886c-0.636-3.512-1.026-7.116-1.228-10.661
+	c22.857-31.267,38.019-82.295,38.019-124.136c0-65.298-36.896-83.495-82.402-83.495c-45.515,0-82.403,18.17-82.403,83.468
+	c0,43.338,16.255,96.5,40.489,127.383c-0.221,2.438-0.511,4.876-0.95,7.303c-1.444,6.639-3.77,14.058-9.97,17.743
+	c-6.957,4.133-14.682,6.756-22.287,9.42c-31.521,10.605-64.119,19.957-92.091,38.529c-14.549,9.58-24.403,27.159-29.838,43.479
+	c-5.597,16.938-7.886,37.917-7.541,54.917h205.958h205.974C462.313,430.5,460.019,409.521,454.426,392.582z"
+      />
+    </svg>
+  ),
+)

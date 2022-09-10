@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { TeamInterface } from '../../models/team'
+import { TeamInterface } from '../../models/TeamInterface'
 import { basePath } from '../../next.config'
 import { Button } from '../basic/Button'
 

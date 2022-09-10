@@ -1,7 +1,11 @@
 import React, { ReactElement } from 'react'
 
 import { Layout } from '../../components/Layout'
-import { ScoreBody, ScoreInterface, updateOldScore } from '../../models/score'
+import {
+  ScoreBody,
+  ScoreInterface,
+  updateOldScore,
+} from '../../models/IGameResult'
 
 const oldKnowledge: ScoreInterface = {
   lastPlayed: new Date(),

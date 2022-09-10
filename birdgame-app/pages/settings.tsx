@@ -7,7 +7,12 @@ import React, {
 } from 'react'
 import { Layout } from '../components/Layout'
 import { Button } from '../components/basic/Button'
-import { GameContext, Settings } from '../components/state'
+import {
+  GameContext,
+  getTextColor,
+  SettingColor,
+  Settings,
+} from '../components/state'
 import { useRouter } from 'next/dist/client/router'
 
 export default function Home(): ReactElement {
@@ -22,6 +27,9 @@ export default function Home(): ReactElement {
     if (e.target.name === 'delay') {
       setState({ ...state, delay: Number(e.target.value) })
     }
+    if (e.target.name === 'color') {
+      setState({ ...state, color: e.target.value as SettingColor })
+    }
   }
 
   function handleSave() {
@@ -35,7 +43,6 @@ export default function Home(): ReactElement {
         <Title>Asetukset</Title>
         <Title className="mt-8">Välianimaatio</Title>
         <div className="ml-4">
-          <SubTitle className="mt-4">Äänet</SubTitle>
           <div className="flex">
             <input
               id="sound"
@@ -48,8 +55,7 @@ export default function Home(): ReactElement {
               Soita ääniefekti
             </label>
           </div>
-          <SubTitle className="mt-8">Kesto</SubTitle>
-          <div className="flex">
+          <div className="flex mt-4">
             <input
               id="short"
               type="radio"
@@ -104,9 +110,56 @@ export default function Home(): ReactElement {
           </div>
         </div>
 
+        <Title className="mt-8">Värit</Title>
+        <div className="flex ml-4">
+          <input
+            id="gray"
+            type="radio"
+            name="color"
+            value="gray"
+            onChange={handleChange}
+            checked={state.color === 'gray'}
+          />
+          <div className={getTextColor('gray')}>
+            <label className="ml-1" htmlFor="gray">
+              Harmaa
+            </label>
+          </div>
+        </div>
+        <div className="flex ml-4">
+          <input
+            id="red"
+            type="radio"
+            name="color"
+            value="red"
+            checked={state.color === 'red'}
+            onChange={handleChange}
+          />
+          <div className={getTextColor('red')}>
+            <label className="ml-1" htmlFor="red">
+              Punainen
+            </label>
+          </div>
+        </div>
+        <div className="flex ml-4">
+          <input
+            id="blue"
+            type="radio"
+            name="color"
+            value="blue"
+            checked={state.color === 'blue'}
+            onChange={handleChange}
+          />
+          <div className={getTextColor('blue')}>
+            <label className="ml-1" htmlFor="blue">
+              Sininen
+            </label>
+          </div>
+        </div>
+
         <div>
           <Button onClick={handleSave} className="mt-8">
-            Tallenna asetukset
+            Tallenna
           </Button>
         </div>
       </div>

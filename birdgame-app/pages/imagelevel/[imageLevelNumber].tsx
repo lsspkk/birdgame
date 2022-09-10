@@ -12,7 +12,7 @@ import {
   emptyBirdKnowledge,
   emptyScore,
   ScoreInterface,
-} from '../../models/score'
+} from '../../models/IGameResult'
 import { GameResultsView } from '../../components/GameResultsView'
 import { basePath } from '../../next.config'
 import { isStarScore, SpinningStar } from '../../components/StarCircle'

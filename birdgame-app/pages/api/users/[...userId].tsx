@@ -1,4 +1,5 @@
-import { User, UserInterface } from '../../../models/user'
+import { User } from '../../../models/user'
+import { UserInterface } from '../../../models/UserInterface'
 import bcrypt from 'bcrypt'
 
 import type { NextApiRequest, NextApiResponse } from 'next'

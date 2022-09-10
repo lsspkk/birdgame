@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { PlayIcon, TeamIcon, TelescopeIcon } from '../../components/Icons'
 
 import { Layout } from '../../components/Layout'
 import { SpinningStar, StarCircle } from '../../components/StarCircle'
@@ -12,6 +13,9 @@ export default function Random(): ReactElement {
       <div className="container flex">Hello</div>
       <SpinningStar />
       <SpinningStar shadow />
+      <PlayIcon className="text-red-200 h-20 w-40" />
+      <TeamIcon className="text-red-200 h-20 w-40" />
+      <TelescopeIcon className="text-red-200 h-20 w-40" />
 
       {scores.map((s) => (
         <div

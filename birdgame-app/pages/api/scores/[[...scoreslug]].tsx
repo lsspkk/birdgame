@@ -1,10 +1,10 @@
+import { Score } from '../../../models/score'
 import {
   emptyScore,
-  Score,
   ScoreInterface,
   ScoreBody,
   updateOldScore,
-} from '../../../models/score'
+} from '../../../models/IGameResult'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../models/dbConnect'

@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { UsersData, useUsers } from '../../models/swrApi'
-import { UserInterface } from '../../models/user'
+import { UserInterface } from '../../models/UserInterface'
 import { Button } from '../basic/Button'
 import { Title } from '../basic/Title'
 import { GameContext, GameContextInterface } from '../state'

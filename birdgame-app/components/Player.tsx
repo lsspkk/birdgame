@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { ReactElement } from 'react'
-import { UserInterface } from '../models/user'
+import { UserInterface } from '../models/UserInterface'
 // import Image from 'next/image'
 
 interface UserInterfaceProps {
@@ -10,7 +10,8 @@ interface UserInterfaceProps {
 export function Player({ user }: UserInterfaceProps): ReactElement {
   return (
     <div className="text-center w-20">
-      <Avatar avatar={user.avatar} />
+      {user._id && <Avatar avatar={user.avatar} />}
+      {!user._id && <UnknownUserIcon />}
       {user.name}
     </div>
   )
@@ -35,6 +36,7 @@ export function Avatar({ avatar }: AvatarProps): ReactElement {
 }
 
 import avatarsJson from '../data/avatars.json'
+import { UnknownUserIcon } from './Icons'
 const avatars = [...avatarsJson]
 
 interface ChooseAvatarProps {

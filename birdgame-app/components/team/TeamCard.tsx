@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useState } from 'react'
-import { TeamInterface } from '../../models/team'
+import { TeamInterface } from '../../models/TeamInterface'
 import { Button } from '../basic/Button'
 import { GameContext } from '../state'
 import { DownArrow, EditIcon, UpArrow } from '../Icons'

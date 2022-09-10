@@ -4,7 +4,7 @@ import { Button } from '../basic/Button'
 import { Message } from '../basic/Message'
 import { Title } from '../basic/Title'
 import { getRandomBirdName } from '../../data/levels'
-import { TeamInterface } from '../../models/team'
+import { TeamInterface } from '../../models/TeamInterface'
 import { basePath } from '../../next.config'
 
 interface addTeamProps {

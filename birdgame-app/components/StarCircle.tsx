@@ -1,6 +1,6 @@
 import React, { ReactNode, ReactElement, CSSProperties } from 'react'
 import { settings, Setting } from '../data/settings'
-import { ScoreInterface } from '../models/score'
+import { ScoreInterface } from '../models/IGameResult'
 
 const starTitles = [
   { stars: 0, name: '' },

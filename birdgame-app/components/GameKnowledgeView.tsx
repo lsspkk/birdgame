@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { IBirdKnowledge } from '../models/score'
+import { IBirdKnowledge } from '../models/IGameResult'
 import Link from 'next/link'
 import { Button } from '../components/basic/Button'
 import { BirdIconNoSound } from '../components/Icons'

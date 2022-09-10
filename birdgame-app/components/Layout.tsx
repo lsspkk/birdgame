@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { basePath } from '../next.config'
 import { GameContext } from './state'
-import { BirdIcon, CloseIcon, SettingsIcon } from './Icons'
+import { BirdIcon, CloseIcon } from './Icons'
 
 export type Props = {
   children?: React.ReactNode
@@ -41,7 +41,7 @@ function Layout({ children }: Props): ReactElement {
               <h1 className="text-xl font-bold">Lintupeli</h1>
             </div>
           </Link>
-          {isHome && <SettingsIcon onClick={() => router.push('/settings')} />}
+
           {!isHome && (
             <CloseIcon className="h-10 w-10" onClick={() => router.back()} />
           )}

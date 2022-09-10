@@ -1,12 +1,25 @@
 import React, { createContext, ReactElement, useEffect, useState } from 'react'
-import { IBirdKnowledge, ScoreInterface } from '../models/score'
-import { emptyUser, UserInterface } from '../models/user'
+import { IBirdKnowledge, ScoreInterface } from '../models/IGameResult'
+import { emptyUser, UserInterface } from '../models/UserInterface'
 import { Props } from './Layout'
 import { basePath } from '../next.config'
 
+export type SettingColor = 'red' | 'gray' | 'blue'
 export interface Settings {
   sound: boolean
   delay: number
+  color: SettingColor
+}
+
+export function getBgColor(c: 'gray' | 'red' | 'blue') {
+  if (c === 'red') return 'rgb(250 0 0 / 0.4)'
+  if (c === 'blue') return 'rgb(0 0 250 / 0.4)'
+  return 'rgb(100 100 100 / 0.4)'
+}
+export function getTextColor(c: 'gray' | 'red' | 'blue') {
+  if (c === 'red') return 'text-red-400'
+  if (c === 'blue') return 'text-blue-400'
+  return 'text-gray-400'
 }
 
 export interface GameContextInterface {
@@ -39,6 +52,7 @@ export function ContextWrapper({ children }: Props): ReactElement {
   const [settings, setSettings] = useState<Settings>({
     sound: true,
     delay: 3000,
+    color: 'gray',
   })
   const state = {
     user,
@@ -77,8 +91,12 @@ export function ContextWrapper({ children }: Props): ReactElement {
     }
     const settingsString = localStorage.getItem('settings')
     if (settingsString) {
-      const loadedSettings = JSON.parse(settingsString) as Settings
-      setSettings(loadedSettings)
+      const loadedSettings = JSON.parse(settingsString)
+      if (!Object.keys(loadedSettings).includes('color')) {
+        loadedSettings['color'] = 'gray'
+      }
+
+      setSettings(loadedSettings as Settings)
     }
   }, [])
   return <GameContext.Provider value={state}>{children}</GameContext.Provider>

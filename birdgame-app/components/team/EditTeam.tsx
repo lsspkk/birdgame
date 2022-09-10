@@ -6,12 +6,12 @@ import { getRandomBirdName } from '../../data/levels'
 import {
   EditTeamPutBody as TeamUpdateInterface,
   TeamInterface,
-} from '../../models/team'
+} from '../../models/TeamInterface'
 import { basePath } from '../../next.config'
 import { Player } from '../Player'
 import { UsersData, useUsers } from '../../models/swrApi'
 import { useRouter } from 'next/dist/client/router'
-import { UserInterface } from '../../models/user'
+import { UserInterface } from '../../models/UserInterface'
 
 interface editTeamProps {
   setViewMode: (GroupViewMode) => void
