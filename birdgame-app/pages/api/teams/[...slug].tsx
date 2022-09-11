@@ -19,7 +19,6 @@ export default async function handler(
   try {
     await dbConnect()
     if (req.method === 'POST' && isAddUser) {
-      // @ts-ignore
       const team: TeamInterface = await Team.findById(slug[0])
         .select('addUserPassword')
         .exec()
@@ -39,14 +38,12 @@ export default async function handler(
       }
     }
     if (req.method === 'POST' && isGetAddUserPassword) {
-      // @ts-ignore
       const team: TeamInterface = await Team.findById(slug[0])
         .select('addUserPassword')
         .exec()
       res.status(200).json(team)
     }
     if (req.method === 'GET') {
-      // @ts-ignore
       const players: Array<UserInterface> = await User.find({
         teamId: slug[0],
       })
@@ -56,7 +53,6 @@ export default async function handler(
     }
 
     if (req.method === 'PUT') {
-      // @ts-ignore
       const team: TeamInterface = await Team.findById(slug[0])
         .select('addUserPassword')
         .exec()

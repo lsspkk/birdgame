@@ -178,15 +178,3 @@ function Title(props: HTMLAttributes<HTMLDivElement>) {
     </div>
   )
 }
-
-function SubTitle(props: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={`flex justify-between items-center align-content-center text-xl font-bold ${
-        props.className ?? props.className
-      }`}
-    >
-      {props?.children}
-    </div>
-  )
-}

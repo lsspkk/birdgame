@@ -21,7 +21,6 @@ module.exports = {
   ],
   plugins: ['unused-imports'],
   rules: {
-    '@typescript-eslint/ban-ts-comment': 'off',
     //'react/jsx-uses-react': 1,
     //'react/jsx-uses-vars': 1,
     'unused-imports/no-unused-imports-ts': 2,

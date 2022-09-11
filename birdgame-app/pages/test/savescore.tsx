@@ -3,10 +3,10 @@ import { Button } from '../../components/basic/Button'
 
 import { Layout } from '../../components/Layout'
 import { newLevel, Question } from '../../data/levels'
-import { emptyScore, IBirdKnowledge } from '../../models/IGameResult'
+import { emptyScore, IBirdKnowledge } from '../../models/ScoreInterface'
 import { GameContext } from '../../components/state'
-import { ScoreInterface } from '../../models/IGameResult'
-import { emptyBirdKnowledge } from '../../models/IGameResult'
+import { ScoreInterface } from '../../models/ScoreInterface'
+import { emptyBirdKnowledge } from '../../models/ScoreInterface'
 import { basePath } from '../../next.config'
 
 // for generating bird knowledge and game results

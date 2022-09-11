@@ -1,5 +1,5 @@
 import React, { createContext, ReactElement, useEffect, useState } from 'react'
-import { IBirdKnowledge, ScoreInterface } from '../models/IGameResult'
+import { IBirdKnowledge, ScoreInterface } from '../models/ScoreInterface'
 import { emptyUser, UserInterface } from '../models/UserInterface'
 import { Props } from './Layout'
 import { basePath } from '../next.config'
@@ -11,12 +11,12 @@ export interface Settings {
   color: SettingColor
 }
 
-export function getBgColor(c: 'gray' | 'red' | 'blue') {
+export function getBgColor(c: 'gray' | 'red' | 'blue'): string {
   if (c === 'red') return 'rgb(250 0 0 / 0.4)'
   if (c === 'blue') return 'rgb(0 0 250 / 0.4)'
   return 'rgb(100 100 100 / 0.4)'
 }
-export function getTextColor(c: 'gray' | 'red' | 'blue') {
+export function getTextColor(c: 'gray' | 'red' | 'blue'): string {
   if (c === 'red') return 'text-red-400'
   if (c === 'blue') return 'text-blue-400'
   return 'text-gray-400'

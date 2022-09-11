@@ -15,7 +15,6 @@ export default async function handler(
     res.status(400)
   } else {
     const body: UserLoginInterface = req.body
-    // @ts-ignore
     const u: UserInterface = await User.findOne({ _id: body.userId }).exec()
     const ok = await bcrypt.compare(body.password, u.password)
 

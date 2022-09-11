@@ -5,7 +5,7 @@ import {
   ScoreBody,
   ScoreInterface,
   updateOldScore,
-} from '../../models/IGameResult'
+} from '../../models/ScoreInterface'
 
 const oldKnowledge: ScoreInterface = {
   lastPlayed: new Date(),

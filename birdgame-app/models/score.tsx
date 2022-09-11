@@ -1,5 +1,5 @@
-import mongoose, { Schema, model } from 'mongoose'
-import { ScoreInterface } from './IGameResult'
+import mongoose, { Schema, model, Model } from 'mongoose'
+import { ScoreInterface } from './ScoreInterface'
 
 const ScoreSchema = new Schema<ScoreInterface>({
   results: [
@@ -25,5 +25,8 @@ const ScoreSchema = new Schema<ScoreInterface>({
   lastPlayed: Date,
 })
 
-export const Score =
-  mongoose.models?.Score || model<ScoreInterface>('Score', ScoreSchema)
+export const Score = (mongoose.models?.Score ||
+  model<ScoreInterface>(
+    'Score',
+    ScoreSchema,
+  )) as unknown as Model<ScoreInterface>

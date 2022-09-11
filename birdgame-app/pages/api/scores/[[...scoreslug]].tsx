@@ -4,7 +4,7 @@ import {
   ScoreInterface,
   ScoreBody,
   updateOldScore,
-} from '../../../models/IGameResult'
+} from '../../../models/ScoreInterface'
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../models/dbConnect'

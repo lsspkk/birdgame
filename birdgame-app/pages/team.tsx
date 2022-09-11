@@ -12,7 +12,7 @@ import { UnknownUserIcon } from '../components/Icons'
 import { GameContext } from '../components/state'
 import { emptyUser } from '../models/UserInterface'
 import { useRouter } from 'next/router'
-import { emptyScore } from '../models/IGameResult'
+import { emptyScore } from '../models/ScoreInterface'
 
 export interface GroupViewMode {
   view: string

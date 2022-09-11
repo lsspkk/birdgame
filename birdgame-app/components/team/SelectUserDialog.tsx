@@ -8,11 +8,11 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { ScoreInterface } from '../../models/IGameResult'
+import { ScoreInterface } from '../../models/ScoreInterface'
 import { basePath } from '../../next.config'
 import { Button } from '../basic/Button'
 import { GameContext, GameContextInterface } from '../state'
-import { emptyScore } from '../../models/IGameResult'
+import { emptyScore } from '../../models/ScoreInterface'
 import { UserInterface } from '../../models/UserInterface'
 
 export interface SelectUserDialogProps {

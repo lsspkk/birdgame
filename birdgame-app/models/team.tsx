@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose'
+import mongoose, { Schema, model, Model } from 'mongoose'
 import { TeamInterface } from './TeamInterface'
 const TeamSchema = new Schema<TeamInterface>({
   name: { type: String, required: true },
@@ -6,5 +6,5 @@ const TeamSchema = new Schema<TeamInterface>({
   addUserPassword: { type: String, required: true },
 })
 
-export const Team =
-  mongoose.models?.Team || model<TeamInterface>('Team', TeamSchema)
+export const Team = (mongoose.models?.Team ||
+  model<TeamInterface>('Team', TeamSchema)) as unknown as Model<TeamInterface>
