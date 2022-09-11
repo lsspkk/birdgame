@@ -58,7 +58,7 @@ export function EditTeam({ setViewMode, team }: editTeamProps): ReactElement {
     if (password.length > 0) {
       updateBody.password = password
     }
-    if (updateBody === {}) {
+    if (!updateBody || Object.keys(updateBody).length === 0) {
       return
     }
     const res = await fetch(`${basePath}/api/teams/${team._id}`, {
