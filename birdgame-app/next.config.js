@@ -1,6 +1,6 @@
 module.exports = {
   output: 'standalone',
-  basePath: '/lintu',
+  basePath: '/',
   images: {
     domains: [
       'localhost',
