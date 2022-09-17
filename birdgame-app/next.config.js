@@ -1,6 +1,6 @@
 module.exports = {
   output: 'standalone',
-  basePath: '/',
+  basePath: '',
   images: {
     domains: [
       'localhost',
