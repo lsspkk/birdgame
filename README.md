@@ -1,20 +1,23 @@
 # Ominaisuudet
 
-- pwa, ei selaimen palkkia
-- valitse ensin kuka pelaa, tervetulonäyttö
-- näytä joukkueen tiedot, tervetulonäyttö2
-- ulkoasu, kuvan tunnistus
-- ulkoasu, äänen tunnistus
-- lintujen nimet audiona
-- oikean linnun kuva näkyviin, jos on vastannut väärin
-
-- ulkoasu: pelin valinta
 - ulkoasu: taso läpäisty
 - ulkoasu: oma lintutietous
-
+- mahdollisuus opetella haluttua lintujoukkoa
 - paras tulos/taso joukkueelta
 - joukkueen paras lintutietäjä
 - Näkyy useampi taso, jos on läpäisty jo tällä joukkueella
+- paremmat ikonit
+- näytä joukkueen tiedot, tervetulonäyttö2
+- lintujen nimet audiona
+- joukkueen lisäys vain salasanalla, parempi ratkaisu...
+
+- x joukkueen lisäys vain salasanalla
+- x ulkoasu, kuvan tunnistus
+- x ulkoasu, äänen tunnistus
+- x oikean linnun kuva näkyviin, jos on vastannut väärin
+- x ulkoasu: pelin valinta
+- x pwa, ei selaimen palkkia
+- x valitse ensin kuka pelaa, tervetulonäyttö
 
 x Tallenna mongoon joukkueet
 x tallenna mongoon pisteet ja tiedot

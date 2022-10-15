@@ -4,7 +4,7 @@ import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useState } from 'react'
 import { Layout } from '../../components/Layout'
 import { ImageQuestion } from '../../components/ImageQuestion'
-import { newLevel, Question } from '../../data/levels'
+import { getBird, newLevel, Question } from '../../data/levels'
 import { settings, Setting } from '../../data/settings'
 import { GameContext } from '../../components/state'
 import {
@@ -140,6 +140,7 @@ export default function ImageLevel(): ReactElement {
     audioElement.play()
   }
 
+  const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
   const animationSrc = `${process.env.NEXT_PUBLIC_BASE_PATH}${animation}-answer.gif`
 
   return (
@@ -177,6 +178,11 @@ export default function ImageLevel(): ReactElement {
               <p>
                 Oikea vastaus oli
                 <br /> {rightBirdName}
+                <img
+                  className="my-2 mx-auto max-w-40 max-h-40"
+                  src={url + getBird(rightBirdName.split(': ')[1]).image}
+                  alt={rightBirdName}
+                />
               </p>
             </div>
           )}

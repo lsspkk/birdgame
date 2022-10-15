@@ -1,0 +1,23 @@
+{
+  "name": "Lintupeli",
+  "short_name": "Linnut",
+  "theme_color": "#ffffff",
+  "background_color": "#004740",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icon-100.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-350.png",
+      "sizes": "350x350",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": null
+}

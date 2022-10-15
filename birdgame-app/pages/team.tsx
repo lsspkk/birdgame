@@ -13,6 +13,7 @@ import { GameContext } from '../components/state'
 import { emptyUser } from '../models/UserInterface'
 import { useRouter } from 'next/router'
 import { emptyScore } from '../models/ScoreInterface'
+import { AddTeamConfirm } from '../components/team/AddTeamConfirm'
 
 export interface GroupViewMode {
   view: string
@@ -32,9 +33,13 @@ export default function Group(): ReactElement {
     setScore(emptyScore)
     router.push('/')
   }
+
   return (
     <Layout>
       {viewMode.view === 'add' && <AddTeam setViewMode={setViewMode} />}
+      {viewMode.view === 'confirm' && (
+        <AddTeamConfirm setViewMode={setViewMode} />
+      )}
       {viewMode.view === 'edit' && (
         <EditTeam setViewMode={setViewMode} team={viewMode.teamToEdit} />
       )}
@@ -42,7 +47,9 @@ export default function Group(): ReactElement {
         <>
           <div className="flex w-full md:w-1/2 justify-between mb-10 items-center px-4">
             <Title>Valitse Joukkue/Pelaaja</Title>
-            <Button onClick={() => setViewMode({ view: 'add' })}>Lisää</Button>
+            <Button onClick={() => setViewMode({ view: 'confirm' })}>
+              Lisää
+            </Button>
           </div>
 
           <div className="flex w-full items-center" onClick={onSelectEmptyUser}>

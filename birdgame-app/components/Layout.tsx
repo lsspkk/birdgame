@@ -32,6 +32,7 @@ function Layout({ children }: Props): ReactElement {
       <Head>
         <title>Lintupeli</title>
         <link rel="icon" href={`${basePath}/favicon.ico`} />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
       {!isGame && (
         <div className="w-full flex justify-between items-center align-content-center text-blue-100 bg-gray-700  border-b-2 shadow">

@@ -11,7 +11,7 @@ function UserSelectionController(): ReactElement {
   // TODO change user password
   // TODO change team password/join codeword/admin team players/admins
   return (
-    <div className="flex w-full md:w-full items-center justify-between top-border pb-5">
+    <div className="flex w-full md:w-full items-center justify-between top-border pb-5 flex-wrap">
       <Player user={user} />
       {user._id !== undefined && (
         <div className="flex flex-col items-center">
