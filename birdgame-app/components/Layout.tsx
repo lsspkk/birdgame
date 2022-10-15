@@ -1,8 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { useRouter } from 'next/dist/client/router'
-import Head from 'next/head'
 import Link from 'next/link'
-import { basePath } from '../next.config'
 import { GameContext } from './state'
 import { BirdIcon, CloseIcon } from './Icons'
 
@@ -29,11 +27,6 @@ function Layout({ children }: Props): ReactElement {
     : 'flex flex-col items-center justify-center min-h-screen'
   return (
     <div className={cName}>
-      <Head>
-        <title>Lintupeli</title>
-        <link rel="icon" href={`${basePath}/favicon.ico`} />
-        <link rel="manifest" href="/manifest.json" />
-      </Head>
       {!isGame && (
         <div className="w-full flex justify-between items-center align-content-center text-blue-100 bg-gray-700  border-b-2 shadow">
           <Link href="/" passHref>
