@@ -65,9 +65,9 @@ interface Props {
 }
 function GameTypeTitle({ onClose, children }: Props) {
   return (
-    <div className="flex justify-between items-center align-content-center pb-1">
+    <div className="flex justify-between items-center align-content-center pb-1 pt-4">
       <div className="mt-3 text-2xl">{children}</div>
-      <div className="h-10 w-10" onClick={onClose}>
+      <div className="h-10 w-10 opacity-40" onClick={onClose}>
         <CloseIcon />
       </div>
     </div>

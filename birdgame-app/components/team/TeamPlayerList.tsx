@@ -27,7 +27,7 @@ export function TeamPlayerList({
     <div>
       <Title>Pelaajat</Title>
 
-      <div className="flex items-center">
+      <div className="flex items-center flex-wrap">
         {!show && (
           <>
             {data.users.length === 0 && (
