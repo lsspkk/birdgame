@@ -8,7 +8,9 @@ import { IBirdKnowledge } from '../models/ScoreInterface'
 
 function BirdKnowledgeImage({
   knowledge,
+  order
 }: {
+  order: string
   knowledge: IBirdKnowledge
 }): ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
@@ -129,6 +131,13 @@ function BirdKnowledgeImage({
       <td className="text-center text-2xl text-bold">
         {knowledge.answers
           .filter((a) => a.answerType === 'image')
+          .sort((a, b) =>  {
+            if (order === 'known') {
+              return b.right - a.right
+            } else {
+              return b.right - a.right
+            }
+          })                
           .map((a) => (
             <div key={`dk${bird.name}.${a.answerType}`}>
               {/* {a.answerType === 'image' ? 'Kuva' : 'Ääni'} */}
@@ -147,16 +156,8 @@ export default function Knowledge(): ReactElement {
   const [order, setOrder] = useState('known')
   const router = useRouter()
 
-  const sorted = score?.knowledge.sort((a, b) => {
-    if (order === 'known') {
-      return b.answers[0].right - a.answers[0].right
-    } else {
-      return a.answers[0].right - b.answers[0].right
-    }
-  })
-
   return (
-    <div className="w-full min-h-screen bg-black text-white flex align-center justify-center">
+    <div className="w-full min-h-screen bg-black text-white flex flex-row align-center justify-center">
 
       <div className='w-full'>
         <input type="radio" name="order" id="known" value="known" checked={order === 'known'} onChange={() => setOrder('known')} />
@@ -178,8 +179,8 @@ export default function Knowledge(): ReactElement {
               Oikein/Väärin
             </th>
           </tr>
-          {sorted?.map((k) => (
-            <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
+          {score?.knowledge.map((k) => (
+            <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} order={order}/>
           ))}
         </tbody>
       </table>
