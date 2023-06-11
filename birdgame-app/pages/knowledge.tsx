@@ -132,6 +132,7 @@ function BirdKnowledgeImage({
           .map((a) => (
             <div key={`dk${bird.name}.${a.answerType}`}>
               {/* {a.answerType === 'image' ? 'Kuva' : 'Ääni'} */}
+              <div className="text-sm">{bird.name}</div>
               <div className="bg-green-900 inline">{a.right}</div> /{' '}
               <div className="bg-red-900 inline">{a.wrong}</div>
             </div>
@@ -143,10 +144,28 @@ function BirdKnowledgeImage({
 
 export default function Knowledge(): ReactElement {
   const { score }: GameContextInterface = useContext(GameContext)
+  const [order, setOrder] = useState('known')
   const router = useRouter()
+
+  const sorted = score?.knowledge.sort((a, b) => {
+    if (order === 'known') {
+      return b.answers[0].right - a.answers[0].right
+    } else {
+      return a.answers[0].right - b.answers[0].right
+    }
+  })
 
   return (
     <div className="w-full min-h-screen bg-black text-white flex align-center justify-center">
+
+      <div className='w-full'>
+        <input type="radio" name="order" id="known" value="known" checked={order === 'known'} onChange={() => setOrder('known')} />
+        <label htmlFor="known">Hyvin tunnetut ensin</label>
+      </div>
+      <div className='w-full'>
+        <input type="radio" name="order" id="unknown" value="unknown" checked={order === 'known'} onChange={() => setOrder('unknown')} />
+        <label htmlFor="known">Huonosti tunnetut ensin</label>
+      </div>
       <table>
         <tbody>
           <tr>
@@ -159,7 +178,7 @@ export default function Knowledge(): ReactElement {
               Oikein/Väärin
             </th>
           </tr>
-          {score?.knowledge.map((k) => (
+          {sorted?.map((k) => (
             <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
           ))}
         </tbody>
