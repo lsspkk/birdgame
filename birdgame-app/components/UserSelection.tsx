@@ -8,31 +8,28 @@ function UserSelectionController(): ReactElement {
   const { user }: GameContextInterface = useContext(GameContext)
   const router = useRouter()
 
+  const onProfileClick = () => {
+    if (user._id !== undefined) {
+      router.push('/profile')
+    }
+  }
   // TODO change user password
   // TODO change team password/join codeword/admin team players/admins
   return (
-    <div className="flex w-full md:w-full items-center justify-between top-border pb-5 flex-wrap">
-      <Player user={user} />
-      {user._id !== undefined && (
-        <div className="flex flex-col items-center">
-          <ProfileIcon
-            className="h-20 w-40"
-            onClick={() => router.push('/profile')}
-          />
-          <div>Tiedot</div>
-        </div>
-      )}
+    <div className="flex w-full md:w-full items-end justify-between top-border pb-5 flex-wrap">
+      <div className="flex items-end" onClick={onProfileClick}>
+        <Player user={user} />
+        {
+          <div className="flex flex-col items-center -ml-2">
+            <ProfileIcon className="h-10 w-20" />
+            <div>Tiedot</div>
+          </div>
+        }
+      </div>
 
       <div>
         <TeamIcon className="h-20 w-40" onClick={() => router.push('/team')} />
         <div>Valitse joukkue/pelaaja</div>
-      </div>
-      <div className="flex flex-col items-center opacity-50">
-        <SettingsIcon
-          className="h-20 w-20"
-          onClick={() => router.push('/settings')}
-        />
-        <div>Asetukset</div>
       </div>
     </div>
   )

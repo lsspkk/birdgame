@@ -98,7 +98,7 @@ export default function Profile(): ReactElement {
         <div className="flex items-center">
           <div className="w-20 mr-4">Salasana:</div>
           <input
-            className="p-2 border"
+            className="w-full sm:w-40 p-2 border"
             type="password"
             value={addState.password}
             name="password"
@@ -112,14 +112,14 @@ export default function Profile(): ReactElement {
             uudestaan:
           </div>
           <input
-            className="p-2 border"
+            className="w-full sm:w-40 p-2 border"
             type="password"
             value={addState.passwordConfirm}
             name="passwordConfirm"
             onChange={handleChange}
           ></input>
         </div>
-        <div className="pt-6">
+        <div className="pt-6 flex justify-end sm:justify-start">
           <Button onClick={() => savePassword()}>Tallenna salasana</Button>
         </div>
 
@@ -139,7 +139,7 @@ export default function Profile(): ReactElement {
             />
           </div>
         </div>
-        <div className="pt-10">
+        <div className="pt-10 flex justify-end sm:justify-start">
           <Button onClick={() => saveAvatar()}>Tallenna kuva</Button>
         </div>
       </div>
