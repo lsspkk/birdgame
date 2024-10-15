@@ -32,8 +32,14 @@ function AudioQuestion({
       audioElement.pause()
       setPlayint(false)
     } else {
-      audioElement.play()
-      setPlayint(true)
+
+      const promise = audioElement.play()
+      promise?.then(() => {
+        console.log('Audio playing')
+        setPlayint(true)
+      }).catch((error) => {
+        console.log('Error playing audio: ', error)
+      })
     }
   }
 
@@ -58,7 +64,7 @@ function AudioQuestion({
             onClick={() => toggleAudio()}
           >
             Lintu {playing ? 'laulaa ||' : 'ei laula |>'}
-            <audio src={url + bird.audio} className="birdaudio" />
+            <audio src={url + bird.audio} className="birdaudio" playsInline />
           </div>
           <CloseIcon
             className="h-8 w-8 absolute right-0"
