@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { BirdIcon } from '../components/Icons'
+import { BirdIcon, BirdIconNoSound, CloseIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
 import { IBirdKnowledge } from '../models/ScoreInterface'
@@ -19,23 +19,58 @@ function BirdKnowledgeImage({
   })
 
   return (
-    <tr>
-      <td>
+    <tr className="">
+      <td className="pb-10 pr-6">
         <AnimatedBird bird={bird} />
       </td>
-      <td className="text-center text-2xl text-bold">
-        {knowledge.answers
-          .filter((a) => a.answerType === 'image')
-          .map((a) => (
-            <div key={`dk${bird.name}.${a.answerType}`}>
-              {/* {a.answerType === 'image' ? 'Kuva' : 'Ääni'} */}
-              <div className="text-sm">{bird.name}</div>
-              <div className="bg-green-900 inline">{a.right}</div> /{' '}
-              <div className="bg-red-900 inline">{a.wrong}</div>
-            </div>
-          ))}
+      <td className="mt-6 text-center text-2xl text-bold flex flex-col gap-2">
+        <div className="text-3xl uppercase tracking-wide ">{bird.name}</div>
+        <div className="flex flex-row gap-4 justify-between">
+          {knowledge.answers
+            .filter((a) => a.answerType === 'image')
+            .map((a) => (
+              <div key={`dk${bird.name}.${a.answerType}`}>
+                <span className="text-green-500 inline">{a.right}</span> /{' '}
+                <span className="text-red-500 inline">{a.wrong}</span>
+              </div>
+            ))}
+          {knowledge.answers
+            .filter((a) => a.answerType === 'audio')
+            .map((a) => (
+              <div key={`dk${bird.name}.${a.answerType}`}>
+                <div className="text-green-500 inline">{a.right}</div> /{' '}
+                <div className="text-red-500 inline">{a.wrong}</div>
+              </div>
+            ))}
+        </div>
       </td>
     </tr>
+  )
+}
+
+function RadioInput({
+  value,
+  current,
+  onChange,
+  label,
+}: {
+  value: string
+  current: string
+  label: string
+  onChange: (order: string) => void
+}): ReactElement {
+  return (
+    <div className="flex flex-row gap-2">
+      <input
+        type="radio"
+        name="order"
+        id={value}
+        value={value}
+        checked={current === value}
+        onChange={() => onChange(value)}
+      />
+      <label htmlFor={value}>{label}</label>
+    </div>
   )
 }
 
@@ -45,39 +80,56 @@ export default function Knowledge(): ReactElement {
   const router = useRouter()
 
   return (
-    <div className="w-full min-h-screen bg-black text-white flex flex-row align-center justify-center flex-wrap gap-2">
-      <div className="w-full mx-2 mt-2">
-        <input
-          type="radio"
-          name="order"
-          id="known"
-          value="known"
-          checked={order === 'known'}
-          onChange={() => setOrder('known')}
-        />
-        <label htmlFor="known">Hyvin tunnetut ensin {order}</label>
-      </div>
-      <div className="w-full mx-2">
-        <input
-          type="radio"
-          name="order"
-          id="unknown"
-          value="unknown"
-          checked={order === 'unknown'}
-          onChange={() => setOrder('unknown')}
-        />
-        <label htmlFor="unknown">Huonosti tunnetut ensin</label>
+    <div className="w-full min-h-screen bg-gray-800 text-white flex flex-row align-center justify-center flex-wrap gap-2">
+      <CloseIcon
+        className="h-10 w-10 fixed top-2 right-2"
+        onClick={() => router.back()}
+      />
+
+      <div className="w-full flex flex-col items-center gap-2">
+        <div className=" mx-2 mt-2 flex flex-col gap-2">
+          <RadioInput
+            value="audio-known"
+            current={order}
+            onChange={setOrder}
+            label="Hyvin tunnetut ensin - kuva"
+          />
+          <RadioInput
+            value="image-unknown"
+            current={order}
+            onChange={setOrder}
+            label="Huonosti tunnetut ensin - kuva"
+          />
+          <RadioInput
+            value="audio-known"
+            current={order}
+            onChange={setOrder}
+            label="Hyvin tunnetut ensin - ääni"
+          />
+          <RadioInput
+            value="audio-unknown"
+            current={order}
+            onChange={setOrder}
+            label="Huonosti tunnetut ensin - ääni"
+          />
+        </div>
       </div>
       <table>
         <tbody>
           <tr>
-            <th onClick={() => router.push('/')}>
-              <BirdIcon />
-            </th>
-            <th>
-              Kuvantunnistus
-              <br />
-              Oikein/Väärin
+            <th></th>
+            <th className="flex flex-col gap-2">
+              <div>Tunnistus</div>
+              <div className="flex flex-row gap-2 justify-between">
+                <div>
+                  <BirdIconNoSound />
+                  Kuva
+                </div>
+                <div>
+                  <BirdIcon />
+                  Ääni
+                </div>
+              </div>
             </th>
           </tr>
           {score?.knowledge.sort(knowledgeNumberSorter).map((k) => (
@@ -89,28 +141,44 @@ export default function Knowledge(): ReactElement {
   )
 
   function knowledgeNumberSorter(a: IBirdKnowledge, b: IBirdKnowledge) {
-    const { aKnowledge, bKnowledge } = extractKnowledgeNumber(a, b, 'image')
-    return order === 'unknown'
-      ? aKnowledge - bKnowledge
-      : bKnowledge - aKnowledge
+    const {
+      aImageKnowledge,
+      bImageKnowledge,
+      aAudioKnowledge,
+      bAudioKnowledge,
+    } = extractKnowledgeNumbers(a, b)
+    if (order === 'image-unknown') {
+      return aImageKnowledge - bImageKnowledge
+    }
+    if (order === 'audio-unknown') {
+      return aAudioKnowledge - bAudioKnowledge
+    }
+    if (order === 'image-known') {
+      return bImageKnowledge - aImageKnowledge
+    }
+    if (order === 'audio-known') {
+      return bAudioKnowledge - aAudioKnowledge
+    }
   }
 }
 
-function extractKnowledgeNumber(
-  a: IBirdKnowledge,
-  b: IBirdKnowledge,
-  answerType: string,
-) {
-  const aImage = a.answers.filter((a) => a.answerType === answerType)[0]
+function extractKnowledgeNumbers(a: IBirdKnowledge, b: IBirdKnowledge) {
+  const aImage = extractSingleKnowledge(a, 'image')
+  const bImage = extractSingleKnowledge(b, 'image')
+  const aImageKnowledge = aImage.right - aImage.wrong
+  const bImageKnowledge = bImage.right - bImage.wrong
+  const aAudio = extractSingleKnowledge(a, 'audio')
+  const bAudio = extractSingleKnowledge(b, 'audio')
+  const aAudioKnowledge = aAudio.right - aAudio.wrong
+  const bAudioKnowledge = bAudio.right - bAudio.wrong
 
-  const bImage = b.answers.filter((b) => b.answerType === answerType)[0] || {
-    right: 0,
-    wrong: 0,
-  }
+  return { aImageKnowledge, bImageKnowledge, aAudioKnowledge, bAudioKnowledge }
+}
 
-  const aKnowledge = aImage.right - aImage.wrong
-  const bKnowledge = bImage.right - bImage.wrong
-  return { aKnowledge, bKnowledge }
+function extractSingleKnowledge(k: IBirdKnowledge, kType: 'image' | 'audio') {
+  return (
+    k.answers.filter((a) => a.answerType === kType)[0] || { right: 0, wrong: 0 }
+  )
 }
 
 function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
@@ -192,8 +260,8 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
 
           .imagewrapper {
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             position: relative;
             overflow: hidden;
             /* animation: fly ${flyTime}s linear infinite; */
