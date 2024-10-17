@@ -86,7 +86,6 @@ export default function AudioLevel(): ReactElement {
     }
 
     setBirdKnowledge(newKnowledge)
-
     setAnsweredBirdName(question.choises[answerIndex])
     setQuestionIndex(questionIndex + 1)
 
@@ -184,7 +183,7 @@ export default function AudioLevel(): ReactElement {
                 <p>Tallennetaan tuloksia...</p>
               )}
               {!isSaving && (
-                <Link href="/" passHref>
+                <Link href="/gametype" passHref>
                   <div className="mt-2 mb-8 text-xl w-30 bg-blue-300 py-2 px-4 rounded text-white self-center border shadow">
                     Takaisin
                   </div>
