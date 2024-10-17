@@ -2,6 +2,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { getBird, Question } from '../data/levels'
+import useWindowDimensions from './useWindowDimensions'
 
 interface AnswerGridProps {
   question: Question
@@ -16,7 +17,7 @@ export function AnswerGrid({
   header,
 }: AnswerGridProps): ReactElement {
   const [isPortrait, setIsPortrait] = useState<boolean | undefined>()
-
+  const { height, width } = useWindowDimensions()
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
   if (url === undefined) {
     console.log(
@@ -48,6 +49,9 @@ export function AnswerGrid({
 
   const { gridRows, gridCols } = getRowsCols()
 
+  const w = isPortrait ? `${(width - 20 / gridCols).toFixed(0)}px` : '100%'
+  const h = isPortrait ? '100%' : `${(height - 20 / gridRows).toFixed(0)}px`
+
   return (
     <div className="bg-gray-800 h-full">
       {header}
@@ -66,9 +70,8 @@ export function AnswerGrid({
               }}
               src={url + getBird(a).image}
               alt="salaisuus, arvaa mikä lintu"
-              className={`object-contain max-h-[${(
-                90 / (isPortrait ? gridRows : gridCols)
-              ).toFixed(0)}vh] mx-auto`}
+              className={`object-contain mx-auto`}
+              style={{ width: w, height: h }}
             />
           </div>
         ))}

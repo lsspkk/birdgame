@@ -3,13 +3,20 @@ import { Layout } from '../components/Layout'
 import { ImageLevelButton } from '../components/ImageLevelButton'
 import { AudioLevelButton } from '../components/AudioLevelButton'
 import { BirdIcon, BirdIconNoSound, CloseIcon } from '../components/Icons'
+import useWindowDimensions from '../components/useWindowDimensions'
 
 export default function Home(): ReactElement {
   const [state, setState] = useState('menu')
+  const { height, width } = useWindowDimensions()
+  const isPortrait = height > width
   return (
     <Layout>
       {state === 'menu' && (
-        <div className="flex flex-col items-center">
+        <div
+          className={`flex ${
+            isPortrait ? 'flex-col' : 'gap-4 justify-center'
+          } items-center`}
+        >
           <div className="flex flex-col items-center  m-5">
             <BirdIconNoSound
               className="w-40 h-40"

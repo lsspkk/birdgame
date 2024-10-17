@@ -16,8 +16,11 @@ function UserSelectionController(): ReactElement {
   // TODO change user password
   // TODO change team password/join codeword/admin team players/admins
   return (
-    <div className="flex w-full md:w-full items-end justify-between top-border pb-5 flex-wrap">
-      <div className="flex items-end" onClick={onProfileClick}>
+    <div className="flex gap-8 w-full md:w-full items-end justify-between top-border pb-5 flex-wrap">
+      <div
+        className="flex w-full mx-4 justify-between items-end"
+        onClick={onProfileClick}
+      >
         <Player user={user} />
         {
           <div className="flex flex-col items-center -ml-2">
@@ -25,11 +28,6 @@ function UserSelectionController(): ReactElement {
             <div>Tiedot</div>
           </div>
         }
-      </div>
-
-      <div>
-        <TeamIcon className="h-20 w-40" onClick={() => router.push('/team')} />
-        <div>Valitse joukkue/pelaaja</div>
       </div>
     </div>
   )
