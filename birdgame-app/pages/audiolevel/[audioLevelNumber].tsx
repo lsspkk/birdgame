@@ -16,6 +16,7 @@ import {
 import { isStarScore, SpinningStar } from '../../components/StarCircle'
 import { basePath } from '../../next.config'
 import { GameResultsView } from '../../components/GameResultsView'
+import { ResultAnimation } from '../../components/ResultAnimation'
 
 export default function AudioLevel(): ReactElement {
   const router = useRouter()
@@ -57,6 +58,7 @@ export default function AudioLevel(): ReactElement {
       }
 
       setAnimation('right')
+      setTimeout(() => setAnimation(''), contextSettings.delay)
       setRightBirdName('')
 
       knowledge.answers.forEach((a) => {
@@ -68,11 +70,7 @@ export default function AudioLevel(): ReactElement {
       }
 
       setAnimation('wrong')
-      setRightBirdName(
-        String(question.rightAnswer) +
-          ': ' +
-          question.choises[question.rightAnswer],
-      )
+      setRightBirdName(question.choises[question.rightAnswer])
 
       knowledge.answers.forEach((a) => {
         if (a.answerType === 'audio') a.wrong += 1
@@ -90,7 +88,6 @@ export default function AudioLevel(): ReactElement {
     setBirdKnowledge(newKnowledge)
 
     setAnsweredBirdName(question.choises[answerIndex])
-    setTimeout(() => setAnimation(''), contextSettings.delay)
     setQuestionIndex(questionIndex + 1)
 
     if (questionIndex + 1 >= questions.length && user._id !== undefined) {
@@ -154,38 +151,14 @@ export default function AudioLevel(): ReactElement {
         className={`hidden cry`}
       />
       {animation !== '' && (
-        <>
-          <img
-            className="absolute top-0 left-0 w-full max-h-full"
-            src={animationSrc}
-            alt={animation}
-            width="100%"
-            height="auto"
-          />
-          {animation === 'right' && (
-            <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-green-800">
-              Oikein:
-              <br />
-              {answerBirdName}
-            </div>
-          )}
-          {animation === 'wrong' && (
-            <div className="absolute top-0 left-0 w-full text-4xl text-center m-4 text-red-900">
-              Väärin:
-              <br />
-              {answerBirdName}
-              <p>
-                Oikea vastaus oli
-                <br /> {rightBirdName}
-                <img
-                  className="my-2 mx-auto max-w-40 max-h-40"
-                  src={url + getBird(rightBirdName.split(': ')[1]).image}
-                  alt={rightBirdName}
-                />
-              </p>
-            </div>
-          )}
-        </>
+        <ResultAnimation
+          animationSrc={animationSrc}
+          animation={animation}
+          answerBirdName={answerBirdName}
+          url={url}
+          rightBirdName={rightBirdName}
+          setAnimation={setAnimation}
+        />
       )}
       {animation === '' && questionIndex < questions.length && (
         <AudioQuestion

@@ -6,6 +6,7 @@ import { GameContext, GameContextInterface } from '../components/state'
 import { getBird } from '../data/levels'
 import { IBirdKnowledge } from '../models/ScoreInterface'
 import { Bird } from '../data/levels'
+import useWindowDimensions from '../components/useWindowDimensions'
 
 function BirdKnowledgeImage({
   knowledge,
@@ -20,12 +21,14 @@ function BirdKnowledgeImage({
 
   return (
     <tr className="">
-      <td className="pb-10 pr-6">
+      <td className="pb-2 pr-2 sm:pr-4 sm:pb-4 md:pr-6 md:pr-10">
         <AnimatedBird bird={bird} />
       </td>
       <td className="mt-6 text-center text-2xl text-bold flex flex-col gap-2">
-        <div className="text-3xl uppercase tracking-wide ">{bird.name}</div>
-        <div className="flex flex-row gap-4 justify-between">
+        <div className="text-xl sm:text-2xl md:text-3xl uppercase tracking-widest ">
+          {bird.name}
+        </div>
+        <div className="flex flex-row gap-8 justify-center">
           {knowledge.answers
             .filter((a) => a.answerType === 'image')
             .map((a) => (
@@ -76,7 +79,7 @@ function RadioInput({
 
 export default function Knowledge(): ReactElement {
   const { score }: GameContextInterface = useContext(GameContext)
-  const [order, setOrder] = useState('known')
+  const [order, setOrder] = useState('image-known')
   const router = useRouter()
 
   return (
@@ -86,31 +89,33 @@ export default function Knowledge(): ReactElement {
         onClick={() => router.back()}
       />
 
-      <div className="w-full flex flex-col items-center gap-2">
-        <div className=" mx-2 mt-2 flex flex-col gap-2">
+      <div className="w-8/12 sm:w-full flex flex-col items-center gap-2">
+        <div className="mx-2 mt-2 flex flex-row gap-2 sm:gap-6 flex-wrap ">
           <RadioInput
-            value="audio-known"
+            value="image-known"
             current={order}
             onChange={setOrder}
-            label="Hyvin tunnetut ensin - kuva"
+            label="Kuva +"
           />
           <RadioInput
             value="image-unknown"
             current={order}
             onChange={setOrder}
-            label="Huonosti tunnetut ensin - kuva"
+            label="Kuva -"
           />
+        </div>
+        <div className="mx-2 mt-2 flex flex-row gap-2 sm:gap-6 flex-wrap sm:flex">
           <RadioInput
             value="audio-known"
             current={order}
             onChange={setOrder}
-            label="Hyvin tunnetut ensin - ääni"
+            label="Ääni +"
           />
           <RadioInput
             value="audio-unknown"
             current={order}
             onChange={setOrder}
-            label="Huonosti tunnetut ensin - ääni"
+            label="Ääni -"
           />
         </div>
       </div>
@@ -119,12 +124,12 @@ export default function Knowledge(): ReactElement {
           <tr>
             <th></th>
             <th className="flex flex-col gap-2">
-              <div>Tunnistus</div>
-              <div className="flex flex-row gap-2 justify-between">
+              <div className="flex flex-row gap-2 justify-between items-end">
                 <div>
                   <BirdIconNoSound />
                   Kuva
                 </div>
+                <div>Tunnistus</div>
                 <div>
                   <BirdIcon />
                   Ääni
@@ -183,6 +188,7 @@ function extractSingleKnowledge(k: IBirdKnowledge, kType: 'image' | 'audio') {
 
 function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
+  const { height, width } = useWindowDimensions()
 
   const spinTime = 5 + 20 * Math.random()
   const clockWise = Math.random() > 0.5
@@ -260,8 +266,8 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
 
           .imagewrapper {
             border-radius: 50%;
-            width: 150px;
-            height: 150px;
+            width: ${width > 500 ? '150px' : '100px'};
+            height: ${width > 500 ? '150px' : '100px'};
             position: relative;
             overflow: hidden;
             /* animation: fly ${flyTime}s linear infinite; */
@@ -287,8 +293,8 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
         <img
           src={url + bird.image}
           alt={bird.name}
-          width="100%"
           height="auto"
+          className="w-40"
         />
       </div>
     </React.Fragment>
