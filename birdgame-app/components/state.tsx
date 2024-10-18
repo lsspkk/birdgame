@@ -5,10 +5,13 @@ import { Props } from './Layout'
 import { basePath } from '../next.config'
 
 export type SettingColor = 'red' | 'gray' | 'blue'
+export type Language = 'en' | 'fr' | 'sv' | 'es' | 'cs'
 export interface Settings {
   sound: boolean
   delay: number
   color: SettingColor
+  speech: boolean
+  language: Language
 }
 
 export function getBgColor(c: 'gray' | 'red' | 'blue'): string {

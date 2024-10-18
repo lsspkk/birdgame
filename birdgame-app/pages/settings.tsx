@@ -12,8 +12,44 @@ import {
   getTextColor,
   SettingColor,
   Settings,
+  Language,
 } from '../components/state'
 import { useRouter } from 'next/dist/client/router'
+import { speak } from '../components/useSpeech'
+
+function InputWithLabel({
+  name,
+  type,
+  checked,
+  onChange,
+  label,
+  value,
+  ...props
+}: {
+  value?: string
+  name: string
+  type: string
+  checked: boolean
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  label: string
+} & HTMLAttributes<HTMLInputElement>) {
+  return (
+    <div className="flex">
+      <input
+        id={name + value || ''}
+        type={type}
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        {...props}
+      />
+      <label className="ml-1" htmlFor={name + value || ''}>
+        {label}
+      </label>
+    </div>
+  )
+}
 
 export default function Home(): ReactElement {
   const router = useRouter()
@@ -30,6 +66,23 @@ export default function Home(): ReactElement {
     if (e.target.name === 'color') {
       setState({ ...state, color: e.target.value as SettingColor })
     }
+    if (e.target.name === 'speech') {
+      setState({ ...state, speech: e.target.checked })
+    }
+    let lang = state.language
+    if (e.target.name === 'language') {
+      lang = e.target.value as Language
+      setState({ ...state, language: lang })
+    }
+    if (
+      (e.target.name === 'speech' && e.target.checked) ||
+      (e.target.name === 'language' && state.speech)
+    ) {
+      speak(
+        'Kuinka hyvin tunnet linnut, kysyy ' + getNationality(lang) + '?',
+        state.language,
+      )
+    }
   }
 
   function handleSave() {
@@ -37,124 +90,141 @@ export default function Home(): ReactElement {
     setSettings({ ...state })
     router.back()
   }
+
+  const language = state.language || 'fr'
+
   return (
     <Layout>
       <div className="ml-4">
         <Title>Asetukset</Title>
         <Title className="mt-8">Välianimaatio</Title>
         <div className="ml-4">
-          <div className="flex">
-            <input
-              id="sound"
-              type="checkbox"
-              name="sound"
-              checked={state.sound}
-              onChange={handleChange}
-            />
-            <label className="ml-1" htmlFor="sound">
-              Soita ääniefekti
-            </label>
-          </div>
-          <div className="flex mt-4">
-            <input
-              id="short"
-              type="radio"
-              name="delay"
-              value="700"
-              onChange={handleChange}
-              checked={state.delay === 700}
-            />
-            <label className="ml-1" htmlFor="short">
-              Lyhyt
-            </label>
-          </div>
-          <div className="flex">
-            <input
-              id="quick"
-              type="radio"
-              name="delay"
-              value="1200"
-              checked={state.delay === 1200}
-              onChange={handleChange}
-            />
-            <label className="ml-1" htmlFor="quick">
-              Lyhyehkö
-            </label>
-          </div>
-          <div className="flex">
-            <input
-              id="normal"
-              type="radio"
-              name="delay"
-              value="3000"
-              checked={state.delay === 3000}
-              onChange={handleChange}
-            />
-            <label className="ml-1" htmlFor="normal">
-              Tavallinen
-            </label>
-          </div>
-
-          <div className="flex">
-            <input
-              id="long"
-              type="radio"
-              name="delay"
-              value="5000"
-              checked={state.delay === 5000}
-              onChange={handleChange}
-            />
-            <label className="ml-1" htmlFor="long">
-              Pitkä
-            </label>
-          </div>
+          <InputWithLabel
+            name="sound"
+            type="checkbox"
+            checked={state.sound}
+            onChange={handleChange}
+            label="Soita ääniefekti"
+          />
+          <div className="pt-2"></div>
+          <InputWithLabel
+            name="delay"
+            type="radio"
+            value="700"
+            onChange={handleChange}
+            checked={state.delay === 700}
+            label="Lyhyt"
+          />
+          <InputWithLabel
+            name="delay"
+            type="radio"
+            value="1200"
+            checked={state.delay === 1200}
+            onChange={handleChange}
+            label="Lyhyehkö"
+          />
+          <InputWithLabel
+            name="delay"
+            type="radio"
+            value="3000"
+            checked={state.delay === 3000}
+            onChange={handleChange}
+            label="Tavallinen"
+          />
+          <InputWithLabel
+            name="delay"
+            type="radio"
+            value="5000"
+            checked={state.delay === 5000}
+            onChange={handleChange}
+            label="Pitkä"
+          />
         </div>
 
         <Title className="mt-8">Värit</Title>
-        <div className="flex ml-4">
-          <input
-            id="gray"
-            type="radio"
-            name="color"
-            value="gray"
-            onChange={handleChange}
-            checked={state.color === 'gray'}
-          />
+        <div className="flex ml-4 flex-col gap-1">
           <div className={getTextColor('gray')}>
-            <label className="ml-1" htmlFor="gray">
-              Harmaa
-            </label>
+            <InputWithLabel
+              name="color"
+              type="radio"
+              value="gray"
+              checked={state.color === 'gray'}
+              onChange={handleChange}
+              label="Harmaa"
+            />
           </div>
-        </div>
-        <div className="flex ml-4">
-          <input
-            id="red"
-            type="radio"
-            name="color"
-            value="red"
-            checked={state.color === 'red'}
-            onChange={handleChange}
-          />
           <div className={getTextColor('red')}>
-            <label className="ml-1" htmlFor="red">
-              Punainen
-            </label>
+            <InputWithLabel
+              name="color"
+              type="radio"
+              value="red"
+              checked={state.color === 'red'}
+              onChange={handleChange}
+              label="Punainen"
+            />
+          </div>
+          <div className={getTextColor('blue')}>
+            <InputWithLabel
+              name="color"
+              type="radio"
+              value="blue"
+              checked={state.color === 'blue'}
+              onChange={handleChange}
+              label="Sininen"
+            />
           </div>
         </div>
-        <div className="flex ml-4">
-          <input
-            id="blue"
-            type="radio"
-            name="color"
-            value="blue"
-            checked={state.color === 'blue'}
+
+        <Title className="mt-8">Puhe</Title>
+        <div className="ml-4">
+          <InputWithLabel
+            name="speech"
+            type="checkbox"
+            checked={state.speech}
             onChange={handleChange}
+            label="Puhu lintujen nimet"
           />
-          <div className={getTextColor('blue')}>
-            <label className="ml-1" htmlFor="blue">
-              Sininen
-            </label>
-          </div>
+          <div className="pt-2"></div>
+          <InputWithLabel
+            name="language"
+            type="radio"
+            value="en"
+            onChange={handleChange}
+            checked={language === 'en'}
+            label="Englantilainen"
+          />
+          <InputWithLabel
+            name="language"
+            type="radio"
+            value="fr"
+            onChange={handleChange}
+            checked={language === 'fr'}
+            label="Ranskalainen"
+          />
+          <InputWithLabel
+            name="language"
+            type="radio"
+            value="sv"
+            onChange={handleChange}
+            checked={language === 'sv'}
+            label="Ruotsalainen"
+          />
+          <InputWithLabel
+            name="language"
+            type="radio"
+            value="es"
+            onChange={handleChange}
+            checked={language === 'es'}
+            label="Espanjalainen"
+          />
+          <InputWithLabel
+            name="language"
+            type="radio"
+            value="cs"
+            onChange={handleChange}
+            checked={language === 'cs'}
+            label="Tšekkiläinen"
+          />
         </div>
 
         <div>
@@ -177,4 +247,19 @@ function Title(props: HTMLAttributes<HTMLDivElement>) {
       {props?.children}
     </div>
   )
+}
+function getNationality(lang: Language) {
+  switch (lang) {
+    case 'en':
+      return 'englantilainen'
+    case 'fr':
+      return 'ranskalainen'
+    case 'sv':
+      return 'ruotsalainen'
+    case 'es':
+      return 'espanjalainen'
+    case 'cs':
+      return 'tšekkiläinen'
+  }
+  return ''
 }

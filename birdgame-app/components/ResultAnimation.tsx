@@ -1,4 +1,5 @@
 import { getBird } from '../data/levels'
+import { useSpeech } from './useSpeech'
 
 export function ResultAnimation({
   animationSrc,
@@ -15,6 +16,12 @@ export function ResultAnimation({
   rightBirdName: string
   setAnimation: React.Dispatch<React.SetStateAction<string>>
 }): React.ReactElement {
+  useSpeech(
+    animation === 'right'
+      ? congratulate(answerBirdName, rightBirdName)
+      : encourage(answerBirdName, rightBirdName),
+  )
+
   return (
     <>
       <img
@@ -71,4 +78,42 @@ export function ResultAnimation({
       )}
     </>
   )
+}
+function congratulate(answerBirdName: string, rightBirdName: string): string {
+  const choice = Math.random()
+
+  if (choice < 0.5) {
+    return `${answerBirdName} on oikein!`
+  }
+  if (choice < 0.75) {
+    return `Mahtavaa ${answerBirdName} on oikea vastaus.`
+  }
+  if (choice < 0.8) {
+    return `Upeaa, muistathan ikuisesti linnun ${answerBirdName}.`
+  }
+  if (choice < 0.85) {
+    return `Sinäpäs osaat ${answerBirdName} on oikea vastaus.`
+  }
+
+  return `Hyvin arvattu ${answerBirdName} se on!`
+}
+
+function encourage(answerBirdName: string, rightBirdName: string): string {
+  const choice = Math.random()
+  if (choice < 0.33) {
+    return `Väärin, ei ${answerBirdName} vaan ${rightBirdName}.`
+  }
+  if (choice < 0.5) {
+    return `${answerBirdName} on väärä lintu. Oikea vastaus on ${rightBirdName}.`
+  }
+  if (choice < 0.66) {
+    return `Ei ${answerBirdName}, vaan ${rightBirdName} on oikea vastaus.`
+  }
+  if (choice < 0.75) {
+    return `Parempi onni ensi kerralla. Oikea vastaus on ${rightBirdName}.`
+  }
+  if (choice < 0.85) {
+    return `Ei osunut tällä kertaa, oikea vastaus on ${rightBirdName}.`
+  }
+  return `Oikea vastaus olisi ollut ${rightBirdName}, eikä ${answerBirdName}.`
 }
