@@ -56,6 +56,8 @@ export function ContextWrapper({ children }: Props): ReactElement {
     sound: true,
     delay: 3000,
     color: 'gray',
+    speech: false,
+    language: 'sv',
   })
   const state = {
     user,

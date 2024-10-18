@@ -188,7 +188,7 @@ function extractSingleKnowledge(k: IBirdKnowledge, kType: 'image' | 'audio') {
 
 function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
-  const { height, width } = useWindowDimensions()
+  const { width } = useWindowDimensions()
 
   const spinTime = 5 + 20 * Math.random()
   const clockWise = Math.random() > 0.5

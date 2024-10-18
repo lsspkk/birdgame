@@ -32,14 +32,15 @@ function AudioQuestion({
       audioElement.pause()
       setPlayint(false)
     } else {
-
       const promise = audioElement.play()
-      promise?.then(() => {
-        console.log('Audio playing')
-        setPlayint(true)
-      }).catch((error) => {
-        console.log('Error playing audio: ', error)
-      })
+      promise
+        ?.then(() => {
+          console.log('Audio playing')
+          setPlayint(true)
+        })
+        .catch((error) => {
+          console.log('Error playing audio: ', error)
+        })
     }
   }
 

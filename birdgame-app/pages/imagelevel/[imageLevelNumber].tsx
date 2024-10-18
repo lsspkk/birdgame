@@ -4,7 +4,7 @@ import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useState } from 'react'
 import { Layout } from '../../components/Layout'
 import { ImageQuestion } from '../../components/ImageQuestion'
-import { getBird, newLevel, Question } from '../../data/levels'
+import { newLevel, Question } from '../../data/levels'
 import { settings, Setting } from '../../data/settings'
 import { GameContext } from '../../components/state'
 import {

@@ -11,7 +11,7 @@ export function speak(message: string, language: string) {
   return synth
 }
 
-export function useSpeech(message: string) {
+export function useSpeech(message: string) : void {
   const { settings } = useContext(GameContext)
 
   useEffect(() => {
