@@ -57,7 +57,9 @@ export default function Home(): ReactElement {
           }
           .spinspin {
             object-fit: cover;
-            animation: spinit 30s linear infinite, flyit 5s linear infinite;
+            animation:
+              spinit 30s linear infinite,
+              flyit 5s linear infinite;
             height: 100%;
             width: 100%;
           }

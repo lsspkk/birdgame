@@ -14,9 +14,8 @@ export function AddTeam({ setViewMode }: addTeamProps): ReactElement {
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [passwordConfirm, setPasswordConfirm] = useState<string>('')
-  const [addUserPassword, setAddUserPassword] = useState<string>(
-    getRandomBirdName(),
-  )
+  const [addUserPassword, setAddUserPassword] =
+    useState<string>(getRandomBirdName())
   const [message, setMessage] = useState<string>('')
   const router = useRouter()
 

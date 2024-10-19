@@ -3,8 +3,8 @@ import { TeamInterface } from './TeamInterface'
 import { basePath } from '../next.config'
 import { UserInterface } from './UserInterface'
 
-const fetcher = (input: RequestInfo, init: RequestInit) =>
-  fetch(input, init).then((res) => res.json())
+const fetcher = (input: RequestInfo | URL) =>
+  fetch(input).then((res) => res.json())
 
 export interface TeamsData {
   teams: TeamInterface[]
@@ -19,7 +19,10 @@ export interface UsersData {
 }
 
 export function useTeams(): TeamsData {
-  const { data, error } = useSWR(basePath + '/api/teams', fetcher)
+  const { data, error } = useSWR<TeamInterface[]>(
+    basePath + '/api/teams',
+    fetcher,
+  )
 
   return {
     teams: data,
@@ -29,7 +32,7 @@ export function useTeams(): TeamsData {
 }
 
 export function useUsers(teamId: string): UsersData {
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<UserInterface[]>(
     `${basePath}/api/teams/${teamId}/users`,
     fetcher,
   )

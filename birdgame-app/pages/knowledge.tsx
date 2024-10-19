@@ -137,9 +137,11 @@ export default function Knowledge(): ReactElement {
               </div>
             </th>
           </tr>
-          {score?.knowledge.sort(knowledgeNumberSorter).map((k) => (
-            <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
-          ))}
+          {score?.knowledge
+            .sort(knowledgeNumberSorter)
+            .map((k) => (
+              <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
+            ))}
         </tbody>
       </table>
     </div>
@@ -280,7 +282,9 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
           }
           .playing {
             border: 10px solid ${rgb};
-            box-shadow: 0px 0px 5px ${rgb}, 0px 0px 5px ${rgb};
+            box-shadow:
+              0px 0px 5px ${rgb},
+              0px 0px 5px ${rgb};
           }
         `}
       </style>
