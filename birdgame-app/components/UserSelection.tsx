@@ -2,7 +2,7 @@ import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext } from 'react'
 import { GameContext, GameContextInterface } from './state'
 import { Player } from './Player'
-import { ProfileIcon, SettingsIcon, TeamIcon } from './Icons'
+import { ProfileIcon } from './Icons'
 
 function UserSelectionController(): ReactElement {
   const { user }: GameContextInterface = useContext(GameContext)

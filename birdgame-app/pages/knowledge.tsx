@@ -3,9 +3,8 @@ import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { BirdIcon, BirdIconNoSound, CloseIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
-import { getBird } from '../data/levels'
+import { getBird, Bird } from '../data/levels'
 import { IBirdKnowledge } from '../models/ScoreInterface'
-import { Bird } from '../data/levels'
 import useWindowDimensions from '../components/useWindowDimensions'
 
 function BirdKnowledgeImage({

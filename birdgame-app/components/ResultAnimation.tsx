@@ -18,7 +18,7 @@ export function ResultAnimation({
 }): React.ReactElement {
   useSpeech(
     animation === 'right'
-      ? congratulate(answerBirdName, rightBirdName)
+      ? congratulate(answerBirdName)
       : encourage(answerBirdName, rightBirdName),
   )
 
@@ -79,7 +79,7 @@ export function ResultAnimation({
     </>
   )
 }
-function congratulate(answerBirdName: string, rightBirdName: string): string {
+function congratulate(answerBirdName: string): string {
   const choice = Math.random()
 
   if (choice < 0.5) {
