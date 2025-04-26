@@ -11,7 +11,6 @@ import { RoundButton } from '../components/basic/RoundButton'
 
 function BirdKnowledgeImage({
   knowledge,
-  order,
 }: {
   knowledge: IBirdKnowledge
   order: OrderType
@@ -54,7 +53,7 @@ function BirdKnowledgeImage({
   )
 }
 
-function RadioInput({
+export function RadioInput({
   value,
   current,
   onChange,
@@ -115,13 +114,15 @@ export default function Knowledge(): ReactElement {
               </th>
               <th>Oikein/Väärin</th>
             </tr>
-            {score?.knowledge.sort(knowledgeNumberSorter).map((k) => (
-              <BirdKnowledgeImage
-                knowledge={k}
-                key={`bk${k.bird}`}
-                order={order}
-              />
-            ))}
+            {score?.knowledge
+              .sort(knowledgeNumberSorter)
+              .map((k) => (
+                <BirdKnowledgeImage
+                  knowledge={k}
+                  key={`bk${k.bird}`}
+                  order={order}
+                />
+              ))}
           </tbody>
         </table>
       </div>
@@ -254,7 +255,9 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
           }
           .playing {
             border: 10px solid ${rgb};
-            box-shadow: 0px 0px 5px ${rgb}, 0px 0px 5px ${rgb};
+            box-shadow:
+              0px 0px 5px ${rgb},
+              0px 0px 5px ${rgb};
           }
         `}
       </style>
