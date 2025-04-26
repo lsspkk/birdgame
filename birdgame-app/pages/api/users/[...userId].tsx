@@ -37,8 +37,9 @@ export default async function handler(
       })
         .select('-password -__v')
         .exec()
-      if (users.length === 1) {
+      if (!users || users.length === 0) {
         res.status(404).json({})
+        return
       }
       res.status(200).json(users[0])
     }

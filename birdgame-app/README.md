@@ -27,3 +27,79 @@ yarn create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+## Testing
+
+This project uses Jest for testing. The tests are located in the `tests` directory.
+
+### Running Tests
+
+To run all tests:
+
+```bash
+npm test
+```
+
+To run tests in watch mode:
+
+```bash
+npm test -- --watch
+```
+
+To run a specific test file:
+
+```bash
+npm test -- tests/pages/api/scores/[[...scoreslug]].test.ts
+```
+
+### Creating New Tests
+
+When creating new tests, follow these guidelines:
+
+1. Place tests in the `tests` directory mirroring the structure of the source files
+2. Use the existing mock utilities in `tests/mocks/` for consistent testing
+3. For API route tests, use the `runHandler` utility from `tests/testutils.ts`
+
+#### Import Conventions
+
+For all new test files:
+
+- Use at most two levels of parent directories (`../../`) in import paths
+- If shorter, use the `@/` alias for imports (e.g., `@/models/score` instead of `../../../../models/score`)
+- Prefer the shortest, clearest import path
+
+#### Mock Conventions
+
+- Place reusable mock data in dedicated files under `tests/mocks/`
+- For model mocks, follow the pattern in `scoreMocks.ts` or `userMocks.ts`
+- Reset all mocks in `beforeEach` blocks
+
+Example API test pattern:
+
+```typescript
+// Import mocks and utilities
+import { scoreMock, resetScoreMocks } from '@/tests/mocks/scoreMocks'
+import { runHandler } from '@/tests/testutils'
+import handler from '@/pages/api/yourEndpoint'
+
+// Mock the modules
+jest.mock('@/models/score', () => scoreMock)
+
+// Setup and tests
+describe('GET /api/yourEndpoint', () => {
+  beforeEach(() => {
+    resetScoreMocks()
+    jest.clearAllMocks()
+  })
+
+  it('should return expected data', async () => {
+    // Arrange - set up mocks
+    // Act - call the handler
+    const { res } = await runHandler(handler, 'GET', {
+      /* query params */
+    })
+    // Assert - check the response
+    expect(res._getStatusCode()).toBe(200)
+  })
+})
+```

@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import '../styles/animations.css'
 import React, { ReactElement } from 'react'
 import { AppProps } from 'next/app'
 import { ContextWrapper } from '../components/state'
