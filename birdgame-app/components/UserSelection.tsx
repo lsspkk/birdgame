@@ -13,8 +13,6 @@ function UserSelectionController(): ReactElement {
       router.push('/profile')
     }
   }
-  // TODO change user password
-  // TODO change team password/join codeword/admin team players/admins
   return (
     <div className="flex gap-8 w-full md:w-full items-end justify-between top-border pb-5 flex-wrap">
       <div

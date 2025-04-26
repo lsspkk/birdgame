@@ -1,16 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/dist/client/router'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { BirdIcon, BirdIconNoSound, CloseIcon } from '../components/Icons'
+import { BirdIcon, CloseIcon, SortOrderIcon } from '../components/Icons'
 import { GameContext, GameContextInterface } from '../components/state'
 import { getBird, Bird } from '../data/levels'
 import { IBirdKnowledge } from '../models/ScoreInterface'
 import useWindowDimensions from '../components/useWindowDimensions'
+import SortOrderDialog, { OrderType } from '../components/SortOrderDialog'
+import { RoundButton } from '../components/basic/RoundButton'
 
 function BirdKnowledgeImage({
   knowledge,
+  order,
 }: {
   knowledge: IBirdKnowledge
+  order: OrderType
 }): ReactElement {
   const bird = getBird(knowledge.bird)
 
@@ -78,113 +82,82 @@ function RadioInput({
 
 export default function Knowledge(): ReactElement {
   const { score }: GameContextInterface = useContext(GameContext)
-  const [order, setOrder] = useState('image-known')
+  const [order, setOrder] = useState<OrderType>('image-known')
+  const [dialogOpen, setDialogOpen] = useState(false)
   const router = useRouter()
 
   return (
-    <div className="w-full min-h-screen bg-gray-800 text-white flex flex-row align-center justify-center flex-wrap gap-2">
-      <CloseIcon
-        className="h-10 w-10 fixed top-2 right-2"
-        onClick={() => router.back()}
-      />
-
-      <div className="w-8/12 sm:w-full flex flex-col items-center gap-2">
-        <div className="mx-2 mt-2 flex flex-row gap-2 sm:gap-6 flex-wrap ">
-          <RadioInput
-            value="image-known"
-            current={order}
-            onChange={setOrder}
-            label="Kuva +"
-          />
-          <RadioInput
-            value="image-unknown"
-            current={order}
-            onChange={setOrder}
-            label="Kuva -"
-          />
-        </div>
-        <div className="mx-2 mt-2 flex flex-row gap-2 sm:gap-6 flex-wrap sm:flex">
-          <RadioInput
-            value="audio-known"
-            current={order}
-            onChange={setOrder}
-            label="Ääni +"
-          />
-          <RadioInput
-            value="audio-unknown"
-            current={order}
-            onChange={setOrder}
-            label="Ääni -"
-          />
-        </div>
+    <div className="w-full min-h-screen bg-black text-white flex flex-col align-center justify-center flex-wrap gap-2">
+      <div className="flex flex-row items-center gap-4 w-full">
+        <CloseIcon
+          className="absolute right-0 top-0 h-10 w-10"
+          onClick={() => router.back()}
+        />
+        <RoundButton className="" onClick={() => setDialogOpen(true)}>
+          <SortOrderIcon />
+        </RoundButton>
+        <SortOrderDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          order={order}
+          setOrder={(o) => {
+            setOrder(o)
+            setDialogOpen(false)
+          }}
+        />
       </div>
-      <table>
-        <tbody>
-          <tr>
-            <th></th>
-            <th className="flex flex-col gap-2">
-              <div className="flex flex-row gap-2 justify-between items-end">
-                <div>
-                  <BirdIconNoSound />
-                  Kuva
-                </div>
-                <div>Tunnistus</div>
-                <div>
-                  <BirdIcon />
-                  Ääni
-                </div>
-              </div>
-            </th>
-          </tr>
-          {score?.knowledge
-            .sort(knowledgeNumberSorter)
-            .map((k) => (
-              <BirdKnowledgeImage knowledge={k} key={`bk${k.bird}`} />
+      <div className="max-w-sm mx-auto w-full">
+        <table className="w-full">
+          <tbody>
+            <tr>
+              <th onClick={() => router.push('/')}>
+                <BirdIcon />
+              </th>
+              <th>Oikein/Väärin</th>
+            </tr>
+            {score?.knowledge.sort(knowledgeNumberSorter).map((k) => (
+              <BirdKnowledgeImage
+                knowledge={k}
+                key={`bk${k.bird}`}
+                order={order}
+              />
             ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 
   function knowledgeNumberSorter(a: IBirdKnowledge, b: IBirdKnowledge) {
-    const {
-      aImageKnowledge,
-      bImageKnowledge,
-      aAudioKnowledge,
-      bAudioKnowledge,
-    } = extractKnowledgeNumbers(a, b)
-    if (order === 'image-unknown') {
-      return aImageKnowledge - bImageKnowledge
-    }
-    if (order === 'audio-unknown') {
-      return aAudioKnowledge - bAudioKnowledge
-    }
+    const aTotal = extractTotalKnowledge(a)
+    const bTotal = extractTotalKnowledge(b)
+
     if (order === 'image-known') {
-      return bImageKnowledge - aImageKnowledge
+      return bTotal.imageTotal - aTotal.imageTotal
+    }
+    if (order === 'image-unknown') {
+      return aTotal.imageTotal - bTotal.imageTotal
     }
     if (order === 'audio-known') {
-      return bAudioKnowledge - aAudioKnowledge
+      return bTotal.audioTotal - aTotal.audioTotal
     }
+
+    return aTotal.audioTotal - bTotal.audioTotal
   }
 }
 
-function extractKnowledgeNumbers(a: IBirdKnowledge, b: IBirdKnowledge) {
-  const aImage = extractSingleKnowledge(a, 'image')
-  const bImage = extractSingleKnowledge(b, 'image')
-  const aImageKnowledge = aImage.right - aImage.wrong
-  const bImageKnowledge = bImage.right - bImage.wrong
-  const aAudio = extractSingleKnowledge(a, 'audio')
-  const bAudio = extractSingleKnowledge(b, 'audio')
-  const aAudioKnowledge = aAudio.right - aAudio.wrong
-  const bAudioKnowledge = bAudio.right - bAudio.wrong
-
-  return { aImageKnowledge, bImageKnowledge, aAudioKnowledge, bAudioKnowledge }
-}
-
-function extractSingleKnowledge(k: IBirdKnowledge, kType: 'image' | 'audio') {
-  return (
-    k.answers.filter((a) => a.answerType === kType)[0] || { right: 0, wrong: 0 }
-  )
+function extractTotalKnowledge(a: IBirdKnowledge) {
+  const iAnswer = a.answers.filter((a) => a.answerType === 'image')?.[0] || {
+    right: 0,
+    wrong: 0,
+  }
+  const aAnswer = a.answers.filter((a) => a.answerType === 'audio')?.[0] || {
+    right: 0,
+    wrong: 0,
+  }
+  const audioTotal = aAnswer.right - aAnswer.wrong
+  const imageTotal = iAnswer.right - iAnswer.wrong
+  return { imageTotal, audioTotal }
 }
 
 function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
@@ -281,9 +254,7 @@ function AnimatedBird({ bird }: { bird: Bird }): ReactElement {
           }
           .playing {
             border: 10px solid ${rgb};
-            box-shadow:
-              0px 0px 5px ${rgb},
-              0px 0px 5px ${rgb};
+            box-shadow: 0px 0px 5px ${rgb}, 0px 0px 5px ${rgb};
           }
         `}
       </style>

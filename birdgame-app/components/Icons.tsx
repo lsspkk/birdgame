@@ -525,3 +525,55 @@ export const UnknownUserIcon = withTheme(
     </svg>
   ),
 )
+
+export function SortOrderIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="inline-block h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-label="Järjestä linnut"
+      {...props}
+    >
+      {/* Four horizontal lines, all left aligned, topmost longest, bottom shortest */}
+      <line
+        x1="3"
+        y1="2"
+        x2="21"
+        y2="2"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+      <line
+        x1="3"
+        y1="8"
+        x2="17"
+        y2="8"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+      <line
+        x1="3"
+        y1="14"
+        x2="13"
+        y2="14"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+      <line
+        x1="3"
+        y1="20"
+        x2="9"
+        y2="20"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
