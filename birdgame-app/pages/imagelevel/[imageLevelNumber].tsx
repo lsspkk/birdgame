@@ -144,10 +144,12 @@ export default function ImageLevel(): ReactElement {
       <audio
         src={`${process.env.NEXT_PUBLIC_BASE_PATH}cheer.mp3`}
         className={`hidden cheer`}
+        preload="auto"
       />
       <audio
         src={`${process.env.NEXT_PUBLIC_BASE_PATH}cry.mp3`}
         className={`hidden cry`}
+        preload="auto"
       />
 
       {animation !== '' && (
