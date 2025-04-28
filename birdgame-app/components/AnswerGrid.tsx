@@ -3,6 +3,7 @@ import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { getBird, Question } from '../data/levels'
 import useWindowDimensions from './useWindowDimensions'
+import { useIsPortrait } from './hooks/useIsPortrait'
 
 interface AnswerGridProps {
   question: Question
@@ -16,7 +17,7 @@ export function AnswerGrid({
   questionIndex,
   header,
 }: AnswerGridProps): ReactElement {
-  const [isPortrait, setIsPortrait] = useState<boolean | undefined>()
+  const isPortrait = useIsPortrait()
   const { height, width } = useWindowDimensions()
   const url = process.env.NEXT_PUBLIC_BIRDIMAGE_URL
   if (url === undefined) {
@@ -24,17 +25,6 @@ export function AnswerGrid({
       'Error, missing environment variable: NEXT_PUBLIC_BIRDIMAGE_URL',
     )
   }
-
-  useEffect(() => {
-    function onWindowResize() {
-      setIsPortrait(
-        typeof window === 'undefined' || window.innerHeight > window.innerWidth,
-      )
-    }
-
-    window?.addEventListener('resize', onWindowResize)
-    onWindowResize()
-  }, [])
 
   function getRowsCols() {
     // use nice ratio for landscape screen

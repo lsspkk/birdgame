@@ -65,7 +65,11 @@ function AudioQuestion({
             onClick={() => toggleAudio()}
           >
             Lintu {playing ? 'laulaa ||' : 'ei laula |>'}
-            <audio src={url + bird.audio} className="birdaudio" playsInline />
+            <audio
+              src={url + bird.audio}
+              className="birdaudio"
+              preload="auto"
+            />
           </div>
           <CloseIcon
             className="h-8 w-8 absolute right-0"

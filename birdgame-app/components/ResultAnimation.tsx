@@ -1,5 +1,7 @@
 import { getBird } from '../data/levels'
 import { useSpeech } from './useSpeech'
+import { useIsPortrait } from './hooks/useIsPortrait'
+import { useEffect, useState } from 'react'
 
 export function ResultAnimation({
   animationSrc,
@@ -21,64 +23,177 @@ export function ResultAnimation({
       ? congratulate(answerBirdName)
       : encourage(answerBirdName, rightBirdName),
   )
+  const isPortrait = useIsPortrait()
 
   return (
     <>
-      <img
-        className="absolute top-0 left-0 w-full max-h-full"
-        src={animationSrc}
-        alt={animation}
-        width="100%"
-        height="auto"
-      />
-      {animation === 'right' && (
-        <div className="absolute top-0 left-0 w-full h-full text-4xl text-center flex flex-col items-center justify-center m-4 text-green-800">
-          <div>
-            Oikein:
-            <br />
-            {answerBirdName}
-          </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xl mt-10 rounded"
-            onClick={() => setTimeout(() => setAnimation(''), 100)}
-          >
-            Eteenpäin
-          </button>
-        </div>
+      {isPortrait && (
+        <VerticalResult
+          animationSrc={animationSrc}
+          animation={animation}
+          answerBirdName={answerBirdName}
+          url={url}
+          rightBirdName={rightBirdName}
+          setAnimation={setAnimation}
+        />
       )}
-      {animation === 'wrong' && (
-        <div className="absolute top-0 left-0 w-full h-full text-xl text-center m-4 flex items-center flex-col justify-center text-red-900">
-          <div>
-            Vastasit väärin
-            <div className="text-3xl">{answerBirdName}</div>
-            <img
-              className="my-2 mx-auto max-w-40 max-h-40 opacity-40"
-              src={url + getBird(answerBirdName).image}
-              alt={answerBirdName}
-            />
-          </div>
-
-          <div className="mt-4">
-            Oikea vastaus oli
-            <div className="text-3xl">{rightBirdName}</div>
-            <img
-              className="my-2 mx-auto max-w-40 max-h-40 opacity-40"
-              src={url + getBird(rightBirdName).image}
-              alt={rightBirdName}
-            />
-          </div>
-
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xl mt-2 sm:mt-10 rounded"
-            onClick={() => setTimeout(() => setAnimation(''), 100)}
-          >
-            Eteenpäin
-          </button>
-        </div>
+      {!isPortrait && (
+        <HorizontalResult
+          animationSrc={animationSrc}
+          animation={animation}
+          answerBirdName={answerBirdName}
+          url={url}
+          rightBirdName={rightBirdName}
+          setAnimation={setAnimation}
+        />
       )}
     </>
   )
 }
+
+function useScreenSize() {
+  const isPortrait = useIsPortrait()
+  const [width, setWidth] = useState(window.innerWidth)
+
+  const isSm = isPortrait ? width < 640 : window.innerHeight < 640
+  const isMd = isPortrait ? width < 768 : window.innerHeight < 768
+  const isLg = isPortrait ? width < 1024 : window.innerHeight < 1024
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return { isSm, isMd, isLg }
+}
+
+function VerticalResult({
+  animationSrc,
+  animation,
+  answerBirdName,
+  url,
+  rightBirdName,
+  setAnimation,
+}: {
+  animationSrc: string
+  animation: string
+  answerBirdName: string
+  url: string
+  rightBirdName: string
+  setAnimation: React.Dispatch<React.SetStateAction<string>>
+}) {
+  const { isSm, isMd, isLg } = useScreenSize()
+
+  return (
+    <div className="flex flex-col items-center w-full h-full justify-center">
+      {/* Topmost box: animation and result text */}
+      <div className="flex flex-col items-center w-full mb-4">
+        <img
+          className="max-h-40 md:max-h-96"
+          src={animationSrc}
+          alt={animation}
+        />
+        <div
+          className={`text-2xl font-bold mt-2 ${animation === 'right' ? 'text-green-800' : 'text-red-900'}`}
+        >
+          {animation === 'right' ? 'Vastasit oikein' : 'Vastasit väärin'}
+        </div>
+      </div>
+      {/* Answered bird box */}
+      <div className="flex flex-col items-center w-full mb-4">
+        <div className="text-xl font-semibold">{answerBirdName}</div>
+        <img
+          className="my-2 mx-auto md:h-1/4 md:w-1/4 md:max-h-98 md:max-w-98"
+          src={url + getBird(answerBirdName).image}
+          alt={answerBirdName}
+        />
+      </div>
+      {/* If wrong, show right answer box */}
+      {animation === 'wrong' && (
+        <div className="flex flex-col items-center w-full">
+          <div className="text-lg">Oikea vastaus oli</div>
+          <div className="text-xl font-semibold">{rightBirdName}</div>
+          <img
+            className="my-2 mx-auto md:h-1/4 md:w-1/4 md:max-h-98 md:max-w-98"
+            src={url + getBird(rightBirdName).image}
+            alt={rightBirdName}
+          />
+        </div>
+      )}
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xl mt-4 rounded"
+        onClick={() => setTimeout(() => setAnimation(''), 100)}
+      >
+        Eteenpäin
+      </button>
+    </div>
+  )
+}
+
+function HorizontalResult({
+  animationSrc,
+  animation,
+  answerBirdName,
+  url,
+  rightBirdName,
+  setAnimation,
+}: {
+  animationSrc: string
+  animation: string
+  answerBirdName: string
+  url: string
+  rightBirdName: string
+  setAnimation: React.Dispatch<React.SetStateAction<string>>
+}) {
+  return (
+    <div className="flex flex-row items-end w-full h-full justify-end">
+      {/* Left: Answered bird */}
+      <div className="flex flex-col items-center flex-1">
+        <div
+          className={`text-2xl font-bold mt-2 ${animation === 'right' ? 'text-green-800' : 'text-red-900'}`}
+        >
+          {animation === 'right' ? 'Vastasit oikein' : 'Vastasit väärin'}
+        </div>
+        <div className="text-xl font-semibold">{answerBirdName}</div>
+        <img
+          className="my-2 mx-auto md:h-3/4 md:w-3/4 md:max-h-98 md:max-w-98"
+          src={url + getBird(answerBirdName).image}
+          alt={answerBirdName}
+        />
+      </div>
+      {/* Center: Right answer if wrong */}
+      {animation === 'wrong' && (
+        <div className="flex flex-col items-center flex-1">
+          <div className="text-lg">Oikea vastaus oli</div>
+          <div className="text-xl font-semibold">{rightBirdName}</div>
+          <img
+            className="my-2 mx-auto md:h-3/4 md:w-3/4 md:max-h-98 md:max-w-98"
+            src={url + getBird(rightBirdName).image}
+            alt={rightBirdName}
+          />
+        </div>
+      )}
+      {/* Right: Animation and result text */}
+      <div className="flex flex-col items-center justify-end flex-1">
+        <img
+          className="w-full max-h-40 w-auto"
+          src={animationSrc}
+          alt={animation}
+        />
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xl mt-4 rounded"
+          onClick={() => setTimeout(() => setAnimation(''), 100)}
+        >
+          Eteenpäin
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function congratulate(answerBirdName: string): string {
   const choice = Math.random()
 
