@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 import { getBird, Question } from '../data/levels'
 import useWindowDimensions from './useWindowDimensions'

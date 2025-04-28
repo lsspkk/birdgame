@@ -1,7 +1,6 @@
 import { getBird } from '../data/levels'
 import { useSpeech } from './useSpeech'
 import { useIsPortrait } from './hooks/useIsPortrait'
-import { useEffect, useState } from 'react'
 
 export function ResultAnimation({
   animationSrc,
@@ -51,25 +50,6 @@ export function ResultAnimation({
   )
 }
 
-function useScreenSize() {
-  const isPortrait = useIsPortrait()
-  const [width, setWidth] = useState(window.innerWidth)
-
-  const isSm = isPortrait ? width < 640 : window.innerHeight < 640
-  const isMd = isPortrait ? width < 768 : window.innerHeight < 768
-  const isLg = isPortrait ? width < 1024 : window.innerHeight < 1024
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  return { isSm, isMd, isLg }
-}
-
 function VerticalResult({
   animationSrc,
   animation,
@@ -85,8 +65,6 @@ function VerticalResult({
   rightBirdName: string
   setAnimation: React.Dispatch<React.SetStateAction<string>>
 }) {
-  const { isSm, isMd, isLg } = useScreenSize()
-
   return (
     <div className="flex flex-col items-center w-full h-full justify-center">
       {/* Topmost box: animation and result text */}

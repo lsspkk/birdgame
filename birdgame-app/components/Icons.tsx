@@ -1,4 +1,10 @@
-import React, { CSSProperties, ReactElement, useContext } from 'react'
+import React, {
+  CSSProperties,
+  HTMLAttributes,
+  ReactElement,
+  SVGAttributes,
+  useContext,
+} from 'react'
 import { GameContext, getBgColor, getTextColor } from './state'
 
 export function BirdIcon(props: React.SVGAttributes<SVGElement>): ReactElement {
@@ -69,7 +75,7 @@ export function BirdIcon(props: React.SVGAttributes<SVGElement>): ReactElement {
 }
 
 export function BirdIconNoSound(
-  props: React.SVGAttributes<SVGElement>,
+  props: SVGAttributes<SVGElement>,
 ): ReactElement {
   return (
     <svg
@@ -186,9 +192,7 @@ export function EditIcon(): ReactElement {
   )
 }
 
-export function SettingsIcon(
-  props: React.HTMLAttributes<SVGElement>,
-): ReactElement {
+export function SettingsIcon(props: HTMLAttributes<SVGElement>): ReactElement {
   return (
     <svg id="svg53383" viewBox="0 0 48 48" {...props}>
       <defs id="defs3">
@@ -287,9 +291,7 @@ export function SettingsIcon(
   )
 }
 
-export function CloseIcon(
-  props: React.HTMLAttributes<HTMLDivElement>,
-): ReactElement {
+export function CloseIcon(props: HTMLAttributes<HTMLDivElement>): ReactElement {
   return (
     <div {...props}>
       <style jsx>
@@ -416,7 +418,7 @@ export function CloseIcon(
   )
 }
 
-interface Props extends React.SVGAttributes<SVGElement> {
+interface Props extends SVGAttributes<SVGElement> {
   bgColor?: string
   style?: CSSProperties
 }
@@ -526,7 +528,7 @@ export const UnknownUserIcon = withTheme(
   ),
 )
 
-export function SortOrderIcon(props: React.SVGProps<SVGSVGElement>) {
+export function SortOrderIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -535,7 +537,6 @@ export function SortOrderIcon(props: React.SVGProps<SVGSVGElement>) {
       viewBox="0 0 24 24"
       stroke="currentColor"
       aria-label="Järjestä linnut"
-      {...props}
     >
       {/* Four horizontal lines, all left aligned, topmost longest, bottom shortest */}
       <line
